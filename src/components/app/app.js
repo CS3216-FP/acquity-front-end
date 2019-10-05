@@ -7,11 +7,13 @@ import Signup from 'routes/auth/signup';
 import ForgotPassword from 'routes/auth/forgot-password';
 
 import 'routes/auth/styles.scss';
+import Navbar from 'components/navbar';
 
 const App = () => {
   return (
     <Router>
       <div className="app">
+        <Navbar />
         <Switch>
           <Route path="/login">
             <Login />

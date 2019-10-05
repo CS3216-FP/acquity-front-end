@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
-import Navbar from 'components/navbar';
 import './Main.scss';
 
 class Main extends PureComponent {
   render() {
     return (
       <div>
-        <Navbar />
         <div className="container">
           <div className="hero is-fullheight-with-navbar">
             <div className="hero-body">
