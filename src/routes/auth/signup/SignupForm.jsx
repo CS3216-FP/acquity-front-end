@@ -65,7 +65,7 @@ const LoginForm = ({ onSubmit }) => {
           <div className="control">
             <input
               id="firstname"
-              className={`input ${errors.firstname && 'is-danger'}`}
+              className={`input ${errors.firstname ? 'is-danger' : ''}`}
               type="text"
               placeholder="John"
               name="firstname"
@@ -86,7 +86,7 @@ const LoginForm = ({ onSubmit }) => {
           <div className="control">
             <input
               id="lastname"
-              className={`input ${errors.lastname && 'is-danger'}`}
+              className={`input ${errors.lastname ? 'is-danger' : ''}`}
               type="text"
               name="lastname"
               placeholder="Doe"
@@ -108,7 +108,7 @@ const LoginForm = ({ onSubmit }) => {
         <div className="control">
           <input
             id="email"
-            className={`input ${errors.email && 'is-danger'}`}
+            className={`input ${errors.email ? 'is-danger' : ''}`}
             type="text"
             placeholder="you@example.com"
             name="email"
@@ -132,7 +132,7 @@ const LoginForm = ({ onSubmit }) => {
         <div className="control has-icons-right">
           <input
             id="password"
-            className={`input ${errors.password && 'is-danger'}`}
+            className={`input ${errors.password ? 'is-danger' : ''}`}
             type={isPasswordShown ? 'text' : 'password'}
             name="password"
             ref={register({
@@ -169,7 +169,7 @@ const LoginForm = ({ onSubmit }) => {
         <div className="control has-icons-right">
           <input
             id="confirmPassword"
-            className={`input ${errors.confirmPassword && 'is-danger'}`}
+            className={`input ${errors.confirmPassword ? 'is-danger' : ''}`}
             type={isConfirmPasswordShown ? 'text' : 'password'}
             name="confirmPassword"
             ref={register({

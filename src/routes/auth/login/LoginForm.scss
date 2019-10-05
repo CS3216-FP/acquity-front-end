@@ -1,0 +1,18 @@
+form {
+  label.label {
+    font-weight: normal;
+  }
+
+  .actions-wrapper {
+    margin: 1.5rem 0;
+
+    .forget-password-link {
+      font-size: 0.85rem;
+    }
+  }
+
+  .login-button {
+    width: -webkit-fill-available;
+    margin: 0 0.5rem;
+  }
+}
