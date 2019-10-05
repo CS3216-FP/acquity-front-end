@@ -73,6 +73,7 @@ const LoginForm = () => {
                       id="firstname"
                       className={`input ${errors.firstname && 'is-danger'}`}
                       type="text"
+                      placeholder="John"
                       name="firstname"
                       ref={register({
                         required: 'First name is required'
@@ -96,6 +97,7 @@ const LoginForm = () => {
                       className={`input ${errors.lastname && 'is-danger'}`}
                       type="text"
                       name="lastname"
+                      placeholder="Doe"
                       ref={register({
                         required: 'Last name is required'
                       })}
@@ -118,6 +120,7 @@ const LoginForm = () => {
                     id="email"
                     className={`input ${errors.email && 'is-danger'}`}
                     type="text"
+                    placeholder="you@example.com"
                     name="email"
                     ref={register({
                       required: 'Email is required',
