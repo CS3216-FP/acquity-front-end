@@ -59,6 +59,7 @@ const LoginForm = () => {
 
   return (
     <div className="box">
+      <h1 className="title">Sign up</h1>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="field-body">
           <div className="field">

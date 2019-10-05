@@ -1,5 +1,6 @@
 import React from 'react';
 import useForm from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -7,6 +8,7 @@ const LoginForm = () => {
 
   return (
     <div className="box">
+      <h1 className="title">Log in</h1>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="field">
           <div className="control has-icons-left">
@@ -47,9 +49,14 @@ const LoginForm = () => {
             )}
           </div>
         </div>
-        <button type="submit" className="button is-block is-info is-fullwidth">
-          Login
-        </button>
+        <div className="field is-grouped">
+          <Link className="forget-password-link" to="/forgot-password">
+            Forgot password?
+          </Link>
+          <button type="submit" className="button is-block is-info">
+            Log In
+          </button>
+        </div>
       </form>
     </div>
   );
