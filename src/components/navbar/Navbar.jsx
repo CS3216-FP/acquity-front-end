@@ -59,7 +59,11 @@ class Navbar extends PureComponent {
                   <Link to="/login" type="button" className="button is-light">
                     Log in
                   </Link>
-                  <Link to="/" type="button" className="button is-primary">
+                  <Link
+                    to="/signup"
+                    type="button"
+                    className="button is-primary"
+                  >
                     <strong>Sign up</strong>
                   </Link>
                 </div>
