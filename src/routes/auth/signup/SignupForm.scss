@@ -1,12 +1,28 @@
-.field-body {
-  margin-bottom: 0.75rem;
-}
+.form-wrapper {
+  .field-body {
+    margin-bottom: 0.75rem;
+  }
 
-.show-password {
-  pointer-events: all !important;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  font-size: inherit;
-  height: 100%;
+  .show-password {
+    pointer-events: all !important;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: inherit;
+    height: 100%;
+  }
+
+  .referral {
+    display: flex !important;
+    align-items: center;
+    .optional {
+      margin-left: 0.3rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+  }
+
+  .signup-button {
+    margin-top: 2.25rem;
+  }
 }

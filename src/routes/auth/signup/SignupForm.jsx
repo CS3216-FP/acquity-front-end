@@ -194,8 +194,9 @@ const LoginForm = ({ onSubmit }) => {
         )}
       </div>
       <div className="field">
-        <label htmlFor="referral" className="label">
-          Referral code
+        <label htmlFor="referral" className="referral label">
+          <span>Referral code</span>
+          <span className="optional">(optional)</span>
         </label>
         <div className="control">
           <input id="referral" className="input" type="text" name="referral" />
@@ -209,7 +210,7 @@ const LoginForm = ({ onSubmit }) => {
           formState.touched.length !== 5 || Object.keys(errors).length !== 0
         }
         type="submit"
-        className="button is-block is-info is-fullwidth"
+        className="signup-button button is-block is-info is-fullwidth"
       >
         Register
       </button>
