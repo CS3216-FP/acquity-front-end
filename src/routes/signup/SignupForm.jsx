@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useForm from 'react-hook-form';
 import './SignupForm.scss';
 
@@ -6,6 +6,24 @@ const LoginForm = () => {
   const { register, handleSubmit, errors, getValues, formState } = useForm({
     mode: 'onBlur'
   });
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
+
+  function togglePasswordShown() {
+    if (isPasswordShown) {
+      setIsPasswordShown(false);
+    } else {
+      setIsPasswordShown(true);
+    }
+  }
+  function toggleConfirmPasswordShown() {
+    if (isConfirmPasswordShown) {
+      setIsConfirmPasswordShown(false);
+    } else {
+      setIsConfirmPasswordShown(true);
+    }
+  }
+
   const onSubmit = data => console.log(data);
 
   const passwordValidation = value => {
@@ -118,17 +136,28 @@ const LoginForm = () => {
                 <label htmlFor="password" className="label">
                   Password
                 </label>
-                <div className="control">
+                <div className="control has-icons-right">
                   <input
                     id="password"
                     className={`input ${errors.password && 'is-danger'}`}
-                    type="password"
+                    type={isPasswordShown ? 'text' : 'password'}
                     name="password"
                     ref={register({
                       required: 'Password is required',
                       validate: passwordValidation
                     })}
                   />
+                  <button
+                    type="button"
+                    onClick={togglePasswordShown}
+                    className="show-password icon is-small is-right"
+                  >
+                    {isPasswordShown ? (
+                      <i className="fas fa-eye-slash" />
+                    ) : (
+                      <i className="fas fa-eye" />
+                    )}
+                  </button>
                 </div>
                 {!errors.password && (
                   <p className="help">
@@ -145,17 +174,28 @@ const LoginForm = () => {
                 <label htmlFor="confirmPassword" className="label">
                   Confirm password
                 </label>
-                <div className="control">
+                <div className="control has-icons-right">
                   <input
                     id="confirmPassword"
                     className={`input ${errors.confirmPassword && 'is-danger'}`}
-                    type="password"
+                    type={isConfirmPasswordShown ? 'text' : 'password'}
                     name="confirmPassword"
                     ref={register({
                       required: 'Password confirmation is required',
                       validate: passwordConfirmValidation
                     })}
                   />
+                  <button
+                    type="button"
+                    onClick={toggleConfirmPasswordShown}
+                    className="show-password icon is-small is-right"
+                  >
+                    {isConfirmPasswordShown ? (
+                      <i className="fas fa-eye-slash" />
+                    ) : (
+                      <i className="fas fa-eye" />
+                    )}
+                  </button>
                 </div>
                 {errors.confirmPassword && (
                   <p className="help is-danger">
