@@ -3,14 +3,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const CloseButton = ({ closeToast }) => (
-  <button
-    onClick={closeToast}
-    className="delete"
-    aria-label="close notification"
-    type="button"
-  />
-);
+import authService from 'services/auth';
 
 export default function withAuth(ComponentToProtect) {
   return class extends Component {
@@ -23,8 +16,8 @@ export default function withAuth(ComponentToProtect) {
     }
 
     componentDidMount() {
-      // TODO(#2): replace fake mock failure endpoint with real /checkToken endpoint
-      fetch('https://5d99f8a15641430014051d8b.mockapi.io/api/fail')
+      authService
+        .checkToken(localStorage.token)
         .then(res => {
           if (res.status === 200) {
             this.setState({ loading: false });
@@ -34,13 +27,19 @@ export default function withAuth(ComponentToProtect) {
           }
         })
         .catch(() => {
-          toast('Sorry, you have to be logged in to proceed.', {
-            className: 'notification is-warning',
-            closeButton: <CloseButton />,
-            hideProgressBar: true
-          });
           this.setState({ loading: false, redirect: true });
         });
+    }
+
+    componentDidUpdate() {
+      const { redirect } = this.state;
+      if (redirect) {
+        toast('Sorry, you have to be logged in to view that page.', {
+          className: 'notification is-warning',
+          closeButton: <CloseButton />,
+          hideProgressBar: true
+        });
+      }
     }
 
     render() {
@@ -60,3 +59,12 @@ export default function withAuth(ComponentToProtect) {
     }
   };
 }
+
+const CloseButton = ({ closeToast }) => (
+  <button
+    onClick={closeToast}
+    className="delete"
+    aria-label="close notification"
+    type="button"
+  />
+);
