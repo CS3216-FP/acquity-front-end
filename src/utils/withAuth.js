@@ -1,6 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+const CloseButton = ({ closeToast }) => (
+  <button
+    onClick={closeToast}
+    className="delete"
+    aria-label="close notification"
+    type="button"
+  />
+);
 
 export default function withAuth(ComponentToProtect) {
   return class extends Component {
@@ -24,6 +34,11 @@ export default function withAuth(ComponentToProtect) {
           }
         })
         .catch(() => {
+          toast('Sorry, you have to be logged in to proceed.', {
+            className: 'notification is-warning',
+            closeButton: <CloseButton />,
+            hideProgressBar: true
+          });
           this.setState({ loading: false, redirect: true });
         });
     }

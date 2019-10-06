@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import withAuth from 'utils/withAuth';
 
@@ -10,6 +12,8 @@ import ForgotPassword from 'routes/auth/forgot-password';
 
 import 'routes/auth/styles.scss';
 import Navbar from 'components/navbar';
+
+toast.configure();
 
 const App = () => {
   return (
