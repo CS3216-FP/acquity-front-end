@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import withAuth from 'utils/withAuth';
+
 import Main from 'routes/main';
 import Login from 'routes/auth/login';
 import Signup from 'routes/auth/signup';
@@ -24,9 +26,7 @@ const App = () => {
           <Route path="/forgot-password">
             <ForgotPassword />
           </Route>
-          <Route path="/">
-            <Main />
-          </Route>
+          <Route exact path="/" component={withAuth(Main)} />
         </Switch>
       </div>
     </Router>
