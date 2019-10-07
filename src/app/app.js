@@ -1,39 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import withAuth from 'utils/withAuth';
+import FullPageSpinner from 'components/FullPageSpinner';
+import './App.scss';
 
-import Main from 'routes/main';
-import Login from 'routes/auth/login';
-import Signup from 'routes/auth/signup';
-import ForgotPassword from 'routes/auth/forgot-password';
-
-import 'routes/auth/styles.scss';
-import Navbar from 'components/navbar';
+const loadAuthenticatedApp = () => import('./AuthenticatedApp');
+const AuthenticatedApp = React.lazy(loadAuthenticatedApp);
+const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 
 toast.configure();
 
 const App = () => {
+  // TODO: Connect to real authentication hook
+  const user = true;
+
+  React.useEffect(() => {
+    loadAuthenticatedApp();
+  }, []);
+
   return (
-    <Router>
-      <div className="app">
-        <Navbar />
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/forgot-password">
-            <ForgotPassword />
-          </Route>
-          <Route exact path="/" component={withAuth(Main)} />
-        </Switch>
-      </div>
-    </Router>
+    <React.Suspense fallback={<FullPageSpinner />}>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </React.Suspense>
   );
 };
 

@@ -27,7 +27,8 @@ export default function withAuth(ComponentToProtect) {
           }
         })
         .catch(() => {
-          this.setState({ loading: false, redirect: true });
+          this.setState({ loading: false });
+          // this.setState({ loading: false, redirect: true });
         });
     }
 
