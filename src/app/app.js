@@ -2,6 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useUser } from 'contexts/userContext';
 import FullPageSpinner from 'components/FullPageSpinner';
 import './App.scss';
 
@@ -12,8 +13,7 @@ const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 toast.configure();
 
 const App = () => {
-  // TODO: Connect to real authentication hook
-  const user = true;
+  const user = useUser();
 
   React.useEffect(() => {
     loadAuthenticatedApp();

@@ -1,4 +1,4 @@
-import ApiClientService from './apiClient';
+import ApiClientService from './apiClientService';
 import { TOKEN_KEY } from './consts';
 
 const getToken = () => {

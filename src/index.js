@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from 'app';
+import AppProviders from 'contexts';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
 
@@ -10,7 +11,9 @@ import store from './app/store';
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <AppProviders>
+        <App />
+      </AppProviders>
     </Provider>,
     document.getElementById('root')
   );
