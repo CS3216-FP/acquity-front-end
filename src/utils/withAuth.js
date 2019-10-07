@@ -17,7 +17,7 @@ export default function withAuth(ComponentToProtect) {
 
     componentDidMount() {
       authService
-        .checkToken(localStorage.token)
+        .checkToken()
         .then(res => {
           if (res.status === 200) {
             this.setState({ loading: false });
