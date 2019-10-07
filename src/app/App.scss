@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+$navbar-dropdown-arrow: hsl(0, 0%, 29%);
 // Set your brand colors
 // $purple: #8a4d76;
 // $pink: #fa7c91;
@@ -31,3 +32,10 @@
 // @import 'bulma/sass/components/navbar.sass';
 // @import 'bulma/sass/layout/hero.sass';
 // @import 'bulma/sass/layout/section.sass';
+
+.is-container {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 20px 0 #e1e0e9;
+  padding: 1.5rem !important;
+}

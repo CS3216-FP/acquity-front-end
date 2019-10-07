@@ -17,6 +17,7 @@
     "no-underscore-dangle": 0,
     "import/imports-first": ["error", "absolute-first"],
     "import/newline-after-import": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "jsx-a11y/label-has-associated-control": [
       "error",
       {

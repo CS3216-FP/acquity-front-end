@@ -1,0 +1,66 @@
+.profile-dropdown {
+  .is-container {
+    border-top: none;
+  }
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+
+    .profile-pic {
+      display: inline-flex;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 2px solid rgba(36, 46, 76, 0.1);
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        max-height: 100% !important;
+        border-radius: 50%;
+      }
+    }
+    .initials {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 2px solid rgba(36, 46, 76, 0.1);
+      color: #9b9aa9;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 1.5em;
+      overflow: hidden;
+      white-space: nowrap;
+
+      span {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  button.navbar-item {
+    font-size: 0.875rem;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+
+    &:focus,
+    &:focus-within,
+    &.is-active,
+    &:hover {
+      background-color: whitesmoke;
+      color: #0a0a0a;
+    }
+  }
+
+  .navbar-item {
+    .icon {
+      margin-right: 0.5rem;
+    }
+  }
+}

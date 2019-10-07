@@ -27,7 +27,7 @@ class Navbar extends PureComponent {
 
     return (
       <nav
-        className="navbar is-transparent is-fixed-top"
+        className="navbar is-fixed-top"
         role="navigation"
         aria-label="main navigation"
       >
@@ -53,7 +53,11 @@ class Navbar extends PureComponent {
               <span aria-hidden="true" />
             </button>
           </div>
-          {isAuthenticated ? <AuthedNavbar /> : <UnauthedNavbar />}
+          {isAuthenticated ? (
+            <AuthedNavbar isNavbarExpanded={isNavbarExpanded} />
+          ) : (
+            <UnauthedNavbar isNavbarExpanded={isNavbarExpanded} />
+          )}
         </div>
       </nav>
     );

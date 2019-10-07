@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 
 class Login extends PureComponent {
-  handleFormSubmit = data => console.log(data);
+  handleFormSubmit = data => data;
 
   render() {
     return (
       <div className="columns is-mobile is-centered">
-        <div className="container-wrapper column is-two-thirds-tablet is-four-fifths-mobile">
+        <div className="is-container column is-two-thirds-tablet is-four-fifths-mobile">
           <h1 className="form-title">Log in</h1>
           <div className="form-wrapper">
             <LoginForm onSubmit={this.handleFormSubmit} />

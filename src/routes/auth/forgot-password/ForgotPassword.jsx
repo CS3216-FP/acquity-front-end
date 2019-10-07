@@ -14,7 +14,7 @@ class ForgotPassword extends PureComponent {
     };
   }
 
-  handleFormSubmit = data => {
+  handleFormSubmit = _data => {
     this.setState({ isSubmitting: true });
     // Mock db call
     setTimeout(() => {
@@ -25,14 +25,13 @@ class ForgotPassword extends PureComponent {
         isSuccessfulRequest: true
       });
     }, 1000);
-    console.log(data);
   };
 
   render() {
     const { isSubmitting, requestMessage, isSuccessfulRequest } = this.state;
     return (
       <div className="columns is-mobile is-centered">
-        <div className="container-wrapper column is-two-thirds-tablet is-four-fifths-mobile">
+        <div className="is-container column is-two-thirds-tablet is-four-fifths-mobile">
           <h1 className="form-title">Reset password</h1>
           <div className="form-wrapper">
             <div className="content">
