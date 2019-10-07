@@ -8,13 +8,13 @@ const LoginForm = ({ onSubmit }) => {
   const { register, handleSubmit, errors } = useForm();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
-  function togglePasswordShown() {
+  const togglePasswordShown = () => {
     if (isPasswordShown) {
       setIsPasswordShown(false);
     } else {
       setIsPasswordShown(true);
     }
-  }
+  };
 
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)}>

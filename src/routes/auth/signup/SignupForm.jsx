@@ -9,20 +9,20 @@ const LoginForm = ({ onSubmit }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
 
-  function togglePasswordShown() {
+  const togglePasswordShown = () => {
     if (isPasswordShown) {
       setIsPasswordShown(false);
     } else {
       setIsPasswordShown(true);
     }
-  }
-  function toggleConfirmPasswordShown() {
+  };
+  const toggleConfirmPasswordShown = () => {
     if (isConfirmPasswordShown) {
       setIsConfirmPasswordShown(false);
     } else {
       setIsConfirmPasswordShown(true);
     }
-  }
+  };
 
   const passwordValidation = value => {
     const minLength = 10;

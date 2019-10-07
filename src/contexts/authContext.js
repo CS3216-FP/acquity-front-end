@@ -7,7 +7,7 @@ import FullPageSpinner from 'components/FullPageSpinner';
 
 const AuthContext = React.createContext();
 
-function AuthProvider(props) {
+const AuthProvider = props => {
   const [firstAttemptFinished, setFirstAttemptFinished] = React.useState(false);
   const {
     data = null,
@@ -50,12 +50,12 @@ function AuthProvider(props) {
       {...props}
     />
   );
-}
-function useAuth() {
+};
+const useAuth = () => {
   const context = React.useContext(AuthContext);
   if (context === undefined) {
     throw new Error(`useAuth must be used within a AuthProvider`);
   }
   return context;
-}
+};
 export { AuthProvider, useAuth };
