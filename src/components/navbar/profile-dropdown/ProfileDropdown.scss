@@ -1,8 +1,12 @@
+$navbar-dropdown-arrow: hsl(0, 0%, 29%);
+
+@import 'bulma/sass/utilities/_all.sass';
+@import 'bulma/sass/components/navbar.sass';
+
 .profile-dropdown {
   .is-container {
     border-top: none;
   }
-
   .avatar {
     display: flex;
     align-items: center;
@@ -41,7 +45,7 @@
       }
     }
   }
-
+  button.navbar-link,
   button.navbar-item {
     font-size: 0.875rem;
     width: 100%;
@@ -50,11 +54,13 @@
     cursor: pointer;
 
     &:focus,
-    &:focus-within,
-    &.is-active,
     &:hover {
-      background-color: whitesmoke;
-      color: #0a0a0a;
+      background-color: $navbar-dropdown-item-hover-background-color;
+      color: $navbar-dropdown-item-hover-color;
+    }
+    &.is-active {
+      background-color: $navbar-dropdown-item-active-background-color;
+      color: $navbar-dropdown-item-active-color;
     }
   }
 
