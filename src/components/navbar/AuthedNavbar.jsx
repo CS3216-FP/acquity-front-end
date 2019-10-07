@@ -1,5 +1,6 @@
 import React from 'react';
 import ProfileDropdown from './profile-dropdown';
+import NotificationButton from './notification';
 
 const AuthedNavbar = ({ isNavbarExpanded }) => {
   return (
@@ -8,6 +9,7 @@ const AuthedNavbar = ({ isNavbarExpanded }) => {
       className={`navbar-menu ${isNavbarExpanded ? 'is-active' : ''}`}
     >
       <div className="navbar-end">
+        <NotificationButton />
         <ProfileDropdown />
       </div>
     </div>

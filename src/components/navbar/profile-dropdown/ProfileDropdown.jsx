@@ -16,9 +16,9 @@ const ProfileDropdown = () => {
       <button type="button" className="navbar-link">
         <div className="avatar">
           {user.profileImageUrl ? (
-            <span className="profile-pic">
+            <figure className="profile-pic">
               <img alt="user avatar" src={user.profileImageUrl} />
-            </span>
+            </figure>
           ) : (
             <span className="initials">{getInitials(user.email)}</span>
           )}
