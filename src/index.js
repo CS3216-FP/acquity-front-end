@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from 'app';
 import AppProviders from 'contexts';
@@ -12,7 +13,9 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <AppProviders>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </AppProviders>
     </Provider>,
     document.getElementById('root')
