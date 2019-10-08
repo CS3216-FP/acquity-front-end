@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { TOKEN_KEY } from './consts';
+import TokenUtils from 'utils/tokenUtils';
 
 const ApiClientService = async (endpoint, { data, ...customConfig } = {}) => {
-  const token = localStorage.getItem(TOKEN_KEY);
+  const token = TokenUtils.getToken();
   const headers = { 'content-type': 'application/json' };
   if (token) {
     headers.Authorization = `Bearer ${token}`;

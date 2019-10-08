@@ -1,20 +1,8 @@
+import TokenUtils from 'utils/tokenUtils';
 import ApiClientService from './apiClientService';
-import { TOKEN_KEY } from './consts';
-
-const getToken = () => {
-  return localStorage.getItem(TOKEN_KEY);
-};
-
-const storeToken = async response => {
-  if (response.status === 200) {
-    localStorage.setItem(TOKEN_KEY, response.data.access_token);
-    return Promise.resolve(null);
-  }
-  return Promise.reject(response.statusText);
-};
 
 const logout = () => {
-  localStorage.removeItem(TOKEN_KEY);
+  TokenUtils.removeToken();
   return Promise.resolve();
 };
 
@@ -22,18 +10,18 @@ const login = async ({ email, password }) => {
   const response = await ApiClientService('auth/seller', {
     data: { email, password }
   });
-  return storeToken(response);
+  return TokenUtils.storeToken(response);
 };
 
 const register = async ({ username, password }) => {
   const response = await ApiClientService('register', {
     data: { username, password }
   });
-  return storeToken(response);
+  return TokenUtils.storeToken(response);
 };
 
 const getUser = async () => {
-  const token = getToken();
+  const token = TokenUtils.getToken();
   // No user yet.
   if (!token) {
     return Promise.resolve(null);
@@ -52,4 +40,4 @@ const getUser = async () => {
   return Promise.reject(response.statusText);
 };
 
-export default { login, register, logout, getToken, getUser };
+export default { login, register, logout, getUser };
