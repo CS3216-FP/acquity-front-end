@@ -6,9 +6,8 @@ const getToken = () => {
 };
 
 const storeToken = async response => {
-  if (response.ok) {
-    const { access_token: token } = await response.json();
-    localStorage.setItem(TOKEN_KEY, token);
+  if (response.status === 200) {
+    localStorage.setItem(TOKEN_KEY, response.data.access_token);
     return Promise.resolve(null);
   }
   return Promise.reject(response.statusText);
@@ -21,14 +20,14 @@ const logout = () => {
 
 const login = async ({ email, password }) => {
   const response = await ApiClientService('auth/seller', {
-    body: { email, password }
+    data: { email, password }
   });
   return storeToken(response);
 };
 
 const register = async ({ username, password }) => {
   const response = await ApiClientService('register', {
-    body: { username, password }
+    data: { username, password }
   });
   return storeToken(response);
 };
@@ -41,8 +40,8 @@ const getUser = async () => {
   }
   // Check with backend to see if key is still valid
   const response = await ApiClientService('auth/seller/me');
-  if (response.ok) {
-    const { me: userData } = await response.json();
+  if (response.status === 200) {
+    const { me: userData } = response.data;
     return {
       id: userData.id,
       fullname: userData.full_name,
