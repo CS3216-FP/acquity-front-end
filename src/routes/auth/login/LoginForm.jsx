@@ -5,8 +5,22 @@ import { Link } from 'react-router-dom';
 import './LoginForm.scss';
 
 const LoginForm = ({ onSubmit }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit: validateInputs, errors } = useForm();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState(null);
+
+  const handleSubmit = form => {
+    setIsLoading(true);
+    onSubmit(form).catch(() => {
+      setIsLoading(false);
+      setLoginError('Incorrect username or password.');
+    });
+  };
+
+  const handleNotificationClose = () => {
+    setLoginError(null);
+  };
 
   const togglePasswordShown = () => {
     if (isPasswordShown) {
@@ -17,7 +31,18 @@ const LoginForm = ({ onSubmit }) => {
   };
 
   return (
-    <form noValidate onSubmit={handleSubmit(onSubmit)}>
+    <form noValidate onSubmit={validateInputs(handleSubmit)}>
+      {loginError && (
+        <div className="notification is-danger">
+          <button
+            onClick={handleNotificationClose}
+            aria-label="close notification"
+            type="button"
+            className="delete"
+          />
+          {loginError}
+        </div>
+      )}
       <div className="field">
         <label htmlFor="email" className="label">
           Email
@@ -83,7 +108,12 @@ const LoginForm = ({ onSubmit }) => {
           Forgot password?
         </Link>
       </div>
-      <button type="submit" className="login-button button is-block is-info">
+      <button
+        type="submit"
+        className={`login-button button is-block is-info ${
+          isLoading ? 'is-loading' : ''
+        }`}
+      >
         Log In
       </button>
     </form>

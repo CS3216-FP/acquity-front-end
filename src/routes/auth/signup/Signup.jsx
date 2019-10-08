@@ -8,7 +8,7 @@ class Signup extends PureComponent {
 
   render() {
     return (
-      <div className="columns is-mobile is-centered">
+      <div className="auth-container columns is-mobile is-centered">
         <div className="is-container column is-two-thirds-tablet is-four-fifths-mobile">
           <h1 className="form-title">Sign up</h1>
           <div className="form-wrapper">

@@ -5,9 +5,13 @@ const getToken = () => {
   return localStorage.getItem(TOKEN_KEY);
 };
 
-const handleUserResponse = ({ user: { token, ...user } }) => {
-  localStorage.setItem(TOKEN_KEY, token);
-  return user;
+const storeToken = async response => {
+  if (response.ok) {
+    const { access_token: token } = await response.json();
+    localStorage.setItem(TOKEN_KEY, token);
+    return Promise.resolve(null);
+  }
+  return Promise.reject(response.statusText);
 };
 
 const logout = () => {
@@ -15,18 +19,18 @@ const logout = () => {
   return Promise.resolve();
 };
 
-const login = async ({ username, password }) => {
-  const result = await ApiClientService('login', {
-    body: { username, password }
+const login = async ({ email, password }) => {
+  const response = await ApiClientService('auth/seller', {
+    body: { email, password }
   });
-  return handleUserResponse(result);
+  return storeToken(response);
 };
 
 const register = async ({ username, password }) => {
-  const result = await ApiClientService('register', {
+  const response = await ApiClientService('register', {
     body: { username, password }
   });
-  return handleUserResponse(result);
+  return storeToken(response);
 };
 
 const getUser = async () => {
@@ -36,13 +40,17 @@ const getUser = async () => {
     return Promise.resolve(null);
   }
   // Check with backend to see if key is still valid
-  // TODO: Use correct endpoint instead of this dummy endpoint.
-  try {
-    return ApiClientService('me');
-  } catch (error) {
-    logout();
-    return Promise.reject(error);
+  const response = await ApiClientService('auth/seller/me');
+  if (response.ok) {
+    const { me: userData } = await response.json();
+    return {
+      id: userData.id,
+      fullname: userData.full_name,
+      email: userData.email
+    };
   }
+  logout();
+  return Promise.reject(response.statusText);
 };
 
 export default { login, register, logout, getToken, getUser };

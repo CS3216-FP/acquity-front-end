@@ -1,20 +1,18 @@
-.is-container {
-  margin: 3rem 0;
-  h1.form-title {
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-align: center;
-    margin: 0 auto;
-    margin-bottom: 3rem;
-  }
+.auth-container {
+  .is-container {
+    margin: 3rem 0;
+    h1.form-title {
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-align: center;
+      margin: 0 auto;
+      margin-bottom: 3rem;
+    }
 
-  .form-wrapper {
-    max-width: 24rem;
-    margin: auto;
-    margin-bottom: 2rem;
+    .form-wrapper {
+      max-width: 24rem;
+      margin: auto;
+      margin-bottom: 2rem;
+    }
   }
-}
-
-body {
-  background: linear-gradient(to bottom, #f6f6f9 0%, #ffffff 100%);
 }

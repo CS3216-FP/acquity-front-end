@@ -18,11 +18,10 @@ const ApiClientService = async (endpoint, { body, ...customConfig } = {}) => {
     config.body = JSON.stringify(body);
   }
 
-  const r = await fetch(
-    `${process.env.REACT_APP_BACKEND_API}/${endpoint}`,
+  return fetch(
+    `https://cors-anywhere.herokuapp.com/${process.env.REACT_APP_BACKEND_API}${endpoint}`,
     config
   );
-  return r.json();
 };
 
 export default ApiClientService;
