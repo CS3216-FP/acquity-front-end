@@ -1,5 +1,5 @@
 import TokenUtils from 'utils/tokenUtils';
-import ApiClientService from './apiClientService';
+import ApiService from './apiService';
 
 const logout = () => {
   TokenUtils.removeToken();
@@ -7,15 +7,15 @@ const logout = () => {
 };
 
 const login = async ({ email, password }) => {
-  const response = await ApiClientService('auth/seller', {
-    data: { email, password }
-  });
+  const response = await ApiService.post('auth/seller', { email, password });
   return TokenUtils.storeToken(response);
 };
 
-const register = async ({ username, password }) => {
-  const response = await ApiClientService('register', {
-    data: { username, password }
+const register = async ({ email, password, fullname }) => {
+  const response = await ApiService.post('register', {
+    email,
+    password,
+    fullname
   });
   return TokenUtils.storeToken(response);
 };
@@ -27,7 +27,7 @@ const getUser = async () => {
     return Promise.resolve(null);
   }
   // Check with backend to see if key is still valid
-  const response = await ApiClientService('auth/seller/me');
+  const response = await ApiService.get('auth/seller/me');
   if (response.status === 200) {
     const { me: userData } = response.data;
     return {
