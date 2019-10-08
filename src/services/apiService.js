@@ -1,10 +1,13 @@
 import axios from 'axios';
+import applyConverters from 'axios-case-converter';
 import tokenUtils from 'utils/tokenUtils';
 
-const ApiService = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_API,
-  headers: { 'Content-Type': 'application/json' }
-});
+const ApiService = applyConverters(
+  axios.create({
+    baseURL: process.env.REACT_APP_BACKEND_API,
+    headers: { 'Content-Type': 'application/json' }
+  })
+);
 
 ApiService.interceptors.request.use(
   config => {
@@ -17,5 +20,4 @@ ApiService.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 export default ApiService;

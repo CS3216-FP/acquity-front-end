@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
+    "axios-case-converter": "^0.3.0",
     "bulma": "^0.7.5",
     "bulma-pageloader": "^2.1.0",
     "node-sass": "^4.12.0",

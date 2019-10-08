@@ -20,7 +20,7 @@ const ProfileDropdown = () => {
               <img alt="user avatar" src={user.profileImageUrl} />
             </figure>
           ) : (
-            <span className="initials">{getInitials(user.fullname)}</span>
+            <span className="initials">{getInitials(user.fullName)}</span>
           )}
         </div>
       </button>

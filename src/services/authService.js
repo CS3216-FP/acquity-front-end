@@ -11,11 +11,11 @@ const login = async ({ email, password }) => {
   return TokenUtils.storeToken(response);
 };
 
-const register = async ({ email, password, fullname }) => {
+const register = async ({ email, password, fullName }) => {
   const response = await ApiService.post('register', {
     email,
     password,
-    fullname
+    fullName
   });
   return TokenUtils.storeToken(response);
 };
@@ -30,11 +30,7 @@ const getUser = async () => {
   const response = await ApiService.get('auth/seller/me');
   if (response.status === 200) {
     const { me: userData } = response.data;
-    return {
-      id: userData.id,
-      fullname: userData.full_name,
-      email: userData.email
-    };
+    return userData;
   }
   logout();
   return Promise.reject(response.statusText);

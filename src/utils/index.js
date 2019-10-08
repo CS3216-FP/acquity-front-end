@@ -1,5 +1,5 @@
-const getInitials = fullname => {
-  const names = fullname.split(' ');
+const getInitials = fullName => {
+  const names = fullName.split(' ');
   let initials = names[0].substring(0, 1).toUpperCase();
 
   if (names.length > 1) {
