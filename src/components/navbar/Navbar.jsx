@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import BrandLogo from 'components/svgr/BrandLogo';
 import UnauthedNavbar from './UnauthedNavbar';
 import AuthedNavbar from './AuthedNavbar';
 
@@ -22,7 +23,7 @@ const Navbar = ({ isAuthenticated }) => {
       <div className="container">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            LOGO
+            <BrandLogo width="6rem" height="2rem" />
           </Link>
 
           <button
