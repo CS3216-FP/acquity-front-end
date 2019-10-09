@@ -7,7 +7,7 @@
 body {
   position: relative;
   z-index: -2;
-  background: linear-gradient(to bottom, #f6f6f9 0%, #ffffff 100%);
+  background: $light;
 }
 
 .is-container {
@@ -15,9 +15,9 @@ body {
   bottom: 0;
   height: calc(100% - 6.5rem);
   background-color: white;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  box-shadow: 0 2px 20px 0 #e1e0e9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 2px 20px 0 hsla(0, 0%, 0%, 0.12);
 
   &:before {
     content: '';
