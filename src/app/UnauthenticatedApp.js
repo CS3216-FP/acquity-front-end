@@ -18,18 +18,22 @@ const UnauthenticatedApp = () => {
     <Router>
       <div className="app">
         <Navbar isAuthenticated={false} />
-        <Switch>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/forgot-password">
-            <ForgotPassword />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/" render={() => <Redirect to="/login" />} />
-        </Switch>
+        <div className="columns is-marginless is-mobile is-centered">
+          <div className="is-container column is-two-thirds-tablet is-four-fifths-mobile">
+            <Switch>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+              <Route path="/forgot-password">
+                <ForgotPassword />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/" render={() => <Redirect to="/login" />} />
+            </Switch>
+          </div>
+        </div>
       </div>
     </Router>
   );

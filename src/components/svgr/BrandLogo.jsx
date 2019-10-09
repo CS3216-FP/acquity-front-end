@@ -1,7 +1,8 @@
 import React from 'react';
 
-const BrandLogo = ({ width = '1em', height = '1em' }) => (
-  <svg id="prefix__words" width={width} height={height} viewBox="0 0 1677 454">
+const BrandLogo = props => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  <svg id="prefix__words" {...props} viewBox="0 0 1677 454">
     <defs>
       <style>
         {

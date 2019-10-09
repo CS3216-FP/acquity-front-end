@@ -23,7 +23,7 @@ const Navbar = ({ isAuthenticated }) => {
       <div className="container">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <BrandLogo width="6rem" height="2rem" />
+            <BrandLogo width="8rem" />
           </Link>
 
           <button

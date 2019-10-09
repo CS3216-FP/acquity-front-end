@@ -14,16 +14,20 @@ const AuthenticatedApp = () => {
     <Router>
       <div className="app">
         <Navbar isAuthenticated />
-        <Switch>
-          <Route
-            exact
-            path={['/login', '/signup']}
-            render={() => <Redirect to="/" />}
-          />
-          <Route path="/">
-            <Main />
-          </Route>
-        </Switch>
+        <div className="columns is-marginless is-mobile is-centered">
+          <div className="is-container column is-two-thirds-tablet is-four-fifths-mobile">
+            <Switch>
+              <Route
+                exact
+                path={['/login', '/signup']}
+                render={() => <Redirect to="/" />}
+              />
+              <Route path="/">
+                <Main />
+              </Route>
+            </Switch>
+          </div>
+        </div>
       </div>
     </Router>
   );

@@ -24,7 +24,7 @@ const ProfileDropdown = () => {
           )}
         </div>
       </button>
-      <div className="navbar-dropdown is-right is-container">
+      <div className="navbar-dropdown is-right">
         <Link className="navbar-item" to="/profile">
           <span className="icon">
             <i className="fas fa-user" />
