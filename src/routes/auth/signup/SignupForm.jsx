@@ -57,48 +57,25 @@ const LoginForm = ({ onSubmit }) => {
 
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)}>
-      <div className="field-body">
-        <div className="field">
-          <label htmlFor="firstname" className="label">
-            First name
-          </label>
-          <div className="control">
-            <input
-              id="firstname"
-              className={`input ${errors.firstname ? 'is-danger' : ''}`}
-              type="text"
-              placeholder="John"
-              name="firstname"
-              ref={register({
-                required: 'First name is required'
-              })}
-            />
+      <div className="field">
+        <label htmlFor="fullname" className="label">
+          Full name
+        </label>
+        <div className="control">
+          <input
+            id="fullname"
+            className={`input ${errors.fullname ? 'is-danger' : ''}`}
+            type="text"
+            placeholder="John Doe"
+            name="fullname"
+            ref={register({
+              required: 'Full name is required'
+            })}
+          />
 
-            {errors.firstname && (
-              <p className="help is-danger">{errors.firstname.message}</p>
-            )}
-          </div>
-        </div>
-        <div className="field">
-          <label htmlFor="lastname" className="label">
-            Last name
-          </label>
-          <div className="control">
-            <input
-              id="lastname"
-              className={`input ${errors.lastname ? 'is-danger' : ''}`}
-              type="text"
-              name="lastname"
-              placeholder="Doe"
-              ref={register({
-                required: 'Last name is required'
-              })}
-            />
-
-            {errors.lastname && (
-              <p className="help is-danger">{errors.lastname.message}</p>
-            )}
-          </div>
+          {errors.fullname && (
+            <p className="help is-danger">{errors.fullname.message}</p>
+          )}
         </div>
       </div>
       <div className="field">
@@ -192,18 +169,6 @@ const LoginForm = ({ onSubmit }) => {
         {errors.confirmPassword && (
           <p className="help is-danger">{errors.confirmPassword.message}</p>
         )}
-      </div>
-      <div className="field">
-        <label htmlFor="referral" className="referral label">
-          <span>Referral code</span>
-          <span className="optional">(optional)</span>
-        </label>
-        <div className="control">
-          <input id="referral" className="input" type="text" name="referral" />
-        </div>
-        <p className="help">
-          Enter a referral code if you received one from a registered user
-        </p>
       </div>
       <button
         disabled={
