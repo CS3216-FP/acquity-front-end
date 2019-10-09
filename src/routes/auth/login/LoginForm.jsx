@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import useForm from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -6,33 +6,35 @@ import './LoginForm.scss';
 
 const LoginForm = ({ onSubmit }) => {
   const { register, handleSubmit: validateInputs, errors } = useForm();
-  const [isPasswordShown, setIsPasswordShown] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState(null);
+  const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
+    isPasswordShown: false,
+    isLoading: false,
+    loginErrorMessage: ''
+  });
 
   const handleSubmit = form => {
-    setIsLoading(true);
+    setState({ isLoading: true });
     onSubmit(form).catch(() => {
-      setIsLoading(false);
-      setLoginError('Incorrect username or password.');
+      setState({
+        isLoading: false,
+        loginErrorMessage: 'Incorrect username or password.'
+      });
     });
   };
 
   const handleNotificationClose = () => {
-    setLoginError(null);
+    setState({
+      loginErrorMessage: ''
+    });
   };
 
   const togglePasswordShown = () => {
-    if (isPasswordShown) {
-      setIsPasswordShown(false);
-    } else {
-      setIsPasswordShown(true);
-    }
+    setState({ isPasswordShown: !state.isPasswordShown });
   };
 
   return (
     <form noValidate onSubmit={validateInputs(handleSubmit)}>
-      {loginError && (
+      {state.loginErrorMessage && (
         <div className="notification is-danger">
           <button
             onClick={handleNotificationClose}
@@ -40,7 +42,7 @@ const LoginForm = ({ onSubmit }) => {
             type="button"
             className="delete"
           />
-          {loginError}
+          {state.loginErrorMessage}
         </div>
       )}
       <div className="field">
@@ -78,7 +80,7 @@ const LoginForm = ({ onSubmit }) => {
           <input
             id="password"
             className={`input ${errors.password ? 'is-danger' : ''}`}
-            type={isPasswordShown ? 'text' : 'password'}
+            type={state.isPasswordShown ? 'text' : 'password'}
             name="password"
             ref={register({
               required: 'Password is required'
@@ -92,7 +94,7 @@ const LoginForm = ({ onSubmit }) => {
             onClick={togglePasswordShown}
             className="show-password icon is-small is-right"
           >
-            {isPasswordShown ? (
+            {state.isPasswordShown ? (
               <i className="fas fa-eye-slash" />
             ) : (
               <i className="fas fa-eye" />
@@ -111,7 +113,7 @@ const LoginForm = ({ onSubmit }) => {
       <button
         type="submit"
         className={`login-button button is-block is-info ${
-          isLoading ? 'is-loading' : ''
+          state.isLoading ? 'is-loading' : ''
         }`}
       >
         Log In

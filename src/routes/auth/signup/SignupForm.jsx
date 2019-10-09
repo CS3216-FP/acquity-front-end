@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import useForm from 'react-hook-form';
 import './SignupForm.scss';
 
 const LoginForm = ({ onSubmit }) => {
-  const { register, handleSubmit, errors, getValues, formState } = useForm({
+  const { register, handleSubmit, errors, getValues } = useForm({
     mode: 'onBlur'
   });
-  const [isPasswordShown, setIsPasswordShown] = useState(false);
-  const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
+
+  const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
+    isPasswordShown: false,
+    isConfirmPasswordShown: ''
+  });
 
   const togglePasswordShown = () => {
-    if (isPasswordShown) {
-      setIsPasswordShown(false);
-    } else {
-      setIsPasswordShown(true);
-    }
+    setState({ isPasswordShown: !state.isPasswordShown });
   };
+
   const toggleConfirmPasswordShown = () => {
-    if (isConfirmPasswordShown) {
-      setIsConfirmPasswordShown(false);
-    } else {
-      setIsConfirmPasswordShown(true);
-    }
+    setState({ isConfirmPasswordShown: !state.isConfirmPasswordShown });
   };
 
   const passwordValidation = value => {
@@ -58,14 +54,15 @@ const LoginForm = ({ onSubmit }) => {
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
-        <label htmlFor="fullname" className="label">
+        <label htmlFor="fullname-field" className="label">
           Full name
         </label>
         <div className="control">
           <input
-            id="fullname"
+            id="fullname-field"
             className={`input ${errors.fullname ? 'is-danger' : ''}`}
             type="text"
+            autoComplete="name"
             placeholder="John Doe"
             name="fullname"
             ref={register({
@@ -79,14 +76,15 @@ const LoginForm = ({ onSubmit }) => {
         </div>
       </div>
       <div className="field">
-        <label htmlFor="email" className="label">
+        <label htmlFor="email-field" className="label">
           Email address
         </label>
         <div className="control">
           <input
-            id="email"
+            id="email-field"
             className={`input ${errors.email ? 'is-danger' : ''}`}
             type="text"
+            autoComplete="username"
             placeholder="you@example.com"
             name="email"
             ref={register({
@@ -103,14 +101,15 @@ const LoginForm = ({ onSubmit }) => {
         </div>
       </div>
       <div className="field">
-        <label htmlFor="password" className="label">
+        <label htmlFor="password-field" className="label">
           Password
         </label>
         <div className="control has-icons-right">
           <input
-            id="password"
+            id="password-field"
             className={`input ${errors.password ? 'is-danger' : ''}`}
-            type={isPasswordShown ? 'text' : 'password'}
+            type={state.isPasswordShown ? 'text' : 'password'}
+            autoComplete="new-password"
             name="password"
             ref={register({
               required: 'Password is required',
@@ -122,7 +121,7 @@ const LoginForm = ({ onSubmit }) => {
             onClick={togglePasswordShown}
             className="show-password icon is-small is-right"
           >
-            {isPasswordShown ? (
+            {state.isPasswordShown ? (
               <i className="fas fa-eye-slash" />
             ) : (
               <i className="fas fa-eye" />
@@ -140,14 +139,15 @@ const LoginForm = ({ onSubmit }) => {
         )}
       </div>
       <div className="field">
-        <label htmlFor="confirmPassword" className="label">
+        <label htmlFor="confirm-password-field" className="label">
           Confirm password
         </label>
         <div className="control has-icons-right">
           <input
-            id="confirmPassword"
+            id="confirm-password-field"
             className={`input ${errors.confirmPassword ? 'is-danger' : ''}`}
-            type={isConfirmPasswordShown ? 'text' : 'password'}
+            type={state.isConfirmPasswordShown ? 'text' : 'password'}
+            autoComplete="new-password"
             name="confirmPassword"
             ref={register({
               required: 'Password confirmation is required',
@@ -159,7 +159,7 @@ const LoginForm = ({ onSubmit }) => {
             onClick={toggleConfirmPasswordShown}
             className="show-password icon is-small is-right"
           >
-            {isConfirmPasswordShown ? (
+            {state.isConfirmPasswordShown ? (
               <i className="fas fa-eye-slash" />
             ) : (
               <i className="fas fa-eye" />
@@ -171,9 +171,6 @@ const LoginForm = ({ onSubmit }) => {
         )}
       </div>
       <button
-        disabled={
-          formState.touched.length !== 5 || Object.keys(errors).length !== 0
-        }
         type="submit"
         className="signup-button button is-block is-info is-fullwidth"
       >
