@@ -1,0 +1,49 @@
+@import 'assets/scss/variables.scss';
+
+.main-route-tabs {
+  font-family: 'Nexa Bold';
+  margin: auto;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: $navbar-height;
+  padding: 0;
+
+  @include from($mobile) {
+    position: fixed;
+  }
+
+  .tabs {
+    height: 100%;
+    ul {
+      border: none;
+
+      li {
+        height: 100%;
+        display: flex;
+      }
+
+      .is-active a {
+        position: relative;
+        border: none;
+        padding-left: 0;
+        padding-right: 0;
+        margin: 0 1em;
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: -2px;
+          right: -2px;
+          background: $link;
+          height: 4px;
+          border-radius: 4px 4px;
+        }
+      }
+    }
+    // a {
+    //   padding: 1.2em 1em;
+    //   border-width: 5px;
+    //   border-color: transparent;
+    // }
+  }
+}
