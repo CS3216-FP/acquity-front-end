@@ -1,0 +1,9 @@
+@import 'assets/scss/variables.scss';
+
+.navbar {
+  @include from($mobile) {
+    .container {
+      padding: 0 2rem;
+    }
+  }
+}

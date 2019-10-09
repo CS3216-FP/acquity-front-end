@@ -1,6 +1,4 @@
-$navbar-dropdown-arrow: hsl(0, 0%, 29%);
-
-@import 'bulma/sass/utilities/_all.sass';
+@import 'assets/scss/variables.scss';
 @import 'bulma/sass/components/navbar.sass';
 
 .profile-dropdown {

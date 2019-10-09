@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 import UnauthedNavbar from './UnauthedNavbar';
+import AuthedNavbar from './AuthedNavbar';
 
 import './Navbar.scss';
-import AuthedNavbar from './AuthedNavbar';
 
 class Navbar extends PureComponent {
   constructor(props) {

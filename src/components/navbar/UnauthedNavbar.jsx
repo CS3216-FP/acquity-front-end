@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-import './Navbar.scss';
-
 const UnauthedNavbar = ({ isNavbarExpanded, location }) => {
   const { pathname } = location;
   return (
