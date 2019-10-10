@@ -7,9 +7,24 @@ $navbar-height: 4rem;
 $navbar-dropdown-arrow: $grey-dark;
 $navbar-breakpoint: $mobile;
 
-$white-ter: #f7f8fb;
+// Brand colors
+$green: #26cb6b;
+$blue: #1f4190;
+$red: #fa2b56;
+$light: #f7f8fb;
+$dark: #595f6f;
+$grey-light: #bfc4ce;
+$grey-lighter: #dddfe7;
 
-$link: #1f4190;
+$link: $blue;
+$success: $green;
+$danger: $red;
+
+$action-button-bg: linear-gradient(
+  45deg,
+  rgba(38, 126, 208, 1) 0%,
+  rgba(85, 96, 232, 1) 100%
+);
 
 // Set your brand colors
 // $purple: #8a4d76;
