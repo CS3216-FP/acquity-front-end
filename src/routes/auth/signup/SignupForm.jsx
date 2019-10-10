@@ -64,7 +64,7 @@ const LoginForm = ({ onSubmit }) => {
             type="text"
             autoComplete="name"
             placeholder="John Doe"
-            name="fullname"
+            name="fullName"
             ref={register({
               required: 'Full name is required'
             })}

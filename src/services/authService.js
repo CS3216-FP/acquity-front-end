@@ -7,12 +7,12 @@ const logout = () => {
 };
 
 const login = async ({ email, password }) => {
-  const response = await ApiService.post('auth/seller', { email, password });
+  const response = await ApiService.post('auth', { email, password });
   return TokenUtils.storeToken(response);
 };
 
 const register = async ({ email, password, fullName }) => {
-  const response = await ApiService.post('register', {
+  const response = await ApiService.post('user/', {
     email,
     password,
     fullName
@@ -27,7 +27,7 @@ const getUser = async () => {
     return Promise.resolve(null);
   }
   // Check with backend to see if key is still valid
-  const response = await ApiService.get('auth/seller/me');
+  const response = await ApiService.get('auth/me');
   if (response.status === 200) {
     const { me: userData } = response.data;
     return userData;

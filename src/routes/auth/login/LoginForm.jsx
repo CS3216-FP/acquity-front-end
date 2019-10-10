@@ -55,7 +55,7 @@ const LoginForm = ({ onSubmit }) => {
             className={`input ${errors.email ? 'is-danger' : ''}`}
             type="text"
             name="email"
-            placeholder="example@you.com"
+            placeholder="you@example.com"
             ref={register({
               required: 'Email address is required',
               pattern: {
