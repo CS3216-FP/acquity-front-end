@@ -1,3 +1,9 @@
-.hero-body {
-  align-items: flex-start !important;
+.tabs.is-toggle li {
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+  a {
+    border: none;
+    border-radius: 20px !important;
+  }
 }

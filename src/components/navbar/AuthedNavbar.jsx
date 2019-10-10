@@ -13,10 +13,16 @@ const AuthedNavbar = ({ isNavbarExpanded, location: { pathname } }) => {
       <div className="navbar-item main-route-tabs">
         <div className="tabs is-centered">
           <ul>
-            <li className={`${pathname === '/' ? 'is-active' : ''}`}>
+            <li
+              className={`${pathname.startsWith('/home') ? 'is-active' : ''}`}
+            >
               <Link to="/">Home</Link>
             </li>
-            <li className={`${pathname === '/matches' ? 'is-active' : ''}`}>
+            <li
+              className={`${
+                pathname.startsWith('/matches') ? 'is-active' : ''
+              }`}
+            >
               <Link to="/matches">Matches</Link>
             </li>
           </ul>
