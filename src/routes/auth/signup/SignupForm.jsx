@@ -1,16 +1,36 @@
 import React, { useReducer } from 'react';
+import zxcvbn from 'zxcvbn';
 import useForm from 'react-hook-form';
 import './SignupForm.scss';
 
 const LoginForm = ({ onSubmit }) => {
-  const { register, handleSubmit, errors, getValues } = useForm({
+  const {
+    register,
+    handleSubmit: validateInputs,
+    errors,
+    watch,
+    getValues,
+    setError
+  } = useForm({
     mode: 'onBlur'
   });
+  const passwordField = watch('password', '');
 
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isPasswordShown: false,
-    isConfirmPasswordShown: ''
+    isConfirmPasswordShown: '',
+    isLoading: false
   });
+
+  const handleSubmit = form => {
+    setState({ isLoading: true });
+    onSubmit(form).catch(() => {
+      setError('email', 'invalid', 'Email is already currently in use');
+      setState({
+        isLoading: false
+      });
+    });
+  };
 
   const togglePasswordShown = () => {
     setState({ isPasswordShown: !state.isPasswordShown });
@@ -20,39 +40,16 @@ const LoginForm = ({ onSubmit }) => {
     setState({ isConfirmPasswordShown: !state.isConfirmPasswordShown });
   };
 
-  const passwordValidation = value => {
-    const minLength = 10;
-    const containsUpperRule = /[A-Z]/;
-    const containsLowerRule = /[a-z]/;
-    const containsNumberRule = /[0-9]/;
-
-    const errorMessages = [];
-    if (value.length < minLength) {
-      errorMessages.push(`at least ${minLength} characters`);
-    }
-    if (!containsUpperRule.test(value)) {
-      errorMessages.push('an uppercase character');
-    }
-    if (!containsLowerRule.test(value)) {
-      errorMessages.push('a lowercase character');
-    }
-    if (!containsNumberRule.test(value)) {
-      errorMessages.push('a number');
-    }
-
-    // No errors, validation passed
-    if (errorMessages.length === 0) return true;
-
-    return `Password is missing: ${errorMessages.join(', ')}`;
-  };
-
   const passwordConfirmValidation = value => {
     const { password } = getValues();
     return value === password || "Passwords don't match";
   };
 
+  const passwordStrength =
+    passwordField === '' ? -1 : zxcvbn(passwordField).score;
+
   return (
-    <form noValidate onSubmit={handleSubmit(onSubmit)}>
+    <form noValidate onSubmit={validateInputs(handleSubmit)}>
       <div className="field">
         <label htmlFor="fullname-field" className="label">
           Full name
@@ -60,7 +57,7 @@ const LoginForm = ({ onSubmit }) => {
         <div className="control">
           <input
             id="fullname-field"
-            className={`input ${errors.fullname ? 'is-danger' : ''}`}
+            className={`input ${errors.fullName ? 'is-danger' : ''}`}
             type="text"
             autoComplete="name"
             placeholder="John Doe"
@@ -70,8 +67,8 @@ const LoginForm = ({ onSubmit }) => {
             })}
           />
 
-          {errors.fullname && (
-            <p className="help is-danger">{errors.fullname.message}</p>
+          {errors.fullName && (
+            <p className="help is-danger">{errors.fullName.message}</p>
           )}
         </div>
       </div>
@@ -113,7 +110,13 @@ const LoginForm = ({ onSubmit }) => {
             name="password"
             ref={register({
               required: 'Password is required',
-              validate: passwordValidation
+              minLength: {
+                value: 10,
+                message: 'Password must be at least 10 characters'
+              },
+              validate: value =>
+                zxcvbn(value).score >= 3 ||
+                'Password is too weak. Try using uncommon words or inside jokes, non-standard uPPercasing, creative spelllling, and non-obvious numbers and symbols'
             })}
           />
           <button
@@ -128,15 +131,15 @@ const LoginForm = ({ onSubmit }) => {
             )}
           </button>
         </div>
-        {!errors.password && (
-          <p className="help">
-            The password must contain at least 10 characters comprised of a
-            number, a lowercase character, and an uppercase character
-          </p>
-        )}
         {errors.password && (
           <p className="help is-danger">{errors.password.message}</p>
         )}
+        {passwordField === '' && !errors.password && (
+          <p className="help">
+            The password must contain at least 10 characters
+          </p>
+        )}
+        <PasswordStrengthProgressBar strength={passwordStrength} />
       </div>
       <div className="field">
         <label htmlFor="confirm-password-field" className="label">
@@ -172,11 +175,54 @@ const LoginForm = ({ onSubmit }) => {
       </div>
       <button
         type="submit"
-        className="signup-button button is-block is-info is-fullwidth"
+        className={`signup-button button is-block is-info is-fullwidth ${
+          state.isLoading ? 'is-loading' : ''
+        }`}
       >
         Register
       </button>
     </form>
+  );
+};
+
+const PasswordStrengthProgressBar = ({ strength }) => {
+  const classification = {
+    '-1': {
+      className: 'is-danger',
+      label: 'Password is blank'
+    },
+    0: {
+      className: 'is-danger',
+      label: 'Too weak'
+    },
+    1: {
+      className: 'is-danger',
+      label: 'Too weak'
+    },
+    2: {
+      className: 'is-danger',
+      label: 'Too weak'
+    },
+    3: {
+      className: 'is-warning',
+      label: 'Could be stronger'
+    },
+    4: {
+      className: 'is-success',
+      label: 'Strong password'
+    }
+  };
+  return (
+    <div className="progress-bar-container">
+      <progress
+        className={`progress is-small ${classification[strength].className}`}
+        value={strength}
+        max="4"
+      />
+      <span className="progress-bar-text">
+        {classification[strength].label}
+      </span>
+    </div>
   );
 };
 

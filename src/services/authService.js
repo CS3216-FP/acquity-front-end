@@ -17,7 +17,11 @@ const register = async ({ email, password, fullName }) => {
     password,
     fullName
   });
-  return TokenUtils.storeToken(response);
+
+  if (response.status === 200) {
+    return login({ email, password });
+  }
+  return Promise.reject(response.statusText);
 };
 
 const getUser = async () => {
