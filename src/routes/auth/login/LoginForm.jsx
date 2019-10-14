@@ -49,7 +49,7 @@ const LoginForm = ({ onSubmit }) => {
         <label htmlFor="email" className="label">
           Email
         </label>
-        <div className="control has-icons-left">
+        <div className="control">
           <input
             id="email"
             className={`input ${errors.email ? 'is-danger' : ''}`}
@@ -64,9 +64,6 @@ const LoginForm = ({ onSubmit }) => {
               }
             })}
           />
-          <span className="icon is-small is-left">
-            <i className="fas fa-user" />
-          </span>
           {errors.email && (
             <p className="help is-danger">{errors.email.message}</p>
           )}
@@ -76,7 +73,7 @@ const LoginForm = ({ onSubmit }) => {
         <label htmlFor="password" className="label">
           Password
         </label>
-        <div className="control has-icons-left has-icons-right">
+        <div className="control has-icons-right">
           <input
             id="password"
             className={`input ${errors.password ? 'is-danger' : ''}`}
@@ -86,9 +83,6 @@ const LoginForm = ({ onSubmit }) => {
               required: 'Password is required'
             })}
           />
-          <span className="icon is-small is-left">
-            <i className="fas fa-lock" />
-          </span>
           <button
             type="button"
             onClick={togglePasswordShown}
