@@ -20,13 +20,12 @@ const UserChatRoom = () => {
       <SimpleBar style={{ height: scrollHeight - 280 }}>
         <MessageList>
           {messageList.map(messageGroup => (
-            <MessageGroup avatar={messageGroup.avatar} onlyFirstWithMeta>
+            <MessageGroup avatar={messageGroup.avatar}>
               {messageGroup.messages.map(message => (
                 <Message
                   authorName={messageGroup.authorName}
-                  data={message.date}
+                  date={message.date}
                   isOwn={messageGroup.isOwn}
-                  showMetaOnClick
                 >
                   {message.messageMedia === {} ? null : (
                     <MessageMedia>
