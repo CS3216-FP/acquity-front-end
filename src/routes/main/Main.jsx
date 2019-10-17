@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import './Main.scss';
+import Chat from './chat';
 
 const MainHeader = ({ currActive }) => {
   return (
@@ -23,6 +24,11 @@ const MainHeader = ({ currActive }) => {
           <li className={`${currActive === 'history' ? 'is-active' : ''}`}>
             <Link to="/home/history" className="action-button">
               History
+            </Link>
+          </li>
+          <li className={`${currActive === 'chat' ? 'is-active' : ''}`}>
+            <Link to="/home/chat" className="action-button">
+              Chat
             </Link>
           </li>
         </ul>
@@ -62,6 +68,8 @@ const renderPage = page => {
       return <Offers />;
     case 'history':
       return <History />;
+    case 'chat':
+      return <Chat />;
     default:
       return <Redirect to="/404" />;
   }
