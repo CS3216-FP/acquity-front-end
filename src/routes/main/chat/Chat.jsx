@@ -7,8 +7,13 @@ import { ThemeProvider } from '@livechat/ui-kit';
 import UserChatList from './UserChatList';
 import UserChatRoom from './UserChatRoom';
 import UserChatInput from './UserChatInput';
+import { join } from '../../../services/socketService';
 
 const Chat = () => {
+  const room = 'sample_room';
+
+  join({ room });
+
   return (
     <ThemeProvider>
       <Grid container>
@@ -20,7 +25,7 @@ const Chat = () => {
         <Grid item xs={12} sm={8}>
           <div style={{ width: '100%', float: 'right' }}>
             <UserChatRoom />
-            <UserChatInput />
+            <UserChatInput room={room} />
           </div>
         </Grid>
       </Grid>
