@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
@@ -46,7 +45,7 @@ const UserChatList = ({ chatList, chatRoomId }) => {
     <div>
       {chatList.map(user => (
         <CardActionArea
-          onClick={Socket.setChat({ chatRoomId: user.chat_room_id })}
+          onClick={Socket.setChatRoom({ chatRoomId: user.chat_room_id })}
         >
           <List
             className={classes.root}
@@ -87,7 +86,6 @@ const UserChatList = ({ chatList, chatRoomId }) => {
                 }
               />
             </ListItem>
-            <Divider variant="inset" component="li" />
           </List>
         </CardActionArea>
       ))}
