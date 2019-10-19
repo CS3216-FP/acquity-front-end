@@ -27,20 +27,28 @@ const AuthenticatedApp = () => {
           <Route
             exact
             path="/bids/new"
-            render={props => <NewBid {...props} apiEndpoint="buy_order" />}
+            render={props => (
+              <NewBid {...props} apiEndpoint="buy_order" type="bid" />
+            )}
           />
           <Route
             path="/bids/edit/:id"
-            render={props => <EditBid {...props} apiEndpoint="buy_order" />}
+            render={props => (
+              <EditBid {...props} apiEndpoint="buy_order" type="bid" />
+            )}
           />
           <Route
             exact
             path="/offers/new"
-            render={props => <NewBid {...props} apiEndpoint="sell_order" />}
+            render={props => (
+              <NewBid {...props} apiEndpoint="sell_order" type="offer" />
+            )}
           />
           <Route
             path="/offers/edit/:id"
-            render={props => <EditBid {...props} apiEndpoint="sell_order" />}
+            render={props => (
+              <EditBid {...props} apiEndpoint="sell_order" type="offer" />
+            )}
           />
           <Route exact path="/" render={() => <Redirect to="/home" />} />
         </Switch>

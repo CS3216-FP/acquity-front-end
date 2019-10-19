@@ -5,7 +5,7 @@ import useForm from 'react-hook-form';
 import { validateMoneyString } from 'utils/moneyUtils';
 import InputDropdownSelect from 'components/inputDropdownSelect';
 
-const NewBidForm = ({ onSubmit, securities, formData, isLoading }) => {
+const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
   const {
     register,
     handleSubmit: validateInputs,
@@ -105,7 +105,7 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading }) => {
       </div>
 
       <label htmlFor="price" className="label">
-        Maximum price per share
+        {type === 'bid' ? 'Maximum price per share' : 'Minimum price per share'}
       </label>
       <div className="form__field field has-addons">
         <div className="control">

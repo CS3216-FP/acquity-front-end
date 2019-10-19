@@ -5,7 +5,7 @@ import PageContainer from 'components/pageContainer';
 import { moneyFormatter } from 'utils/moneyUtils';
 import './Confirmation.scss';
 
-const Confirmation = ({ bid, handleBackClick, apiCall }) => {
+const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: false,
     isSuccessfulRequest: false
@@ -37,7 +37,9 @@ const Confirmation = ({ bid, handleBackClick, apiCall }) => {
               <i className="fas fa-arrow-left" />
             </button>
           </div>
-          <span className="bidPage__header__text column">Bid Information</span>
+          <span className="bidPage__header__text column">
+            {type} Information
+          </span>
           <div className="column is-1" />
         </div>
         <div className="page__content columns is-mobile">
@@ -54,7 +56,9 @@ const Confirmation = ({ bid, handleBackClick, apiCall }) => {
                 {bid.numberOfShares}
               </div>
               <div className="confirmation__details__label">
-                Maximum price per share
+                {type === 'bid'
+                  ? 'Maximum price per share'
+                  : 'Minimum price per share'}
               </div>
               <div className="confirmation__details__value">
                 SGD {moneyFormatter(bid.price)}
@@ -71,9 +75,9 @@ const Confirmation = ({ bid, handleBackClick, apiCall }) => {
             </div>
             <div className="confirmation__disclaimer">
               {/* TODO: Update copywriting of disclaimer */}
-              Placing this bid does not guarantee a match nor the final price.
-              It is up the buyers&apos; and sellers&apos; mutual agreement after
-              discussion.
+              Placing this {type} does not guarantee a match nor the final
+              price. It is up the buyers&apos; and sellers&apos; mutual
+              agreement after discussion.
             </div>
             <div className="confirmation__action">
               <button

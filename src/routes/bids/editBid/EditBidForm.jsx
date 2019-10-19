@@ -21,7 +21,7 @@ const StockFormAddon = ({ stockName, iconUrl }) => {
   );
 };
 
-const EditBidForm = ({ onSubmit, formData }) => {
+const EditBidForm = ({ onSubmit, formData, type }) => {
   const { register, handleSubmit: validateInputs, errors, watch } = useForm({
     mode: 'onBlur',
     defaultValues: formData
@@ -91,7 +91,7 @@ const EditBidForm = ({ onSubmit, formData }) => {
       </div>
 
       <label htmlFor="price" className="label">
-        Maximum price per share
+        {type === 'bid' ? 'Maximum price per share' : 'Minimum price per share'}
       </label>
       <div className="form__field field has-addons">
         <div className="control">

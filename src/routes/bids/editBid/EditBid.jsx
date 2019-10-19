@@ -10,7 +10,7 @@ import Confirmation from '../confirmation';
 import './EditBid.scss';
 import '../style.scss';
 
-const EditBid = ({ match, location, history, apiEndpoint }) => {
+const EditBid = ({ match, location, history, apiEndpoint, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     hasError: false,
@@ -47,6 +47,7 @@ const EditBid = ({ match, location, history, apiEndpoint }) => {
       <Confirmation
         bid={state.formData}
         apiCall={apiCall}
+        type={type}
         handleBackClick={() => setState({ showConfirm: false })}
       />
     );
@@ -69,7 +70,7 @@ const EditBid = ({ match, location, history, apiEndpoint }) => {
               <i className="fas fa-arrow-left" />
             </button>
           </div>
-          <span className="bidPage__header__text column">Edit Bid</span>
+          <span className="bidPage__header__text column">Edit {type}</span>
           <div className="column is-1" />
         </div>
         <div className="page__content columns is-mobile">
@@ -82,6 +83,7 @@ const EditBid = ({ match, location, history, apiEndpoint }) => {
                 onSubmit={data => {
                   setState({ formData: data, showConfirm: true });
                 }}
+                type={type}
                 onDelete={data => console.log('deleting', data)}
               />
             )}

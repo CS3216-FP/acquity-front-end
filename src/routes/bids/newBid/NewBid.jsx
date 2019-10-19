@@ -7,7 +7,7 @@ import NewBidForm from './NewBidForm';
 import '../style.scss';
 import Confirmation from '../confirmation';
 
-const NewBid = ({ history, apiEndpoint }) => {
+const NewBid = ({ history, apiEndpoint, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     hasError: false,
@@ -39,6 +39,7 @@ const NewBid = ({ history, apiEndpoint }) => {
     return (
       <Confirmation
         bid={state.formData}
+        type={type}
         apiCall={apiCall}
         handleBackClick={() => setState({ showConfirm: false })}
       />
@@ -62,13 +63,16 @@ const NewBid = ({ history, apiEndpoint }) => {
               <i className="fas fa-arrow-left" />
             </button>
           </div>
-          <span className="bidPage__header__text column">Bid Information</span>
+          <span className="bidPage__header__text column">
+            {type} Information
+          </span>
           <div className="column is-1" />
         </div>
         <div className="page__content columns is-mobile">
           <div className="form-wrapper column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <NewBidForm
               isLoading={state.isLoading}
+              type={type}
               securities={state.securities}
               formData={state.formData}
               onSubmit={data => {
