@@ -1,98 +1,45 @@
 import { handleActions } from 'redux-actions';
+import _cloneDeep from 'lodash/cloneDeep';
+import _findIndex from 'lodash/findIndex';
+import _orderBy from 'lodash/orderBy';
 
 const initialState = {
   chatList: [],
   chatRoom: [],
-  fetching: false,
-  error: false
+  message: '',
+  chat_room_id: 'f0dec6e1-07e9-42e2-8bad-7c5568f0348c'
 };
 
 const chatReducer = handleActions(
   {
-    DASHBOARD_ONMOUNT_REQUEST: state => {
+    get_chat_list: (state = initialState, action) => {
       return {
         ...state,
-        fetching: true,
-        error: false
+        chatList: action.payload
       };
     },
-    DASHBOARD_ONMOUNT_SUCCESS: (state, action) => {
+    get_chat_room: (state = initialState, action) => {
       return {
         ...state,
-        fetching: false,
-        heatmap: action.payload.heatmap,
-        transactions: action.payload.transactions,
-        error: false
+        chatRoom: action.payload
       };
     },
-    DASHBOARD_ONMOUNT_ERROR: (state, action) => {
+    get_new_message: (state = initialState, action) => {
+      const chatRoomId = action.payload.chat_room_id;
+      const { chatList, chatRoom } = _cloneDeep(state);
+      const index = _findIndex(
+        chatList,
+        chat => chat.chat_room_id === chatRoomId
+      );
+      chatList.splice(index, 1, action.payload);
+      const sortedChatList = _orderBy(chatList, ['created_at'], ['desc']);
       return {
         ...state,
-        fetching: false,
-        error: action.payload
-      };
-    },
-    DASHBOARD_CHECKIN_REQUEST: state => {
-      return {
-        ...state,
-        fetching: true,
-        error: false
-      };
-    },
-    DASHBOARD_CHECKIN_SUCCESS: state => {
-      return {
-        ...state,
-        fetching: true,
-        error: false
-      };
-    },
-    DASHBOARD_CHECKIN_ERROR: (state, action) => {
-      return {
-        ...state,
-        fetching: false,
-        error: action.payload
-      };
-    },
-    DASHBOARD_DELETE_CHECKIN_REQUEST: state => {
-      return {
-        ...state,
-        fetching: true,
-        error: false
-      };
-    },
-    DASHBOARD_DELETE_CHECKIN_SUCCESS: state => {
-      return {
-        ...state,
-        fetching: true,
-        error: false
-      };
-    },
-    DASHBOARD_DELETE_CHECKIN_ERROR: (state, action) => {
-      return {
-        ...state,
-        fetching: false,
-        error: action.payload
-      };
-    },
-    DASHBOARD_VERIFY_ERROR: (state, action) => {
-      return {
-        ...state,
-        fetching: false,
-        error: action.payload
-      };
-    },
-    DASHBOARD_VERIFY_REQUEST: state => {
-      return {
-        ...state,
-        fetching: true,
-        error: false
-      };
-    },
-    DASHBOARD_VERIFY_SUCCESS: state => {
-      return {
-        ...state,
-        fetching: false,
-        error: false
+        chatList: sortedChatList,
+        chatRoom:
+          state.chat_room_id === chatRoomId
+            ? [...chatRoom, action.payload]
+            : [...chatRoom]
       };
     }
   },

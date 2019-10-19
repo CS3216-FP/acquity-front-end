@@ -9,14 +9,19 @@ import {
   Avatar
 } from '@livechat/ui-kit';
 
-import socketService from './socketService';
+import Socket from './socketService';
 
-const UserChatInput = ({ room }) => {
+const UserChatInput = () => {
   return (
     <ThemeProvider>
       <TextComposer
         defaultValue="Hello, can you help me?"
-        onSend={msg => socketService.emit({ room, msg })}
+        onSend={msg =>
+          Socket.sendNewMessage({
+            text: msg,
+            chatRoomId: 'f0dec6e1-07e9-42e2-8bad-7c5568f0348c'
+          })
+        }
       >
         <Row align="center">
           <Avatar
