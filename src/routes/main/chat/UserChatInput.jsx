@@ -65,9 +65,13 @@ const UserChatInput = ({ chatRoomId }) => {
             onKeyPress={ev => {
               if (!ev.ctrlKey && ev.key === 'Enter') {
                 ev.preventDefault();
-                Socket.sendNewMessage({ text: value, chatRoomId });
+                Socket.sendNewMessage({
+                  text: value.replace(/^\s+|\s+$/g, ''),
+                  chatRoomId
+                });
                 setValues('');
-              } else {
+              }
+              if (ev.ctrlKey && ev.key === 'Enter') {
                 setValues(`${value}\n`);
               }
             }}
@@ -75,7 +79,10 @@ const UserChatInput = ({ chatRoomId }) => {
           <SendIcon
             className={classes.textField}
             onClick={() => {
-              Socket.sendNewMessage({ text: value, chatRoomId });
+              Socket.sendNewMessage({
+                text: value.replace(/^\s+|\s+$/g, ''),
+                chatRoomId
+              });
               setValues('');
             }}
           />

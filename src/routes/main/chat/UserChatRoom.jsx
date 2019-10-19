@@ -7,7 +7,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import { connect } from 'react-redux';
-import Truncate from 'react-truncate';
 import Moment from 'react-moment';
 import differenceInHours from 'date-fns/differenceInHours';
 
@@ -69,9 +68,7 @@ const UserChatRoom = ({ chatRoom }) => {
                   </div>
                 }
                 secondary={
-                  <Truncate lines={1} ellipsis={<span>...</span>}>
-                    {user.text}
-                  </Truncate>
+                  <div style={{ whiteSpace: 'pre-line' }}>{user.text}</div>
                 }
               />
             </ListItem>
