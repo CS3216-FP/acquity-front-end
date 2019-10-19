@@ -64,6 +64,7 @@ const UserChatInput = ({ chatRoomId }) => {
             fullWidth
             onKeyPress={ev => {
               if (ev.key === 'Enter') {
+                ev.preventDefault();
                 Socket.sendNewMessage({ text: value, chatRoomId });
                 setValues('');
               }
