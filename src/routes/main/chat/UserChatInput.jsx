@@ -1,39 +1,99 @@
 import React from 'react';
-import 'simplebar/dist/simplebar.min.css';
-import {
-  ThemeProvider,
-  Row,
-  TextComposer,
-  TextInput,
-  SendButton,
-  Avatar
-} from '@livechat/ui-kit';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import TextField from '@material-ui/core/TextField';
+import SendIcon from '@material-ui/icons/Send';
+import { connect } from 'react-redux';
 
 import Socket from './socketService';
 
-const UserChatInput = () => {
+const useStyles = makeStyles(theme => ({
+  avatar: {
+    margin: 10
+  },
+  orangeAvatar: {
+    margin: 10,
+    color: '#fff',
+    backgroundColor: deepOrange[500]
+  },
+  purpleAvatar: {
+    margin: 10,
+    color: '#fff',
+    backgroundColor: deepPurple[500]
+  },
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper
+  },
+  inline: {
+    display: 'inline'
+  },
+  textField: {
+    marginTop: theme.spacing(1)
+  }
+}));
+
+const UserChatInput = ({ chatRoomId }) => {
+  const classes = useStyles();
+  const [value, setValues] = React.useState('');
+
+  const handleChange = () => event => {
+    setValues(event.target.value);
+  };
+
   return (
-    <ThemeProvider>
-      <TextComposer
-        defaultValue="Hello, can you help me?"
-        onSend={msg =>
-          Socket.sendNewMessage({
-            text: msg,
-            chatRoomId: 'f0dec6e1-07e9-42e2-8bad-7c5568f0348c'
-          })
-        }
-      >
-        <Row align="center">
-          <Avatar
-            imgUrl="https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg"
-            style={{ marginRight: '10px' }}
+    <div>
+      <List className={classes.root}>
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="Brandon">{'Brandon'.match(/\b(\w)/g).join('')}</Avatar>
+          </ListItemAvatar>
+          <TextField
+            id="chat-input"
+            multiline
+            rowsMax="6"
+            value={value}
+            className={classes.textField}
+            onChange={handleChange()}
+            placeholder="Write a message..."
+            fullWidth
+            onKeyPress={ev => {
+              if (ev.key === 'Enter') {
+                Socket.sendNewMessage({ text: value, chatRoomId });
+                setValues('');
+              }
+            }}
           />
-          <TextInput fill />
-          <SendButton fit />
-        </Row>
-      </TextComposer>
-    </ThemeProvider>
+          <SendIcon
+            className={classes.textField}
+            onClick={() => {
+              Socket.sendNewMessage({ text: value, chatRoomId });
+              setValues('');
+            }}
+          />
+        </ListItem>
+      </List>
+    </div>
   );
 };
 
-export default UserChatInput;
+function matchStateToProps(state) {
+  return {
+    chatRoomId: state.chat.chat_room_id
+  };
+}
+
+// eslint-disable-next-line no-unused-vars
+function matchDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(
+  matchStateToProps,
+  matchDispatchToProps()
+)(UserChatInput);
