@@ -45,7 +45,10 @@ const UserChatList = ({ chatList, chatRoomId }) => {
     <div>
       {chatList.map(user => (
         <CardActionArea
-          onClick={Socket.setChatRoom({ chatRoomId: user.chat_room_id })}
+          onClick={() => {
+            Socket.setChat({ chatRoomId: user.chat_room_id });
+            Socket.setChatRoom({ chatRoomId: user.chat_room_id });
+          }}
         >
           <List
             className={classes.root}
