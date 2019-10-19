@@ -67,6 +67,15 @@ const getNewMessage = () => {
   });
 };
 
+const setChat = ({ chatRoomId }) => {
+  store.dispatch({
+    type: 'set_chat_room_id',
+    payload: {
+      chatRoomId
+    }
+  });
+};
+
 const initialize = () => {
   Socket.connect = connect();
   Socket.getChatList = getChatList();
@@ -77,5 +86,6 @@ const initialize = () => {
 export default {
   initialize,
   setChatRoom,
-  sendNewMessage
+  sendNewMessage,
+  setChat
 };

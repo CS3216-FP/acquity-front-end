@@ -7,7 +7,7 @@ const initialState = {
   chatList: [],
   chatRoom: [],
   message: '',
-  chat_room_id: 'f0dec6e1-07e9-42e2-8bad-7c5568f0348c'
+  chat_room_id: ''
 };
 
 const chatReducer = handleActions(
@@ -40,6 +40,12 @@ const chatReducer = handleActions(
           state.chat_room_id === chatRoomId
             ? [...chatRoom, action.payload]
             : [...chatRoom]
+      };
+    },
+    set_chat_room_id: (state = initialState, action) => {
+      return {
+        ...state,
+        chat_room_id: action.payload.chatRoomId
       };
     }
   },
