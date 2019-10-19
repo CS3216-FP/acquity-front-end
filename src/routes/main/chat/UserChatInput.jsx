@@ -63,10 +63,12 @@ const UserChatInput = ({ chatRoomId }) => {
             placeholder="Write a message..."
             fullWidth
             onKeyPress={ev => {
-              if (ev.key === 'Enter') {
+              if (!ev.ctrlKey && ev.key === 'Enter') {
                 ev.preventDefault();
                 Socket.sendNewMessage({ text: value, chatRoomId });
                 setValues('');
+              } else {
+                setValues(`${value}\n`);
               }
             }}
           />
