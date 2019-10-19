@@ -7,12 +7,12 @@ import { ThemeProvider } from '@livechat/ui-kit';
 import UserChatList from './UserChatList';
 import UserChatRoom from './UserChatRoom';
 import UserChatInput from './UserChatInput';
-import { join } from '../../../services/socketService';
+import socketService from './socketService';
 
 const Chat = () => {
   const room = 'sample_room';
 
-  join({ room });
+  socketService.initialize();
 
   return (
     <ThemeProvider>

@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import App from 'app';
 import AppProviders from 'contexts';
 import * as serviceWorker from './serviceWorker';
-import './index.scss';
-
 import store from './app/store';
+
+import './index.scss';
 
 const render = () => {
   ReactDOM.render(

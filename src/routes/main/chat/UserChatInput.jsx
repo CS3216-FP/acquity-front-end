@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'simplebar/dist/simplebar.min.css';
 import {
   ThemeProvider,
@@ -9,17 +9,14 @@ import {
   Avatar
 } from '@livechat/ui-kit';
 
-import { emit, sub } from '../../../services/socketService';
+import socketService from './socketService';
 
 const UserChatInput = ({ room }) => {
-  useEffect(() => {
-    sub();
-  });
   return (
     <ThemeProvider>
       <TextComposer
         defaultValue="Hello, can you help me?"
-        onSend={msg => emit({ room, msg })}
+        onSend={msg => socketService.emit({ room, msg })}
       >
         <Row align="center">
           <Avatar
