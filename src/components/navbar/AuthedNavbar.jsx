@@ -15,7 +15,7 @@ const AuthedNavbar = ({ isNavbarExpanded, location: { pathname } }) => {
           <ul>
             <li
               className={`${
-                pathname.match('(/home|/bids).*') ? 'is-active' : ''
+                pathname.match('(/home|/bids|/offers).*') ? 'is-active' : ''
               }`}
             >
               <Link to="/">Home</Link>

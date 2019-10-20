@@ -2,7 +2,9 @@ import React, { useReducer } from 'react';
 import { Redirect } from 'react-router-dom';
 import PageContainer from 'components/pageContainer';
 
+import PageHeader from 'components/pageHeader';
 import { moneyFormatter } from 'utils/moneyUtils';
+
 import './Confirmation.scss';
 
 const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
@@ -27,21 +29,10 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
   return (
     <PageContainer>
       <div className="bidPage page confirmation">
-        <div className="page__header columns is-mobile">
-          <div className="column is-1">
-            <button
-              onClick={handleBackClick}
-              className="button button--cta button--nav--circle hvr-grow"
-              type="button"
-            >
-              <i className="fas fa-arrow-left" />
-            </button>
-          </div>
-          <span className="bidPage__header__text column">
-            {type} Information
-          </span>
-          <div className="column is-1" />
-        </div>
+        <PageHeader
+          headerText={`${type} Information`}
+          handleBackClick={handleBackClick}
+        />
         <div className="page__content columns is-mobile">
           <div className="column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <div className="confirmation__details">

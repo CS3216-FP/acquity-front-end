@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
 import React, { useEffect, useReducer } from 'react';
-import { withRouter } from 'react-router-dom';
 
 import ApiService from 'services/apiService';
 import PageContainer from 'components/pageContainer';
+import PageHeader from 'components/pageHeader';
 import EditBidForm from './EditBidForm';
 import Confirmation from '../confirmation';
 
 import './EditBid.scss';
 import '../style.scss';
 
-const EditBid = ({ match, location, history, apiEndpoint, type }) => {
+const EditBid = ({ match, location, apiEndpoint, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     hasError: false,
@@ -60,19 +60,7 @@ const EditBid = ({ match, location, history, apiEndpoint, type }) => {
   return (
     <PageContainer>
       <div className="bidPage page">
-        <div className="page__header columns is-mobile">
-          <div className="column is-1">
-            <button
-              onClick={() => history.goBack()}
-              className="button button--cta button--nav--circle hvr-grow"
-              type="button"
-            >
-              <i className="fas fa-arrow-left" />
-            </button>
-          </div>
-          <span className="bidPage__header__text column">Edit {type}</span>
-          <div className="column is-1" />
-        </div>
+        <PageHeader headerText={`Edit ${type}`} />
         <div className="page__content columns is-mobile">
           <div className="form-wrapper column is-full-mobile is-four-fifths-tablet is-half-desktop">
             {state.isLoading ? (
@@ -94,4 +82,4 @@ const EditBid = ({ match, location, history, apiEndpoint, type }) => {
   );
 };
 
-export default withRouter(EditBid);
+export default EditBid;
