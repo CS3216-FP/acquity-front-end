@@ -1,47 +1,49 @@
 @import 'assets/scss/variables';
 @import 'assets/scss/buttons';
 
-.art-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  height: 100%;
-  padding-top: 3rem;
-  padding-right: 3rem;
-}
-
-.content-container {
-  @media only screen and (min-width: $tablet) {
-    padding-left: 3rem;
+.unauth {
+  .art-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    padding-top: 3rem;
+    padding-right: 3rem;
   }
-  .form {
-    .auth-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 2rem;
-      padding-right: 0.5rem;
-      &__button {
-        min-width: 40%;
+
+  .content-container {
+    @media only screen and (min-width: $tablet) {
+      padding-left: 3rem;
+    }
+    .form {
+      .auth-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+        padding-right: 0.5rem;
+        &__button {
+          min-width: 40%;
+        }
+      }
+
+      .actions-wrapper {
+        margin-top: 1.5rem;
+
+        .forget-password-link {
+          font-size: 0.85rem;
+        }
       }
     }
 
-    .actions-wrapper {
-      margin-top: 1.5rem;
+    h1.form-title {
+      font-family: 'Nexa Bold';
+      font-size: 2rem;
+      margin: 2rem 0;
+      padding-left: 0.5rem;
 
-      .forget-password-link {
-        font-size: 0.85rem;
+      @media only screen and (max-width: $mobile) {
+        margin: 0;
       }
-    }
-  }
-
-  h1.form-title {
-    font-family: 'Nexa Bold';
-    font-size: 2rem;
-    margin: 2rem 0;
-    padding-left: 0.5rem;
-
-    @media only screen and (max-width: $mobile) {
-      margin: 0;
     }
   }
 }
