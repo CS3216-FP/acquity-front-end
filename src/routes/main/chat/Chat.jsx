@@ -4,17 +4,15 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import { ThemeProvider } from '@livechat/ui-kit';
 import Moment from 'react-moment';
+import { connect } from 'react-redux';
 
 import UserChatList from './UserChatList';
 import UserChatRoom from './UserChatRoom';
 import UserChatInput from './UserChatInput';
-import socketService from './socketService';
 
 Moment.startPooledTimer();
 
-const Chat = () => {
-  socketService.initialize();
-
+const Chat = ({ chatRoom }) => {
   return (
     <ThemeProvider>
       <Grid container>
@@ -24,14 +22,40 @@ const Chat = () => {
           </Grid>
         </Hidden>
         <Grid item xs={12} sm={8}>
-          <div style={{ width: '100%', float: 'right' }}>
-            <UserChatRoom />
-            <UserChatInput />
-          </div>
+          {chatRoom.length === 0 ? (
+            <div
+              style={{
+                textAlign: 'center',
+                verticalAlign: 'middle',
+                lineHeight: '90px'
+              }}
+            >
+              No messages here yet...
+            </div>
+          ) : (
+            <div>
+              <UserChatRoom />
+              <UserChatInput />
+            </div>
+          )}
         </Grid>
       </Grid>
     </ThemeProvider>
   );
 };
 
-export default Chat;
+function matchStateToProps(state) {
+  return {
+    chatRoom: state.chat.chatRoom
+  };
+}
+
+// eslint-disable-next-line no-unused-vars
+function matchDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(
+  matchStateToProps,
+  matchDispatchToProps()
+)(Chat);

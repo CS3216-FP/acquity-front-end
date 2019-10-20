@@ -83,8 +83,9 @@ const initialize = () => {
   Socket.getNewMessage = getNewMessage();
 };
 
+initialize();
+
 export default {
-  initialize,
   setChatRoom,
   sendNewMessage,
   setChat
