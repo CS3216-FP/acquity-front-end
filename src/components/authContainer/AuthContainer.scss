@@ -12,6 +12,8 @@
   }
 
   .content-container {
+    padding-bottom: 2rem;
+
     @media only screen and (min-width: $tablet) {
       padding-left: 3rem;
     }

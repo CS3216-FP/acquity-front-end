@@ -5,6 +5,8 @@ import { useAuth } from 'contexts/authContext';
 import AuthContainer from 'components/authContainer';
 import SignupForm from './SignupForm';
 
+import '../styles.scss';
+
 const Signup = () => {
   const { register } = useAuth();
 

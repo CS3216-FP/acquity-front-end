@@ -5,7 +5,7 @@ import { useAuth } from 'contexts/authContext';
 import AuthContainer from 'components/authContainer';
 import LoginForm from './LoginForm';
 
-import './Login.scss';
+import '../styles.scss';
 
 const Login = () => {
   const { login } = useAuth();

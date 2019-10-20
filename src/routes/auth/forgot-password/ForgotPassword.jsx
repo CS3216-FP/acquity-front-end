@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import AuthContainer from 'components/authContainer';
 import ForgotPasswordForm from './ForgotPasswordForm';
 
+import './ForgotPassword.scss';
+import '../styles.scss';
+
 const ForgotPassword = () => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isSubmitting: false,
@@ -26,7 +29,10 @@ const ForgotPassword = () => {
 
   return (
     <AuthContainer>
-      <div className="content-container">
+      <div className="content-container forgetPassword">
+        <div className="notification is-danger">
+          Password reset is not working at this time.
+        </div>
         <h1 className="form-title">Reset password</h1>
         <div className="form-wrapper">
           <div className="content">
@@ -43,7 +49,7 @@ const ForgotPassword = () => {
             </div>
           )}
           {state.isSuccessfulRequest ? (
-            <div>
+            <div className="actions">
               <Link to="/">Go back to home page</Link>
             </div>
           ) : (
