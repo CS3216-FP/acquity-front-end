@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
-import isEmpty from 'lodash/isEmpty';
 import tokenUtils from '../../../utils/tokenUtils';
 import store from '../../../app/store';
 
@@ -10,18 +9,13 @@ const Socket = {
 };
 
 const connect = () => {
-  const hasAuthenticated = !isEmpty(tokenUtils.getToken());
-  if (hasAuthenticated) {
-    Socket.socket = io.connect('http://localhost:8000/chat', {
-      transportOptions: {
-        polling: {
-          extraHeaders: {
-            token: tokenUtils.getToken()
-          }
-        }
-      }
-    });
-  }
+  Socket.socket = io.connect('http://localhost:8000/chat');
+};
+
+const setChatList = () => {
+  Socket.socket.emit('set_chat_list', {
+    token: tokenUtils.getToken()
+  });
 };
 
 const getChatList = () => {
@@ -83,10 +77,10 @@ const initialize = () => {
   Socket.getNewMessage = getNewMessage();
 };
 
-initialize();
-
 export default {
+  initialize,
   setChatRoom,
   sendNewMessage,
-  setChat
+  setChat,
+  setChatList
 };

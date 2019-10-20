@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -40,6 +40,10 @@ const useStyles = makeStyles(theme => ({
 
 const UserChatList = ({ chatList, chatRoomId }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    Socket.setChatList();
+  }, []);
 
   return (
     <div>

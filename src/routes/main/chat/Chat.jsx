@@ -3,16 +3,13 @@ import 'simplebar/dist/simplebar.min.css';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import { ThemeProvider } from '@livechat/ui-kit';
-import Moment from 'react-moment';
 import { connect } from 'react-redux';
 
 import UserChatList from './UserChatList';
 import UserChatRoom from './UserChatRoom';
 import UserChatInput from './UserChatInput';
 
-Moment.startPooledTimer();
-
-const Chat = ({ chatRoom }) => {
+const Chat = ({ chatRoom, chatRoomId }) => {
   return (
     <ThemeProvider>
       <Grid container>
@@ -22,7 +19,7 @@ const Chat = ({ chatRoom }) => {
           </Grid>
         </Hidden>
         <Grid item xs={12} sm={8}>
-          {chatRoom.length === 0 ? (
+          {chatRoom.length === 0 && chatRoomId === '' ? (
             <div
               style={{
                 textAlign: 'center',
@@ -46,7 +43,8 @@ const Chat = ({ chatRoom }) => {
 
 function matchStateToProps(state) {
   return {
-    chatRoom: state.chat.chatRoom
+    chatRoom: state.chat.chatRoom,
+    chatRoomId: state.chat.chat_room_id
   };
 }
 

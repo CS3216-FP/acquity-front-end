@@ -13,9 +13,10 @@ const initialState = {
 const chatReducer = handleActions(
   {
     get_chat_list: (state = initialState, action) => {
+      const chatList = _orderBy(action.payload, ['created_at'], ['desc']);
       return {
         ...state,
-        chatList: action.payload
+        chatList
       };
     },
     get_chat_room: (state = initialState, action) => {
