@@ -11,6 +11,7 @@ import Navbar from 'components/navbar';
 import Main from 'routes/main';
 import NewBid from 'routes/bids/newBid';
 import EditBid from 'routes/bids/editBid';
+import ProfileSettings from 'routes/settings/ProfileSettings';
 
 const AuthenticatedApp = () => {
   return (
@@ -23,7 +24,8 @@ const AuthenticatedApp = () => {
             path={['/login', '/signup']}
             render={() => <Redirect to="/" />}
           />
-          <Route path="/home" component={Main} />
+          <Route exact path="/home" component={Main} />
+          <Route exact path="/settings/profile" component={ProfileSettings} />
           <Route
             exact
             path="/bids/new"
