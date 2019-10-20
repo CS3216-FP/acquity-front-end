@@ -58,14 +58,14 @@ const UserChatList = ({ chatList, chatRoomId }) => {
           >
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt={user.author_name}>
-                  {user.author_name.match(/\b(\w)/g).join('')}
+                <Avatar alt={user.dealer_name}>
+                  {user.dealer_name.match(/\b(\w)/g).join('')}
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
                 primary={
                   <div>
-                    <span>{user.author_name}</span>
+                    <span>{user.dealer_name}</span>
                     <span style={{ float: 'right', fontSize: 12 }}>
                       {differenceInHours(
                         new Date(),
