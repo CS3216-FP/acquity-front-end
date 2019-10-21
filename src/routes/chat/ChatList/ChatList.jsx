@@ -46,7 +46,7 @@ const ChatList = () => {
         </div>
       </div>
       <div
-        className="columns"
+        className="columns is-marginless"
         style={{
           height: 150,
           backgroundColor: 'blue',
