@@ -21,12 +21,55 @@ const Chat = ({ fetchChatList, chatList }) => {
   ];
   data = chatList;
   return (
-    <button type="button" onClick={() => fetchChatList(data)}>
-      hi
-      <ChatList />
-      <ChatRoom />
-      <ChatInput />
-    </button>
+    <div>
+      <div
+        className="container"
+        style={{
+          paddingTop: 50
+        }}
+      >
+        <div className="columns">
+          <div className="column">
+            <div
+              className="is-primary"
+              style={{
+                borderTopLeftRadius: 5,
+                borderTopRightRadius: 5,
+                backgroundColor: 'white',
+                boxShadow: '0px 0px 20px 2px grey'
+              }}
+            >
+              <div className="container">
+                <h1
+                  className="is-size-4"
+                  style={{
+                    paddingTop: 40,
+                    paddingLeft: 20,
+                    color: '#595f6f'
+                  }}
+                >
+                  Matches
+                </h1>
+                <hr style={{ backgroundColor: '#595f6f' }} />
+                <div className="columns is-gapless">
+                  <div className="column is-hidden-mobile is-two-fifths">
+                    <div>
+                      <ChatList onClick={() => fetchChatList(data)} />
+                    </div>
+                  </div>
+                  <div className="column">
+                    <div>
+                      <ChatRoom />
+                      <ChatInput />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
