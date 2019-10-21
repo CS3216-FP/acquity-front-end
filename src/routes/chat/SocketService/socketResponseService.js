@@ -1,5 +1,5 @@
 import store from 'app/store';
-import { updateChatListAction } from './Chat.ducks';
+import { updateChatListAction } from '../Chat.ducks';
 import Socket from './socketSetup';
 
 export const getChatList = () => {

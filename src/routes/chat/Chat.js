@@ -1,10 +1,11 @@
 import React from 'react';
 import Moment from 'react-moment';
 
-import ChatList from './ChatList';
-import ChatRoom from './ChatRoom';
-import ChatInput from './ChatInput';
-import SocketResponseService from './socketResponseService';
+import ChatList from './ChatList/ChatList';
+import ChatRoom from './ChatRoom/ChatRoom';
+import ChatInput from './ChatInput/ChatInput';
+import ChatOffer from './ChatOffer/ChatOffer';
+import SocketResponseService from './SocketService/socketResponseService';
 
 SocketResponseService.initialize();
 Moment.startPooledTimer();
@@ -59,6 +60,7 @@ const Chat = ({ fetchChatList, chatList }) => {
                   </div>
                   <div className="column">
                     <div>
+                      <ChatOffer />
                       <ChatRoom />
                       <ChatInput />
                     </div>

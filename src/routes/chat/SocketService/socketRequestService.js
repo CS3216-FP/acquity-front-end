@@ -1,4 +1,4 @@
-import tokenUtils from '../../utils/tokenUtils';
+import tokenUtils from '../../../utils/tokenUtils';
 import Socket from './socketSetup';
 
 const requestChatList = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import SendIcon from '../../assets/images/send_icon.png';
+import SendIcon from '../../../assets/images/send_icon.png';
 
 const ChatList = () => {
   return (

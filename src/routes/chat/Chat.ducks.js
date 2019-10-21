@@ -1,6 +1,6 @@
 import { createSlice } from 'redux-starter-kit';
 import _orderBy from 'lodash/orderBy';
-import SocketRequestService from './socketRequestService';
+import SocketRequestService from './SocketService/socketRequestService';
 
 const chat = createSlice({
   name: 'chat',
