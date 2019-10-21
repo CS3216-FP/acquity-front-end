@@ -11,6 +11,7 @@ import Navbar from 'components/navbar';
 import Main from 'routes/main';
 import NewBid from 'routes/bids/newBid';
 import EditBid from 'routes/bids/editBid';
+import Chat from 'routes/chat';
 
 const AuthenticatedApp = () => {
   return (
@@ -50,6 +51,7 @@ const AuthenticatedApp = () => {
               <EditBid {...props} apiEndpoint="sell_order" type="offer" />
             )}
           />
+          <Route path="/chat" render={props => <Chat {...props} />} />
           <Route exact path="/" render={() => <Redirect to="/home" />} />
         </Switch>
       </div>
