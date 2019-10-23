@@ -29,7 +29,7 @@ const Chat = ({ fetchChatList, chatList }) => {
           paddingTop: 50
         }}
       >
-        <div className="columns">
+        <div className="columns is-marginless">
           <div className="column">
             <div
               className="is-primary"
@@ -37,7 +37,8 @@ const Chat = ({ fetchChatList, chatList }) => {
                 borderTopLeftRadius: 5,
                 borderTopRightRadius: 5,
                 backgroundColor: 'white',
-                boxShadow: '0px 0px 20px 2px grey'
+                boxShadow: '0px 0px 20px 2px grey',
+                marginRight: 20
               }}
             >
               <div className="container">

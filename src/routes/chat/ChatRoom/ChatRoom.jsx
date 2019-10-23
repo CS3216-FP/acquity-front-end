@@ -7,11 +7,14 @@ const ChatList = () => {
   return (
     <div>
       <div
-        className="columns"
+        className="columns is-marginless"
         style={{
           height: 150,
           backgroundColor: 'white',
-          color: 'black'
+          color: 'black',
+          paddingLeft: 10,
+          paddingRight: 20,
+          paddingTop: 10
         }}
       >
         <div className="column is-one-fifth">
@@ -36,14 +39,17 @@ const ChatList = () => {
         </div>
       </div>
 
-      <div className="columns">
+      <div className="columns is-marginless">
         <div className="column is-8">
           <div
             className="columns"
             style={{
               height: 150,
               backgroundColor: 'white',
-              color: 'black'
+              color: 'black',
+              paddingLeft: 10,
+              paddingRight: 20,
+              paddingTop: 10
             }}
           >
             <div className="column is-one-fifth">

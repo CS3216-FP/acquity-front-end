@@ -4,8 +4,8 @@ import SendIcon from '../../../assets/images/send_icon.png';
 const ChatList = () => {
   return (
     <div>
-      <div className="columns">
-        <div className="column is-four-fifths">
+      <div className="columns is-marginless">
+        <div className="column is-10 is-three-quarters-mobile">
           <div className="field">
             <div className="control">
               <input

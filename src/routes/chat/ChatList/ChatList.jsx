@@ -7,50 +7,15 @@ import differenceInHours from 'date-fns/differenceInHours';
 const ChatList = () => {
   return (
     <div>
-      <div className="columns" style={{ height: 150 }}>
-        <div className="column is-one-fifth">
-          <div>
-            <Avatar color="grey" name="Bar" size={40} round="40px" />
-          </div>
-        </div>
-        <div className="column">
-          <div>
-            <Truncate
-              style={{ fontWeight: 'bold' }}
-              lines={1}
-              ellipsis={<span>...</span>}
-            >
-              Brandon Ng
-            </Truncate>
-            <Truncate
-              style={{ fontSize: 14, float: 'right' }}
-              lines={1}
-              ellipsis={<span>...</span>}
-            >
-              {differenceInHours(new Date(), new Date(1571656790952)) >= 24 ? (
-                <Moment format="D MMM YYYY" withTitle>
-                  {new Date(1571656790952).toDateString()}
-                </Moment>
-              ) : (
-                <Moment fromNow>{new Date(1571656790952)}</Moment>
-              )}
-            </Truncate>
-          </div>
-          <div>Selling Amt: 2000</div>
-          <div>Lowest Prices: $6.10</div>
-          <div>
-            <Truncate lines={1} ellipsis={<span>...</span>}>
-              This is a very long message. I expect to see ellipsis.
-            </Truncate>
-          </div>
-        </div>
-      </div>
       <div
         className="columns is-marginless"
         style={{
           height: 150,
           backgroundColor: 'blue',
-          color: 'white'
+          color: 'white',
+          paddingLeft: 10,
+          paddingRight: 20,
+          paddingTop: 10
         }}
       >
         <div className="column is-one-fifth">
@@ -100,11 +65,14 @@ const ChatList = () => {
         </div>
       </div>
       <div
-        className="columns"
+        className="columns is-marginless"
         style={{
           height: 150,
           backgroundColor: 'white',
-          color: 'black'
+          color: 'black',
+          paddingLeft: 10,
+          paddingRight: 20,
+          paddingTop: 10
         }}
       >
         <div className="column is-one-fifth">
