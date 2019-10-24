@@ -38,6 +38,8 @@ const chat = createSlice({
         c => c.chatRoomId === payload.chatRoomId
       );
       state.chatList.splice(index, 1, payload);
+      // eslint-disable-next-line no-param-reassign
+      state.chatList = _orderBy(state.chatList, ['createdAt'], ['desc']);
     }
   }
 });
