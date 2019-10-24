@@ -2,10 +2,13 @@ import React from 'react';
 import Avatar from 'react-avatar';
 import Moment from 'react-moment';
 import differenceInHours from 'date-fns/differenceInHours';
+import { useSelector } from 'react-redux';
 
 import './ChatRoom.scss';
 
-const ChatList = ({ chatRoom }) => {
+const ChatList = () => {
+  const chatRoom = useSelector(state => state.chat.chatRoom);
+
   return (
     <div>
       {chatRoom.map(chat => (

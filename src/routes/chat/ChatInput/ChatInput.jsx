@@ -1,10 +1,18 @@
 import React from 'react';
-import SendIcon from '../../../assets/images/send_icon.png';
+import SendIcon from 'assets/images/send_icon.png';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './ChatInput.scss';
+import { fetchNewMessageAction } from '../ChatDux';
 
-const ChatInput = ({ fetchNewMessage, chatRoomId }) => {
-  const [message, setMessage] = React.useState('');
+const ChatInput = () => {
+  const dispatch = useDispatch();
+  const chatRoomId = useSelector(state => state.chat.chatRoomId);
+  const [value, setMessage] = React.useState('');
+
+  const fetchNewMessage = React.useCallback(({ message }) => {
+    dispatch(fetchNewMessageAction({ chatRoomId, message }));
+  }, []);
 
   const updateMessage = event => {
     setMessage(event.target.value);
@@ -13,7 +21,7 @@ const ChatInput = ({ fetchNewMessage, chatRoomId }) => {
   const sendMessage = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      fetchNewMessage({ chatRoomId, message });
+      fetchNewMessage({ message: value });
       setMessage('');
     }
   };
@@ -28,7 +36,7 @@ const ChatInput = ({ fetchNewMessage, chatRoomId }) => {
                 className="input is-info"
                 type="text"
                 placeholder="Write a message..."
-                value={message}
+                value={value}
                 onChange={updateMessage}
                 onKeyPress={sendMessage}
               />

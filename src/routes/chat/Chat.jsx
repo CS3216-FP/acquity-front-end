@@ -1,9 +1,10 @@
 import React from 'react';
 import Moment from 'react-moment';
+import { useSelector } from 'react-redux';
 
-import ChatList from './ChatList/ChatList.container';
-import ChatRoom from './ChatRoom/ChatRoom.container';
-import ChatInput from './ChatInput/ChatInput.container';
+import ChatList from './ChatList/ChatList';
+import ChatRoom from './ChatRoom/ChatRoom';
+import ChatInput from './ChatInput/ChatInput';
 import ChatOffer from './ChatOffer/ChatOffer';
 import SocketResponseService from './SocketService/socketResponseService';
 import './Chat.scss';
@@ -11,10 +12,9 @@ import './Chat.scss';
 SocketResponseService.initialize();
 Moment.startPooledTimer();
 
-const Chat = ({ fetchChatList, chatRoomId }) => {
-  React.useEffect(() => {
-    fetchChatList();
-  }, [fetchChatList]);
+const Chat = () => {
+  const chatRoomId = useSelector(state => state.chat.chatRoomId);
+
   return (
     <div>
       <div className="container chat">

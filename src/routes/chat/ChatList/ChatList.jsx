@@ -3,10 +3,28 @@ import Avatar from 'react-avatar';
 import Truncate from 'react-truncate';
 import Moment from 'react-moment';
 import differenceInHours from 'date-fns/differenceInHours';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchChatListAction, fetchChatRoomAction } from '../ChatDux';
 
 import './ChatList.scss';
 
-const ChatList = ({ chatList, fetchChatRoom, chatRoomId }) => {
+const ChatList = () => {
+  const currentChatRoomId = useSelector(state => state.chat.chatRoomId);
+  const chatList = useSelector(state => state.chat.chatList);
+
+  const dispatch = useDispatch();
+
+  const fetchChatList = React.useCallback(() => {
+    dispatch(fetchChatListAction());
+  }, []);
+  React.useEffect(() => {
+    fetchChatList();
+  }, []);
+
+  const fetchChatRoom = React.useCallback(({ chatRoomId }) => {
+    dispatch(fetchChatRoomAction({ chatRoomId }));
+  }, []);
+
   return (
     <div>
       {chatList.map(chat => (
@@ -16,8 +34,9 @@ const ChatList = ({ chatList, fetchChatRoom, chatRoomId }) => {
           onClick={() => fetchChatRoom({ chatRoomId: chat.chatRoomId })}
           className="columns is-marginless chatlist__item"
           style={{
-            backgroundColor: chat.chatRoomId === chatRoomId ? 'blue' : 'white',
-            color: chat.chatRoomId === chatRoomId ? 'white' : 'black'
+            backgroundColor:
+              chat.chatRoomId === currentChatRoomId ? 'blue' : 'white',
+            color: chat.chatRoomId === currentChatRoomId ? 'white' : 'black'
           }}
         >
           <div className="column is-one-fifth">

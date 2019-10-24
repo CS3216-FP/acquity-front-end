@@ -3,7 +3,7 @@ import {
   updateChatListAction,
   updateChatRoomAction,
   updateNewMessageAction
-} from '../Chat.ducks';
+} from '../ChatDux';
 import Socket from './socketSetup';
 
 export const getChatList = () => {
