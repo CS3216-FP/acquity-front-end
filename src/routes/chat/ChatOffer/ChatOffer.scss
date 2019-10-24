@@ -1,0 +1,15 @@
+.chatoffer {
+  &__header {
+    color: #595f6f;
+    text-align: center;
+  }
+  &__bids {
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    &--text {
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+}

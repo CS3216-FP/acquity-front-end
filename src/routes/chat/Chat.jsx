@@ -17,35 +17,12 @@ const Chat = ({ fetchChatList, chatRoomId }) => {
   }, [fetchChatList]);
   return (
     <div>
-      <div
-        className="container testing"
-        style={{
-          paddingTop: 50
-        }}
-      >
+      <div className="container chat">
         <div className="columns is-marginless">
           <div className="column">
-            <div
-              className="is-primary"
-              style={{
-                borderTopLeftRadius: 5,
-                borderTopRightRadius: 5,
-                backgroundColor: 'white',
-                boxShadow: '0px 0px 20px 2px grey',
-                marginRight: 20
-              }}
-            >
+            <div className="is-primary chat__window--view">
               <div className="container">
-                <h1
-                  className="is-size-4"
-                  style={{
-                    paddingTop: 40,
-                    paddingLeft: 20,
-                    color: '#595f6f'
-                  }}
-                >
-                  Matches
-                </h1>
+                <h1 className="is-size-4 chat__window--header">Matches</h1>
                 <hr style={{ backgroundColor: '#595f6f' }} />
                 <div className="columns is-gapless">
                   <div className="column is-hidden-mobile is-two-fifths">
@@ -55,13 +32,7 @@ const Chat = ({ fetchChatList, chatRoomId }) => {
                   </div>
                   <div className="column">
                     {chatRoomId === '' ? (
-                      <div
-                        style={{
-                          textAlign: 'center',
-                          paddingTop: 40,
-                          fontSize: 20
-                        }}
-                      >
+                      <div className="chat__chatroom">
                         No messages here yet...
                       </div>
                     ) : (

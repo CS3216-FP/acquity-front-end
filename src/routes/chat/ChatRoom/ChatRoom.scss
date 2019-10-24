@@ -1,0 +1,13 @@
+.chatroom {
+  &__window {
+    min-height: 150px;
+    background-color: white;
+    color: black;
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-top: 10px;
+  }
+  &__date {
+    font-size: 14px;
+  }
+}

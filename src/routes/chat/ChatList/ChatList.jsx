@@ -14,14 +14,10 @@ const ChatList = ({ chatList, fetchChatRoom, chatRoomId }) => {
           role="presentation"
           key={chat.chatRoomId}
           onClick={() => fetchChatRoom({ chatRoomId: chat.chatRoomId })}
-          className="columns is-marginless"
+          className="columns is-marginless chatlist__item"
           style={{
-            height: 150,
             backgroundColor: chat.chatRoomId === chatRoomId ? 'blue' : 'white',
-            color: chat.chatRoomId === chatRoomId ? 'white' : 'black',
-            paddingLeft: 10,
-            paddingRight: 20,
-            paddingTop: 10
+            color: chat.chatRoomId === chatRoomId ? 'white' : 'black'
           }}
         >
           <div className="column is-one-fifth">
@@ -37,14 +33,14 @@ const ChatList = ({ chatList, fetchChatRoom, chatRoomId }) => {
           <div className="column">
             <div>
               <Truncate
-                style={{ fontWeight: 'bold' }}
+                className="chatlist__name"
                 lines={1}
                 ellipsis={<span>...</span>}
               >
                 {chat.dealerName}
               </Truncate>
               <Truncate
-                style={{ fontSize: 14, float: 'right' }}
+                className="chatlist__date"
                 lines={1}
                 ellipsis={<span>...</span>}
               >
@@ -61,12 +57,9 @@ const ChatList = ({ chatList, fetchChatRoom, chatRoomId }) => {
               </Truncate>
             </div>
             <div
+              className="chatlist__status"
               style={{
-                float: 'right',
-                height: 10,
-                width: 10,
-                backgroundColor: '#00FF7F',
-                borderRadius: 10
+                backgroundColor: '#00FF7F'
               }}
             />
             <div>Selling Amt: 2000</div>

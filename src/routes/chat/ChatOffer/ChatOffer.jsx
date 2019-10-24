@@ -6,42 +6,12 @@ const ChatOffer = () => {
   return (
     <div>
       <div className="container">
-        <h1
-          className="is-size-5"
-          style={{
-            color: '#595f6f',
-            textAlign: 'center'
-          }}
-        >
-          YOUR BID
-        </h1>
-        <h1
-          className="is-size-5"
-          style={{
-            textAlign: 'center',
-            paddingBottom: 10,
-            paddingTop: 10
-          }}
-        >
+        <h1 className="is-size-5 chatoffer__header">YOUR BID</h1>
+        <h1 className="is-size-5 chatoffer__bids">
           <div className="columns is-mobile">
-            <div
-              className="column"
-              style={{ textAlign: 'center', fontWeight: 'bold' }}
-            >
-              Bid #0
-            </div>
-            <div
-              className="column"
-              style={{ textAlign: 'center', fontWeight: 'bold' }}
-            >
-              Quantity: 300
-            </div>
-            <div
-              className="column"
-              style={{ textAlign: 'center', fontWeight: 'bold' }}
-            >
-              Price: SGD 6.89
-            </div>
+            <div className="column chatoffer__bids--text">Bid #0</div>
+            <div className="column chatoffer__bids--text">Quantity: 300</div>
+            <div className="column chatoffer__bids--text">Price: SGD 6.89</div>
           </div>
         </h1>
         <div className="columns is-gapless is-mobile">

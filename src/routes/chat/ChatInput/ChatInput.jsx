@@ -40,11 +40,7 @@ const ChatInput = ({ fetchNewMessage, chatRoomId }) => {
             src={SendIcon}
             alt="Send"
             width="30"
-            style={{
-              marginRight: 'auto',
-              marginLeft: 'auto',
-              display: 'block'
-            }}
+            className="chatinput__icon"
           />
         </div>
       </div>

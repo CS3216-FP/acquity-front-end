@@ -1,0 +1,22 @@
+.chat {
+  padding-top: 50px;
+  &__window {
+    &--view {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background-color: white;
+      box-shadow: 0 0 20px 2px grey;
+      margin-right: 20px;
+    }
+    &--header {
+      padding-top: 40px;
+      padding-left: 20px;
+      color: #595f6f;
+    }
+  }
+  &__chatroom {
+    text-align: center;
+    padding-top: 40px;
+    font-size: 20px;
+  }
+}
