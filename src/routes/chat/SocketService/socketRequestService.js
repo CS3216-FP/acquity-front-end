@@ -7,6 +7,23 @@ const requestChatList = () => {
   });
 };
 
+const requestChatRoom = ({ chatRoomId }) => {
+  Socket.socket.emit('set_chat_room', {
+    token: tokenUtils.getToken(),
+    chatRoomId
+  });
+};
+
+const requestNewMessage = ({ chatRoomId, message }) => {
+  Socket.socket.emit('set_new_message', {
+    token: tokenUtils.getToken(),
+    message,
+    chatRoomId
+  });
+};
+
 export default {
-  requestChatList
+  requestChatList,
+  requestChatRoom,
+  requestNewMessage
 };

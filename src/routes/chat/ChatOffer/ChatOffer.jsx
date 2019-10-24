@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './ChatOffer.scss';
+
 const ChatOffer = () => {
   return (
     <div>
@@ -21,7 +23,7 @@ const ChatOffer = () => {
             paddingTop: 10
           }}
         >
-          <div className="columns">
+          <div className="columns is-mobile">
             <div
               className="column"
               style={{ textAlign: 'center', fontWeight: 'bold' }}
@@ -42,7 +44,7 @@ const ChatOffer = () => {
             </div>
           </div>
         </h1>
-        <div className="columns is-gapless">
+        <div className="columns is-gapless is-mobile">
           <div className="column">
             <button
               type="button"

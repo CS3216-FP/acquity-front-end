@@ -17,10 +17,32 @@ const chat = createSlice({
     },
     fetchChatListAction: () => {
       SocketRequestService.requestChatList();
+    },
+    fetchChatRoomAction: (state, { payload }) => {
+      // eslint-disable-next-line no-param-reassign
+      state.chatRoomId = payload.chatRoomId;
+      SocketRequestService.requestChatRoom({ chatRoomId: payload.chatRoomId });
+    },
+    updateChatRoomAction: (state, { payload }) => {
+      // eslint-disable-next-line no-param-reassign
+      state.chatRoom = payload.chatRoom;
+    },
+    fetchNewMessageAction: (state, { payload }) => {
+      SocketRequestService.requestNewMessage({ ...payload });
+    },
+    updateNewMessageAction: (state, { payload }) => {
+      state.chatRoom.push({ ...payload });
     }
   }
 });
 
-export const { updateChatListAction, fetchChatListAction } = chat.actions;
+export const {
+  updateChatListAction,
+  fetchChatListAction,
+  fetchChatRoomAction,
+  updateChatRoomAction,
+  fetchNewMessageAction,
+  updateNewMessageAction
+} = chat.actions;
 
 export default chat.reducer;

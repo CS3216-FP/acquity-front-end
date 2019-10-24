@@ -5,7 +5,7 @@ import Chat from './Chat';
 
 const matchState = state => {
   return {
-    chatList: state.chat.chatList
+    chatRoomId: state.chat.chatRoomId
   };
 };
 

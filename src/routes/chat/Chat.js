@@ -1,30 +1,24 @@
 import React from 'react';
 import Moment from 'react-moment';
 
-import ChatList from './ChatList/ChatList';
-import ChatRoom from './ChatRoom/ChatRoom';
-import ChatInput from './ChatInput/ChatInput';
+import ChatList from './ChatList/ChatList.container';
+import ChatRoom from './ChatRoom/ChatRoom.container';
+import ChatInput from './ChatInput/ChatInput.container';
 import ChatOffer from './ChatOffer/ChatOffer';
 import SocketResponseService from './SocketService/socketResponseService';
+import './Chat.scss';
 
 SocketResponseService.initialize();
 Moment.startPooledTimer();
 
-const Chat = ({ fetchChatList, chatList }) => {
-  let data = [
-    {
-      chatRoomId: '1',
-      dealerName: 'Dealer',
-      dealerId: 'Dealer ID',
-      createdAt: 4356346534.345,
-      message: 'This is a message'
-    }
-  ];
-  data = chatList;
+const Chat = ({ fetchChatList, chatRoomId }) => {
+  React.useEffect(() => {
+    fetchChatList();
+  }, [fetchChatList]);
   return (
     <div>
       <div
-        className="container"
+        className="container testing"
         style={{
           paddingTop: 50
         }}
@@ -56,15 +50,27 @@ const Chat = ({ fetchChatList, chatList }) => {
                 <div className="columns is-gapless">
                   <div className="column is-hidden-mobile is-two-fifths">
                     <div>
-                      <ChatList onClick={() => fetchChatList(data)} />
+                      <ChatList />
                     </div>
                   </div>
                   <div className="column">
-                    <div>
-                      <ChatOffer />
-                      <ChatRoom />
-                      <ChatInput />
-                    </div>
+                    {chatRoomId === '' ? (
+                      <div
+                        style={{
+                          textAlign: 'center',
+                          paddingTop: 40,
+                          fontSize: 20
+                        }}
+                      >
+                        No messages here yet...
+                      </div>
+                    ) : (
+                      <div>
+                        <ChatOffer />
+                        <ChatRoom />
+                        <ChatInput />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
