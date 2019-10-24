@@ -10,9 +10,12 @@ const ChatInput = () => {
   const chatRoomId = useSelector(state => state.chat.chatRoomId);
   const [value, setMessage] = React.useState('');
 
-  const fetchNewMessage = React.useCallback(({ message }) => {
-    dispatch(fetchNewMessageAction({ chatRoomId, message }));
-  }, []);
+  const fetchNewMessage = React.useCallback(
+    ({ message }) => {
+      dispatch(fetchNewMessageAction({ chatRoomId, message }));
+    },
+    [dispatch, chatRoomId]
+  );
 
   const updateMessage = event => {
     setMessage(event.target.value);

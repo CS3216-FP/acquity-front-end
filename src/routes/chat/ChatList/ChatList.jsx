@@ -16,14 +16,17 @@ const ChatList = () => {
 
   const fetchChatList = React.useCallback(() => {
     dispatch(fetchChatListAction());
-  }, []);
+  }, [dispatch]);
   React.useEffect(() => {
     fetchChatList();
-  }, []);
+  }, [fetchChatList]);
 
-  const fetchChatRoom = React.useCallback(({ chatRoomId }) => {
-    dispatch(fetchChatRoomAction({ chatRoomId }));
-  }, []);
+  const fetchChatRoom = React.useCallback(
+    ({ chatRoomId }) => {
+      dispatch(fetchChatRoomAction({ chatRoomId }));
+    },
+    [dispatch]
+  );
 
   return (
     <div>
