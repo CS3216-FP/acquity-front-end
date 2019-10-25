@@ -1,3 +1,4 @@
+import camelcaseKeys from 'camelcase-keys';
 import store from 'app/store';
 import {
   updateChatListAction,
@@ -10,7 +11,7 @@ export const getChatList = () => {
   Socket.socket.on('get_chat_list', payload => {
     store.dispatch(
       updateChatListAction({
-        ...payload
+        ...camelcaseKeys(payload)
       })
     );
   });
@@ -18,7 +19,11 @@ export const getChatList = () => {
 
 export const getChatRoom = () => {
   Socket.socket.on('get_chat_room', payload => {
-    store.dispatch(updateChatRoomAction({ chatRoom: payload }));
+    store.dispatch(
+      updateChatRoomAction({
+        chatRoom: camelcaseKeys(payload)
+      })
+    );
   });
 };
 
@@ -26,7 +31,7 @@ export const getNewMessage = () => {
   Socket.socket.on('get_new_message', payload => {
     store.dispatch(
       updateNewMessageAction({
-        ...payload
+        ...camelcaseKeys(payload)
       })
     );
   });
