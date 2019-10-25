@@ -6,10 +6,12 @@ const Socket = {
   load: null
 };
 
-const connect = () => {
+export const socketConnect = () => {
   Socket.socket = io.connect(`${process.env.REACT_APP_BACKEND_API}chat`);
 };
 
-connect();
+export const socketDisconnect = () => {
+  Socket.socket.disconnect();
+};
 
 export default Socket;

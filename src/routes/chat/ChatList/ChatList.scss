@@ -4,6 +4,14 @@
     padding-left: 10px;
     padding-right: 20px;
     padding-top: 10px;
+    &--selected {
+      background-color: blue;
+      color: white;
+    }
+    &--unselected {
+      background-color: white;
+      color: black;
+    }
   }
   &__name {
     font-weight: bold;
@@ -17,5 +25,11 @@
     height: 10px;
     width: 10px;
     border-radius: 10px;
+    &--online {
+      background-color: #00ff7f;
+    }
+    &--offline {
+      background-color: red;
+    }
   }
 }

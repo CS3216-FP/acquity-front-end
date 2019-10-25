@@ -15,7 +15,7 @@ const Chat = () => {
     <PageContainer>
       <div className="container">
         <h1 className="is-size-4 chat__window--header">Matches</h1>
-        <hr style={{ backgroundColor: '#595f6f' }} />
+        <hr className="chat__divider" />
         <div className="columns is-gapless">
           <div className="column is-hidden-mobile is-two-fifths">
             <div>
