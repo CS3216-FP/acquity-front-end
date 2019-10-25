@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect
 } from 'react-router-dom';
-
+import SocketResponseService from 'services/SocketService/socketResponseService';
 import Navbar from 'components/navbar';
 import Main from 'routes/main';
 import NewBid from 'routes/bids/newBid';
@@ -14,6 +14,11 @@ import EditBid from 'routes/bids/editBid';
 import Chat from 'routes/chat';
 
 const AuthenticatedApp = () => {
+  useEffect(() => {
+    console.log('hi');
+    SocketResponseService.initialize();
+  }, []);
+
   return (
     <Router>
       <div className="app">

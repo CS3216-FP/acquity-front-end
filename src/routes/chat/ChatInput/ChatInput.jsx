@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import SendIcon from 'assets/images/send_icon.png';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -10,7 +10,7 @@ const ChatInput = () => {
   const chatRoomId = useSelector(state => state.chat.chatRoomId);
   const [value, setMessage] = React.useState('');
 
-  const fetchNewMessage = React.useCallback(
+  const fetchNewMessage = useCallback(
     ({ message }) => {
       dispatch(fetchNewMessageAction({ chatRoomId, message }));
     },
