@@ -93,6 +93,7 @@ const InputDropdownSelect = ({
   valueField,
   labelField,
   iconField,
+  handleBlur,
   values = []
 }) => {
   return (
@@ -112,6 +113,7 @@ const InputDropdownSelect = ({
       placeholder=""
       options={options}
       onChange={onChange}
+      onDropdownClose={handleBlur}
       style={{}}
     />
   );

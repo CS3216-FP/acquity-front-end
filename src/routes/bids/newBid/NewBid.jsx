@@ -1,13 +1,14 @@
 import React, { useEffect, useReducer } from 'react';
-import { withRouter } from 'react-router-dom';
+
 import PageContainer from 'components/pageContainer';
+import PageHeader from 'components/pageHeader';
 import ApiService from 'services/apiService';
 import NewBidForm from './NewBidForm';
-
-import '../style.scss';
 import Confirmation from '../confirmation';
 
-const NewBid = ({ history, apiEndpoint, type }) => {
+import '../style.scss';
+
+const NewBid = ({ apiEndpoint, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     hasError: false,
@@ -53,21 +54,7 @@ const NewBid = ({ history, apiEndpoint, type }) => {
   return (
     <PageContainer>
       <div className="bidPage page">
-        <div className="page__header columns is-mobile">
-          <div className="column is-1">
-            <button
-              onClick={() => history.goBack()}
-              className="button button--cta button--nav--circle hvr-grow"
-              type="button"
-            >
-              <i className="fas fa-arrow-left" />
-            </button>
-          </div>
-          <span className="bidPage__header__text column">
-            {type} Information
-          </span>
-          <div className="column is-1" />
-        </div>
+        <PageHeader headerText={`${type} Information`} />
         <div className="page__content columns is-mobile">
           <div className="form-wrapper column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <NewBidForm
@@ -86,4 +73,4 @@ const NewBid = ({ history, apiEndpoint, type }) => {
   );
 };
 
-export default withRouter(NewBid);
+export default NewBid;

@@ -2,68 +2,45 @@
 @import 'assets/scss/form';
 
 .bidPage {
-  &__header {
-    &__text {
-      text-align: center;
-      text-transform: capitalize;
-    }
-  }
-
   .form {
-    label.label {
-      font-family: 'Nexa Bold';
-    }
     &__field {
       input {
-        height: 2.75rem;
         text-align: end;
-        font-family: 'Nexa Light' !important;
-        font-size: 1.2rem;
+      }
+    }
+
+    .estimate {
+      padding: 0 0.5rem;
+      margin-bottom: 4rem;
+      &__label {
+        font-family: 'Nexa Bold';
       }
 
-      .control {
-        .button {
-          font-family: 'Nexa Bold' !important;
-          font-size: 1.2rem;
-          height: 2.75rem;
-          line-height: 1.2rem;
-          color: $dark !important;
+      &__amount {
+        text-align: end;
+        font-size: 1.2rem;
+
+        &--currency {
+          font-family: 'Nexa Bold';
+          margin-right: 0.4rem;
+        }
+
+        &--amount {
+          font-family: 'Nexa Light';
         }
       }
     }
-  }
 
-  .estimate {
-    padding: 0 0.5rem;
-    margin-bottom: 4rem;
-    &__label {
-      font-family: 'Nexa Bold';
-    }
-
-    &__amount {
-      text-align: end;
-      font-size: 1.2rem;
-
-      &--currency {
-        font-family: 'Nexa Bold';
-        margin-right: 0.4rem;
-      }
-
-      &--amount {
-        font-family: 'Nexa Light';
-      }
-    }
-  }
-
-  .actions {
-    justify-content: center;
-    .control {
-      button {
-        min-width: 7rem;
-        min-height: 3rem;
-      }
-      &:not(:last-child) {
-        margin-right: 1.5rem;
+    .actions {
+      justify-content: center;
+      .control {
+        button {
+          min-width: 7rem;
+          min-height: 3rem;
+        }
+        &:not(:last-child) {
+          margin-right: 1.5rem;
+        }
       }
     }
   }

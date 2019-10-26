@@ -11,7 +11,8 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
     handleSubmit: validateInputs,
     errors,
     watch,
-    setValue
+    setValue,
+    triggerValidation
   } = useForm({
     mode: 'onBlur',
     defaultValues: formData || {}
@@ -48,6 +49,7 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
       <div className="form__field field has-addons">
         <div className="control">
           <InputDropdownSelect
+            handleBlur={() => triggerValidation({ name: 'securityId' })}
             options={securities}
             valueField="id"
             labelField="name"
