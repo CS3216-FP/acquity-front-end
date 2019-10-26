@@ -22,7 +22,6 @@ const ChatItem = ({ chat }) => {
   return (
     <div
       role="presentation"
-      key={chat.chatRoomId}
       onClick={() => fetchChatRoom({ chatRoomId: chat.chatRoomId })}
       className={`columns is-marginless chatlist__item ${
         chat.chatRoomId === currentChatRoomId
@@ -55,6 +54,7 @@ const ChatItem = ({ chat }) => {
             />
           </Truncate>
         </div>
+        {/* TODO(#23): online status icon hardcoded */}
         <div className={`chatlist__status ${'chatlist__status--online'}`} />
         <div>Selling Amt: 2000</div>
         <div>Lowest Prices: $6.10</div>

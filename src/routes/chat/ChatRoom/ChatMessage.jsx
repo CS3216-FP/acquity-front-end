@@ -6,7 +6,7 @@ import './ChatRoom.scss';
 
 const ChatMessage = ({ chat }) => {
   return (
-    <div key={chat.createdAt} className="columns is-marginless is-mobile">
+    <div className="columns is-marginless is-mobile">
       <div className="column">
         <div className="columns is-mobile chatroom__window">
           <div className="column is-2">

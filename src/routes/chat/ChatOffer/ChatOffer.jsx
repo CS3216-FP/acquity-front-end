@@ -9,6 +9,7 @@ const ChatOffer = () => {
         <h1 className="is-size-5 chatoffer__header">YOUR BID</h1>
         <h1 className="is-size-5 chatoffer__bids">
           <div className="columns is-mobile">
+            {/* TODO(#22): add make offer button in chat functional */}
             <div className="column chatoffer__bids--text">Bid #0</div>
             <div className="column chatoffer__bids--text">Quantity: 300</div>
             <div className="column chatoffer__bids--text">Price: SGD 6.89</div>

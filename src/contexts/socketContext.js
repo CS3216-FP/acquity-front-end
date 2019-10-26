@@ -14,7 +14,7 @@ const SocketProvider = props => {
 
   const fetchChatList = useCallback(() => {
     dispatch(fetchChatListAction());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     socketConnect();
     SocketResponseService.initialize();
@@ -22,7 +22,7 @@ const SocketProvider = props => {
     return () => {
       socketDisconnect();
     };
-  }, []);
+  });
 
   return (
     <SocketContext.Provider

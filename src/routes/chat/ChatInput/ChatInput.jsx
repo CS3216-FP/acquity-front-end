@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import SendIcon from 'assets/images/send_icon.png';
+import SendIcon from 'assets/images/paper-plane-regular.svg';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './ChatInput.scss';
@@ -47,7 +47,7 @@ const ChatInput = () => {
           </div>
         </div>
         <div className="column">
-          <img
+          <img // TODO(#21): send message on key press
             src={SendIcon}
             alt="Send"
             width="30"

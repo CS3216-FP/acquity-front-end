@@ -10,7 +10,7 @@ const ChatRoom = () => {
   return (
     <div>
       {chatRoom.map(chat => (
-        <ChatMessage chat={chat} />
+        <ChatMessage key={chat.createdAt} chat={chat} />
       ))}
     </div>
   );
