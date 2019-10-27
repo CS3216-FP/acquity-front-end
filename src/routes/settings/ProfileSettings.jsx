@@ -3,6 +3,7 @@ import React from 'react';
 import { useUser } from 'contexts/userContext';
 import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader/PageHeader';
+import SocialLogin from './SocialLogin';
 
 const ProfileSettings = () => {
   const user = useUser();
@@ -53,6 +54,7 @@ const ProfileSettings = () => {
                     name="email"
                   />
                 </div>
+                <SocialLogin />
               </div>
             </div>
           </div>
