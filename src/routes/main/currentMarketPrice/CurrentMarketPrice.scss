@@ -1,0 +1,12 @@
+@import 'assets/scss/variables';
+
+.currentMarketPrice {
+  &__price {
+    font-family: $weight-heavy;
+    font-size: 1.3rem;
+
+    &--price {
+      font-size: 2.7rem;
+    }
+  }
+}

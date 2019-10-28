@@ -6,6 +6,7 @@ import OngoingItems from './ongoingItems';
 import RoundDetails from './roundDetails';
 
 import './Main.scss';
+import CurrentMarketPrice from './currentMarketPrice';
 
 const Main = () => {
   const user = useUser();
@@ -22,7 +23,13 @@ const Main = () => {
           )}
           <OngoingItems type="bids" apiEndpoint="buy_order" />
           <div className="is-divider main__content__divider" />
-          <RoundDetails />
+          <div className="details columns is-gapless">
+            <div className="column is-one-third">
+              <RoundDetails />
+              <CurrentMarketPrice />
+            </div>
+            <div className="column" />
+          </div>
         </div>
       </div>
     </PageContainer>
