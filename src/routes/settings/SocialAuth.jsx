@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 
 const SocialAuth = ({ socket }) => {
   const [disabled, disableButton] = useState(false);
-  const [popup, setP] = useState(window);
+  let pop = window;
 
   const updatedBuyerPrivileges = () => {
     socket.on('provider', () => {
-      popup.close();
+      pop.close();
       disableButton(false);
     });
   };
 
   const checkPopup = () => {
     const check = setInterval(() => {
-      if (!popup || popup.closed || popup.closed === undefined) {
+      if (!pop || pop.closed || pop.closed === undefined) {
         clearInterval(check);
         disableButton(false);
       }
@@ -29,6 +29,7 @@ const SocialAuth = ({ socket }) => {
     const height = 600;
     const left = window.innerWidth / 2 - width / 2;
     const top = window.innerHeight / 2 - height / 2;
+    // Substring to obtain the socket id fir current socket session.
     const url = `${
       process.env.REACT_APP_BACKEND_API
     }linkedin/auth?socketId=${socket.id.substring(5)}`;
@@ -44,8 +45,8 @@ const SocialAuth = ({ socket }) => {
 
   const activateBuyerPrivileges = () => {
     disableButton(true);
-    setP(openPopup());
     checkPopup();
+    pop = openPopup();
   };
 
   return (
