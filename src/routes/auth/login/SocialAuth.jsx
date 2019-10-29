@@ -5,7 +5,10 @@ const SocialAuth = ({ socket }) => {
   let pop = window;
 
   const updatedBuyerPrivileges = () => {
-    socket.on('provider', () => {
+    socket.on('provider', val => {
+      // TODO: Redirect to home page upon successful authentication with Linkedin
+      // eslint-disable-next-line no-console
+      console.log(val);
       pop.close();
       disableButton(false);
     });
