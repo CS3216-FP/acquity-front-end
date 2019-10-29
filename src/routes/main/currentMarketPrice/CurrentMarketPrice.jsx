@@ -17,7 +17,7 @@ const CurrentMarketPrice = () => {
   // TODO: hook up to backend to get current selected security's current market price.
   useEffect(() => {
     setTimeout(() => {
-      setState({ isLoading: false, marketPrice: '6.18' });
+      setState({ isLoading: false, marketPrice: '999.99' });
     }, 250);
   }, []);
 
@@ -35,7 +35,7 @@ const CurrentMarketPrice = () => {
 
   return (
     <div className="currentMarketPrice">
-      <div className="details__header">Current market price</div>
+      <div className="details__header">Unofficial market price</div>
       <div className="currentMarketPrice__price">
         <span className="currentMarketPrice__price--price">
           SGD {state.marketPrice}

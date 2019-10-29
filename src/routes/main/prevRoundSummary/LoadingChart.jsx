@@ -3,12 +3,12 @@ import Chart from 'react-apexcharts';
 
 import './PrevRoundSummaryChart.scss';
 
-const PrevRoundSummaryChart = () => {
+const LoadingChart = () => {
   const options = {
     noData: {
-      text: 'Not enough data to display yet',
+      text: 'Loading',
       style: {
-        color: '#1f4190',
+        color: '#bfc4ce',
         fontSize: '1.5rem',
         fontFamily: 'Nexa Bold'
       }
@@ -77,21 +77,8 @@ const PrevRoundSummaryChart = () => {
       }
     }
   };
-  const series = [
-    {
-      name: 'Average price',
-      data: [
-        [1486684800000, 6.6],
-        [1486771200000, 6.4],
-        [1486857600000, 6.33],
-        [1486944000000, 6.88],
-        [1487030400000, 6.53],
-        [1487116800000, 6.22]
-      ]
-    }
-  ];
 
-  return <Chart type="area" options={options} series={series} />;
+  return <Chart type="area" options={options} series={[]} />;
 };
 
-export default PrevRoundSummaryChart;
+export default LoadingChart;
