@@ -41,9 +41,7 @@ const PrevRoundSummary = () => {
         </div>
         <div className="column">
           <div className="prevRoundSummary__data">
-            <div className="prevRoundSummary__data--label">
-              Price-Volume History
-            </div>
+            <div className="prevRoundSummary__data--label">Price History</div>
             <PrevRoundSummaryChart />
           </div>
         </div>
