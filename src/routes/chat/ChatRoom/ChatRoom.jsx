@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import pluralize from 'pluralize';
 
@@ -16,15 +16,18 @@ const ChatRoom = () => {
 
   const chatMessages = useSelector(state => state.chat.chatRoom);
 
-  const handleScroll = event => {
-    const node = event.target;
-    const bottom = node.scrollHeight - node.scrollTop === node.clientHeight;
-    setIsBottom(bottom);
-    if (bottom) {
-      setPrevMessageLength(chatMessages.length);
-      setUnreadCount(0);
-    }
-  };
+  const handleScroll = useCallback(
+    event => {
+      const node = event.target;
+      const bottom = node.scrollHeight - node.scrollTop === node.clientHeight;
+      setIsBottom(bottom);
+      if (bottom) {
+        setPrevMessageLength(chatMessages.length);
+        setUnreadCount(0);
+      }
+    },
+    [chatMessages.length]
+  );
 
   const setChatMessagesRef = node => {
     if (node) {
@@ -63,7 +66,8 @@ const ChatRoom = () => {
     chatMessagesBottomRef,
     chatMessagesRef,
     isBottom,
-    prevMessageLength
+    prevMessageLength,
+    handleScroll
   ]);
 
   return (
