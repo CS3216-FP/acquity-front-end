@@ -41,4 +41,16 @@ input {
 button {
   border: none;
   background: none;
+  font-size: 1rem;
+
+  &.as-non-button {
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    white-space: normal;
+  }
+
+  &.no-outline {
+    outline: none;
+  }
 }

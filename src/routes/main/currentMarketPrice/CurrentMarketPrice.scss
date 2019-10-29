@@ -9,4 +9,46 @@
       font-size: 2.7rem;
     }
   }
+
+  &__disclaimer {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2rem;
+    font-family: $weight-light;
+    color: $blue;
+
+    .icon {
+      font-size: 1.5rem;
+    }
+
+    &--text {
+      margin-left: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  &Modal {
+    &__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+    &__header {
+      font-size: 1.5rem;
+    }
+    &__text {
+      font-family: $weight-light;
+      line-height: 2rem;
+
+      &--subtext {
+        font-size: 0.8rem;
+      }
+
+      &--link {
+        font-family: $weight-light;
+        text-decoration: underline;
+        color: $dark;
+      }
+    }
+  }
 }
