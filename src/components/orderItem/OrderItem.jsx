@@ -6,10 +6,10 @@ import { addCommasToNumber } from 'utils';
 import { moneyFormatter, toLocaleCurrency } from 'utils/moneyUtils';
 import './OrderItem.scss';
 
-const OrderItem = ({ item, actionLink = null }) => {
+const OrderItem = ({ item, actionLink = null, className = '' }) => {
   const lastUpdateTime = new Date(item.updatedAt * 1000);
   return (
-    <div className="item">
+    <div className={`item ${className}`}>
       <div className="item__header">
         <span className="item__header__info">
           <span className="item__header__info__name">{item.securityName}</span>
@@ -21,8 +21,8 @@ const OrderItem = ({ item, actionLink = null }) => {
           />
         </span>
       </div>
-      <div className="columns is-mobile">
-        <div className="item__content column">
+      <div className="item__content columns is-mobile">
+        <div className="column">
           <div className="columns">
             <div className="item__details column">
               <span className="item__details__label">Quantity:</span>

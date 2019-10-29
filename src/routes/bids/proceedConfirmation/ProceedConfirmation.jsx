@@ -45,7 +45,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
           headerText={`${type} Information`}
           handleBackClick={handleBackClick}
         />
-        <div className="page__content columns is-mobile">
+        <div className="page__content columns is-mobile is-gapless">
           <div className="column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <div className="confirmation__details">
               {state.isError && <ErrorMessage />}

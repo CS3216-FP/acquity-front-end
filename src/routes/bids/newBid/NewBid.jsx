@@ -62,7 +62,7 @@ const NewBid = ({ apiEndpoint, type }) => {
     <PageContainer>
       <div className="bidPage page">
         <PageHeader headerText={`${type} Information`} />
-        <div className="page__content columns is-mobile">
+        <div className="page__content columns is-mobile is-gapless">
           <div className="form-wrapper column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <NewBidForm
               isLoading={state.isLoading}
