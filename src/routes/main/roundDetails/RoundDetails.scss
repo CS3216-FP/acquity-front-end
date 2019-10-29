@@ -5,6 +5,10 @@
 
   &__content {
     margin-bottom: 3rem;
+
+    @media only screen and (max-width: $tablet) {
+      margin-bottom: 1rem;
+    }
     .countdownDetails {
       color: $dark;
       display: flex;
@@ -13,11 +17,12 @@
       justify-content: center;
       &__header {
         font-family: $weight-heavy;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         margin-bottom: 0.5rem;
       }
       &__text {
         font-family: $weight-light;
+        font-size: 0.9rem;
       }
 
       &__timer {

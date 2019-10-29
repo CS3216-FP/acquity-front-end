@@ -7,6 +7,7 @@ import RoundDetails from './roundDetails';
 
 import './Main.scss';
 import CurrentMarketPrice from './currentMarketPrice';
+import PrevRoundSummary from './prevRoundSummary/PrevRoundSummary';
 
 const Main = () => {
   const user = useUser();
@@ -24,11 +25,13 @@ const Main = () => {
           <OngoingItems type="bids" apiEndpoint="buy_order" />
           <div className="is-divider main__content__divider" />
           <div className="details columns is-gapless">
-            <div className="column is-one-third">
+            <div className="details--left column is-one-third">
               <RoundDetails />
               <CurrentMarketPrice />
             </div>
-            <div className="column" />
+            <div className="details--right column">
+              <PrevRoundSummary />
+            </div>
           </div>
         </div>
       </div>

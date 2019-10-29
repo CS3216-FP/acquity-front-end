@@ -17,6 +17,11 @@
 .details {
   width: 100%;
 
+  &--left,
+  &--right {
+    margin-bottom: 1rem !important;
+  }
+
   &__header {
     font-family: $weight-heavy;
     font-size: 1.2rem;
