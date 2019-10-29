@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 
 import { moneyFormatter } from 'utils/moneyUtils';
-import './Item.scss';
+import './OrderItem.scss';
 
-const Item = ({ item, type }) => {
+const OrderItem = ({ item, actionLink = null }) => {
   const lastUpdateTime = new Date(item.updatedAt * 1000);
   return (
     <div className="item">
@@ -51,19 +51,21 @@ const Item = ({ item, type }) => {
             </div>
           </div>
         </div>
-        <div className="column is-narrow item__editButton">
-          <Link to={{ pathname: `/${type}/edit/${item.id}`, item }}>
-            <button
-              className="button button--cta button--nav--circle hvr-grow"
-              type="button"
-            >
-              <i className="fas fa-arrow-right" />
-            </button>
-          </Link>
-        </div>
+        {actionLink && (
+          <div className="column is-narrow item__actionButton">
+            <Link to={actionLink}>
+              <button
+                className="button button--cta button--nav--circle hvr-grow"
+                type="button"
+              >
+                <i className="fas fa-arrow-right" />
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default Item;
+export default OrderItem;

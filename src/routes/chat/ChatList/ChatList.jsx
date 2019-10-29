@@ -1,17 +1,21 @@
 import React from 'react';
+import { getCurrentPathWithoutParam } from 'utils';
+import { useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './ChatList.scss';
 import ChatItem from './ChatItem';
 
-/* TODO(#24): add make offer button in chat functional */
 const ChatList = () => {
   const chatList = useSelector(state => state.chat.chatList);
+  const { url } = useRouteMatch();
+  const basePath = getCurrentPathWithoutParam(url);
+
   return (
-    <div>
+    <ul className="chatlist column is-hidden-mobile is-two-fifths">
       {chatList.map(chat => (
-        <ChatItem key={chat.chatRoomId} chat={chat} />
+        <ChatItem key={chat.chatRoomId} chat={chat} basePath={basePath} />
       ))}
-    </div>
+    </ul>
   );
 };
 

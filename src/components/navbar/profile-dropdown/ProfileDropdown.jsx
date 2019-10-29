@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { getInitials } from 'utils';
 import { useUser } from 'contexts/userContext';
 import { useAuth } from 'contexts/authContext';
 
+import Avatar from 'components/avatar';
 import './ProfileDropdown.scss';
 
 const ProfileDropdown = () => {
@@ -14,15 +14,10 @@ const ProfileDropdown = () => {
   return (
     <div className="profile-dropdown navbar-item has-dropdown is-hoverable">
       <button type="button" className="navbar-link">
-        <div className="avatar">
-          {user.profileImageUrl ? (
-            <figure className="profile-pic">
-              <img alt="user avatar" src={user.profileImageUrl} />
-            </figure>
-          ) : (
-            <span className="initials">{getInitials(user.fullName)}</span>
-          )}
-        </div>
+        <Avatar
+          userName={user.fullName}
+          profileImageUrl={user.profileImageUrl}
+        />
       </button>
       <div className="navbar-dropdown is-right">
         <Link className="navbar-item" to="/profile">

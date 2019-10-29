@@ -1,7 +1,7 @@
 @import 'assets/scss/variables';
 
 .item {
-  font-family: 'Nexa Bold';
+  font-family: $weight-heavy;
   width: 100%;
   border: 1px solid $grey-lighter;
   border-radius: 10px;
@@ -28,7 +28,7 @@
     }
 
     &__timestamp {
-      font-family: 'Nexa Light';
+      font-family: $weight-light;
       font-size: 0.9rem;
       text-align: end;
     }
@@ -56,7 +56,7 @@
     }
 
     &__label {
-      font-family: 'Nexa Light';
+      font-family: $weight-light;
       font-size: 0.9rem;
     }
     &__value {
@@ -68,7 +68,7 @@
     }
   }
 
-  &__editButton {
+  &__actionButton {
     align-self: flex-end;
   }
 }

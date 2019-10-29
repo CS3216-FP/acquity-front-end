@@ -1,3 +1,5 @@
+@import 'assets/scss/variables';
+
 .form {
   &__field {
     input {
@@ -17,7 +19,7 @@
   }
 
   label {
-    font-family: 'Nexa Light';
+    font-family: $weight-light;
     font-weight: normal;
 
     &.label {

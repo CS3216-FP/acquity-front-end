@@ -1,15 +1,42 @@
-.chatoffer {
-  &__header {
-    color: #595f6f;
-    text-align: center;
+@import 'assets/scss/variables';
+
+.chat__offer {
+  flex: 0 0 auto;
+
+  .columns {
+    flex-flow: wrap;
   }
-  &__bids {
+
+  &__details {
     text-align: center;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    &--text {
-      text-align: center;
-      font-weight: bold;
+    &__header {
+      font-size: 0.8rem;
+      font-family: $weight-heavy;
+      text-transform: uppercase;
+    }
+
+    &__details {
+      .details {
+        font-size: 1.1rem;
+        font-family: $weight-light;
+        &__label {
+          padding-right: 0.2rem;
+        }
+
+        &__value {
+          font-family: $weight-heavy;
+        }
+      }
+    }
+  }
+
+  &__actions {
+    button {
+      font-family: $weight-light;
+      font-size: 1rem;
+      border-radius: 0;
+      border: none !important;
+      outline: 1px solid $grey-lighter !important;
     }
   }
 }

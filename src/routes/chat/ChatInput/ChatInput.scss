@@ -1,7 +1,15 @@
-.chatinput {
-  &__icon {
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
+@import 'assets/scss/variables';
+
+.chatInput {
+  padding: 1rem 2rem;
+
+  &__button--enter {
+    display: flex;
+    align-items: center;
+    margin-left: 0.8rem !important;
+
+    button {
+      color: $blue;
+    }
   }
 }

@@ -1,0 +1,61 @@
+@import 'assets/scss/variables';
+$chat-active-bg: #267ed0;
+
+.chatlist__item {
+  width: 100%;
+  background: white;
+  color: $blue;
+
+  &:hover {
+    color: $blue;
+    background: $grey;
+  }
+
+  &--selected {
+    background: $chat-active-bg;
+    color: white;
+
+    &:hover {
+      background: $chat-active-bg;
+      color: white;
+    }
+  }
+
+  &__avatar {
+    .initials {
+      background: white;
+    }
+  }
+
+  &__details {
+    .detail {
+      &__header {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        &--name {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          flex: 1;
+          width: 0;
+          font-size: 1.1rem;
+        }
+
+        &--timeago {
+          font-family: $weight-light;
+          padding-left: 1rem !important;
+          font-size: 0.9rem;
+        }
+      }
+
+      &__content {
+        padding-top: 0.2rem;
+        font-family: $weight-light;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

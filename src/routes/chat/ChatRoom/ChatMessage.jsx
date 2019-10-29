@@ -1,34 +1,28 @@
 import React from 'react';
-import Avatar from 'react-avatar';
-import TimeAgo from 'react-timeago';
 
-import './ChatRoom.scss';
+import { useUser } from 'contexts/userContext';
+import './ChatMessage.scss';
 
 const ChatMessage = ({ chat }) => {
+  const user = useUser();
+  const timeString = new Date(chat.createdAt * 1000).toLocaleTimeString([], {
+    timeStyle: 'short'
+  });
   return (
-    <div className="columns is-marginless is-mobile">
-      <div className="column">
-        <div className="columns is-mobile chatroom__window">
-          <div className="column is-2">
-            <div>
-              <Avatar color="grey" name="Bar" size={40} round="40px" />
-            </div>
-          </div>
-          <div className="column">
-            <div className="columns is-marginless is-mobile">
-              <div className="column is-8">{chat.authorName}</div>
-              <div className="column chatroom__date">
-                <TimeAgo
-                  title={(chat.createdAt * 1000).toLocaleString()}
-                  date={chat.createdAt * 1000}
-                />
-              </div>
-            </div>
-            <div className="column">
-              <div>{chat.message}</div>
-            </div>
-          </div>
-        </div>
+    <div className="chatMessage">
+      <div
+        className={`chatMessage__bubble chatMessage__bubble--${
+          user.id === chat.authorId ? 'right' : 'left'
+        }`}
+      >
+        <p className="chatMessage__bubble__message">
+          <span className="chatMessage__bubble__message--message">
+            {chat.message}
+          </span>
+          <span className="chatMessage__bubble__message--timestamp">
+            {timeString}
+          </span>
+        </p>
       </div>
     </div>
   );

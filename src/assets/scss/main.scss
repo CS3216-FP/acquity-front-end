@@ -13,7 +13,7 @@ body {
 }
 
 a {
-  font-family: 'Nexa Bold';
+  font-family: $weight-heavy;
 }
 
 .tabs {
@@ -21,7 +21,7 @@ a {
     .action-button {
       padding: 0.5rem 1rem;
       font-size: 0.9rem;
-      font-family: 'Nexa Bold' !important;
+      font-family: $weight-heavy;
       border-radius: 20px;
       cursor: pointer;
       outline: none;

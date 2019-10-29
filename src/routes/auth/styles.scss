@@ -1,9 +1,11 @@
+@import 'assets/scss/variables';
+
 .unauth {
   .actions {
     margin-top: 2rem;
     padding-left: 0.5rem;
     font-size: 0.9rem;
-    font-family: 'Nexa Bold';
+    font-family: $weight-heavy;
     display: inline-flex;
     flex-direction: column;
 

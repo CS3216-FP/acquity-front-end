@@ -1,13 +1,22 @@
-.chatroom {
-  &__window {
-    min-height: 150px;
-    background-color: white;
-    color: black;
-    padding-left: 10px;
-    padding-right: 20px;
-    padding-top: 10px;
-  }
-  &__date {
-    font-size: 14px;
+@import 'assets/scss/variables';
+
+.chatMessages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+
+  &__unread {
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-transform: capitalize;
+    display: inline-flex;
+    justify-content: space-between;
+    width: calc(100% - 1rem);
+    position: sticky;
+    top: 0;
+    background: $grey-lighter;
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 }

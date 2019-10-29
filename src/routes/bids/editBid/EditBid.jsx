@@ -5,16 +5,20 @@ import ApiService from 'services/apiService';
 import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
 import EditBidForm from './EditBidForm';
-import Confirmation from '../confirmation';
+import ProceedConfirmation from '../proceedConfirmation';
 
 import './EditBid.scss';
 import '../style.scss';
+import DeleteConfirmation from '../deleteConfirmation/DeleteConfirmation';
 
 const EditBid = ({ match, location, apiEndpoint, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     hasError: false,
     showConfirm: false,
+    showDelete: false,
+    // For deleting of bid, should show the initial data instead of modified data
+    initialData: null,
     formData: null
   });
   const itemId = match.params.id;
@@ -26,13 +30,17 @@ const EditBid = ({ match, location, apiEndpoint, type }) => {
     if (!item) {
       ApiService.get(`${apiEndpoint}/${itemId}`)
         .then(response => {
-          setState({ formData: response.data, isLoading: false });
+          setState({
+            initialData: response.data,
+            formData: response.data,
+            isLoading: false
+          });
         })
         .catch(() => {
           setState({ isLoading: false, hasError: true });
         });
     } else {
-      setState({ formData: item, isLoading: false });
+      setState({ initialData: item, formData: item, isLoading: false });
     }
     return () => {};
   }, [itemId, item, apiEndpoint]);
@@ -44,11 +52,23 @@ const EditBid = ({ match, location, apiEndpoint, type }) => {
         newPrice: parseFloat(state.formData.price)
       });
     return (
-      <Confirmation
+      <ProceedConfirmation
         bid={state.formData}
         apiCall={apiCall}
         type={type}
         handleBackClick={() => setState({ showConfirm: false })}
+      />
+    );
+  }
+
+  if (state.showDelete) {
+    const apiCall = () => ApiService.delete(`${apiEndpoint}/${itemId}`);
+    return (
+      <DeleteConfirmation
+        bid={state.initialData}
+        apiCall={apiCall}
+        type={type}
+        handleBackClick={() => setState({ showDelete: false })}
       />
     );
   }
@@ -72,7 +92,7 @@ const EditBid = ({ match, location, apiEndpoint, type }) => {
                   setState({ formData: data, showConfirm: true });
                 }}
                 type={type}
-                onDelete={data => console.log('deleting', data)}
+                onDelete={() => setState({ showDelete: true })}
               />
             )}
           </div>

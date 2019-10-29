@@ -13,7 +13,7 @@
       padding: 0 0.5rem;
       margin-bottom: 4rem;
       &__label {
-        font-family: 'Nexa Bold';
+        font-family: $weight-heavy;
       }
 
       &__amount {
@@ -21,12 +21,12 @@
         font-size: 1.2rem;
 
         &--currency {
-          font-family: 'Nexa Bold';
+          font-family: $weight-heavy;
           margin-right: 0.4rem;
         }
 
         &--amount {
-          font-family: 'Nexa Light';
+          font-family: $weight-light;
         }
       }
     }
@@ -43,5 +43,12 @@
         }
       }
     }
+  }
+}
+
+.confirmation__action {
+  button {
+    min-width: 7rem;
+    min-height: 3rem;
   }
 }

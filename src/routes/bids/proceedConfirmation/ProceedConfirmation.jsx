@@ -5,7 +5,7 @@ import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
 import { moneyFormatter } from 'utils/moneyUtils';
 
-import './Confirmation.scss';
+import './ProceedConfirmation.scss';
 
 const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
@@ -28,7 +28,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
 
   return (
     <PageContainer>
-      <div className="bidPage page confirmation">
+      <div className="bidPage page proceedConfirmation">
         <PageHeader
           headerText={`${type} Information`}
           handleBackClick={handleBackClick}

@@ -1,70 +1,72 @@
-import React, { useCallback } from 'react';
-import Avatar from 'react-avatar';
-import Truncate from 'react-truncate';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import TimeAgo from 'react-timeago';
 
+import Avatar from 'components/avatar';
 import { fetchChatRoomAction } from '../ChatDux';
-import './ChatList.scss';
+import './ChatItem.scss';
 
-const ChatItem = ({ chat }) => {
-  const currentChatRoomId = useSelector(state => state.chat.chatRoomId);
-
+const ChatItem = ({ chat, basePath }) => {
+  const { chatRoomId } = useParams();
   const dispatch = useDispatch();
 
-  const fetchChatRoom = useCallback(
-    ({ chatRoomId }) => {
+  const formatter = (value, unit, _suffix) => {
+    let shortenedUnit;
+    switch (unit) {
+      case 'second':
+      case 'minute':
+      case 'hour':
+      case 'day':
+      case 'week':
+      case 'year':
+        shortenedUnit = unit.charAt(0);
+        break;
+      case 'month':
+        shortenedUnit = 'mo';
+        break;
+      default:
+        shortenedUnit = unit;
+    }
+    return `${value}${shortenedUnit}`;
+  };
+
+  useEffect(() => {
+    if (chatRoomId) {
       dispatch(fetchChatRoomAction({ chatRoomId }));
-    },
-    [dispatch]
-  );
+    }
+  }, [chatRoomId, dispatch]);
 
   return (
-    <div
-      role="presentation"
-      onClick={() => fetchChatRoom({ chatRoomId: chat.chatRoomId })}
-      className={`columns is-marginless chatlist__item ${
-        chat.chatRoomId === currentChatRoomId
-          ? 'chatlist__item--selected'
-          : 'chatlist__item--unselected'
-      }`}
-    >
-      <div className="column is-one-fifth">
-        <div>
-          <Avatar color="grey" name={chat.dealerName} size={40} round="40px" />
-        </div>
-      </div>
-      <div className="column">
-        <div>
-          <Truncate
-            className="chatlist__name"
-            lines={1}
-            ellipsis={<span>...</span>}
-          >
-            {chat.dealerName}
-          </Truncate>
-          <Truncate
-            className="chatlist__date"
-            lines={1}
-            ellipsis={<span>...</span>}
-          >
-            <TimeAgo
-              title={(chat.createdAt * 1000).toLocaleString()}
-              date={chat.createdAt * 1000}
-            />
-          </Truncate>
-        </div>
+    <li role="row">
+      <Link
+        className={`chatlist__item columns is-marginless ${
+          chat.chatRoomId === chatRoomId ? 'chatlist__item--selected' : ''
+        }`}
+        to={`${basePath}/${chat.chatRoomId}`}
+      >
         {/* TODO(#23): online status icon hardcoded */}
-        <div className={`chatlist__status ${'chatlist__status--online'}`} />
-        <div>Selling Amt: 2000</div>
-        <div>Lowest Prices: $6.10</div>
-        <div>
-          <Truncate lines={1} ellipsis={<span>...</span>}>
-            {chat.message}
-          </Truncate>
+        {/* <div className={`chatlist__status ${'chatlist__status--online'}`} /> */}
+        <Avatar
+          className="chatlist__item__avatar column is-narrow"
+          userName={chat.dealerId}
+          diameter="3rem"
+        />
+        <div className="column chatlist__item__details">
+          <div className="detail__header">
+            <div className="detail__header--name">{chat.dealerId}</div>
+            <div className="detail__header--timeago">
+              <TimeAgo date={chat.createdAt * 1000} formatter={formatter} />
+            </div>
+          </div>
+          {/* TODO: Remove hardcode */}
+          <div className="detail__content">
+            <div>Selling Amt: 2000</div>
+            <div>Lowest Price: $6.10</div>
+          </div>
         </div>
-      </div>
-    </div>
+      </Link>
+    </li>
   );
 };
 

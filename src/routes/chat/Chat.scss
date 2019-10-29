@@ -1,25 +1,50 @@
+@import 'assets/scss/variables';
+
 .chat {
-  padding-top: 50px;
-  &__window {
-    &--view {
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-      background-color: white;
-      box-shadow: 0 0 20px 2px grey;
-      margin-right: 20px;
+  &__header {
+    font-family: $weight-heavy;
+    font-size: 1.5rem;
+    margin: 0 !important;
+    color: $blue;
+    border-bottom: 2px solid $grey-lighter;
+
+    @media only screen and (max-width: $mobile) {
+      margin: 1rem 0;
     }
-    &--header {
-      padding-top: 40px;
-      padding-left: 20px;
-      color: #595f6f;
+
+    @media only screen and (max-width: $tablet) {
+      margin: 1rem;
+    }
+
+    &__left {
+      padding: 1.5rem 1rem 1.5rem 2rem !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .view-archive {
+        font-size: 1rem;
+        font-family: $weight-light;
+        color: $dark;
+      }
+    }
+
+    &--user {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    &--divider {
+      width: 100%;
+      border-bottom: 2px solid $grey-lighter;
     }
   }
-  &__chatroom {
-    text-align: center;
-    padding-top: 40px;
-    font-size: 20px;
-  }
-  &__divider {
-    background-color: #595f6f;
+
+  &__content {
+    height: calc(100vh - 11.9rem);
+    display: flex;
+    flex-direction: column;
   }
 }

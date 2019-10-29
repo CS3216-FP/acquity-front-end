@@ -11,12 +11,12 @@
       align-items: center;
       justify-content: center;
       &__header {
-        font-family: 'Nexa Bold';
+        font-family: $weight-heavy;
         font-size: 1.5rem;
         margin-bottom: 0.5rem;
       }
       &__text {
-        font-family: 'Nexa Light';
+        font-family: $weight-light;
       }
 
       &__timer {
@@ -28,7 +28,7 @@
           }
           padding: 0 0.5rem;
           font-size: 4rem;
-          font-family: 'Nexa Bold';
+          font-family: $weight-heavy;
 
           @media only screen and (max-width: $mobile) {
             font-size: 2rem;
@@ -56,7 +56,7 @@
           &__value {
             font-size: 4rem;
             margin-bottom: -1rem;
-            font-family: 'Nexa Bold';
+            font-family: $weight-heavy;
 
             @media only screen and (max-width: $mobile) {
               font-size: 2rem;
@@ -68,7 +68,7 @@
           }
 
           &__text {
-            font-family: 'Nexa Light';
+            font-family: $weight-light;
 
             @media only screen and (max-width: $mobile) {
               font-size: 0.9rem;

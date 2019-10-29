@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import SendIcon from 'assets/images/paper-plane-regular.svg';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './ChatInput.scss';
@@ -17,42 +16,48 @@ const ChatInput = () => {
     [dispatch, chatRoomId]
   );
 
-  const updateMessage = event => {
+  const handleChange = event => {
     setMessage(event.target.value);
   };
 
-  const sendMessage = event => {
+  const sendMessage = () => {
+    if (!value) return;
+    fetchNewMessage({ message: value });
+    setMessage('');
+  };
+
+  const handleKeyPress = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      fetchNewMessage({ message: value });
-      setMessage('');
+      sendMessage();
     }
   };
 
   return (
-    <div>
-      <div className="columns is-marginless is-mobile">
-        <div className="column is-11-mobile is-10">
-          <div className="field">
+    <div className="chatInput">
+      <div className="columns is-marginless is-mobile is-gapless">
+        <div className="column">
+          <div className="form__field field">
             <div className="control">
               <input
                 className="input is-info"
                 type="text"
                 placeholder="Write a message..."
                 value={value}
-                onChange={updateMessage}
-                onKeyPress={sendMessage}
+                onChange={handleChange}
+                onKeyPress={handleKeyPress}
               />
             </div>
           </div>
         </div>
-        <div className="column">
-          <img // TODO(#21): send message on key press
-            src={SendIcon}
-            alt="Send"
-            width="30"
-            className="chatinput__icon"
-          />
+        <div className="chatInput__button--enter column is-narrow">
+          <button
+            onClick={sendMessage}
+            type="submit"
+            className="icon is-medium"
+          >
+            <i className="fa fa-level-down-alt fa-rotate-90 fa-2x" />
+          </button>
         </div>
       </div>
     </div>

@@ -8,5 +8,9 @@ const getInitials = fullName => {
   return initials;
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { getInitials };
+const getCurrentPathWithoutParam = path => {
+  // Returns original path given if there no child path.
+  return path.slice(0, path.lastIndexOf('/')) || path;
+};
+
+export { getInitials, getCurrentPathWithoutParam };

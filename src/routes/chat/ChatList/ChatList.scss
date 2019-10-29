@@ -1,25 +1,11 @@
+@import 'assets/scss/variables';
+
 .chatlist {
-  &__item {
-    height: 150px;
-    padding-left: 10px;
-    padding-right: 20px;
-    padding-top: 10px;
-    &--selected {
-      background-color: blue;
-      color: white;
-    }
-    &--unselected {
-      background-color: white;
-      color: black;
-    }
-  }
-  &__name {
-    font-weight: bold;
-  }
-  &__date {
-    font-size: 14px;
-    float: right;
-  }
+  border-right: 2px solid $grey-lighter;
+  height: calc(100vh - 12rem);
+  overflow-y: scroll;
+  overflow-y: auto;
+
   &__status {
     float: right;
     height: 10px;
