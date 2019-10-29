@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from 'app';
 import AppProviders from 'contexts';
+
+import * as Sentry from '@sentry/browser';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
 
@@ -24,6 +26,10 @@ const render = () => {
     document.getElementById('root')
   );
 };
+
+Sentry.init({
+  dsn: 'https://e5e6a8412b6046599f94e02311ff16f3@sentry.io/1800803'
+});
 
 render();
 
