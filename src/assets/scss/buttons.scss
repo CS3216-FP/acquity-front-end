@@ -1,25 +1,26 @@
 @import 'assets/scss/variables';
 
-.button--cta {
-  border-radius: 15px;
-  font-size: 1.1rem;
-  font-family: $weight-heavy;
-  background-image: $action-button-bg;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-}
+.button {
+  border-radius: 10px;
+  &--cta {
+    font-size: 1.1rem;
+    font-family: $weight-heavy;
+    background-image: $action-button-bg;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  }
 
-.button--danger {
-  border-radius: 15px;
-  font-size: 1.1rem;
-  font-family: $weight-heavy;
-  background-image: $danger-button-bg;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-}
+  &--danger {
+    font-size: 1.1rem;
+    font-family: $weight-heavy;
+    background-image: $danger-button-bg;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  }
 
-.button--nav {
-  &--circle {
-    border-radius: 50% !important;
-    height: 2rem;
-    width: 2rem;
+  &--nav {
+    &--circle {
+      border-radius: 50% !important;
+      height: 2rem;
+      width: 2rem;
+    }
   }
 }

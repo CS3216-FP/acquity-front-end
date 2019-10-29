@@ -21,7 +21,7 @@ const StockFormAddon = ({ stockName, iconUrl }) => {
   );
 };
 
-const EditBidForm = ({ onSubmit, formData, type }) => {
+const EditBidForm = ({ onSubmit, formData, type, onDelete }) => {
   const { register, handleSubmit: validateInputs, errors, watch } = useForm({
     mode: 'onBlur',
     defaultValues: formData
@@ -160,7 +160,11 @@ const EditBidForm = ({ onSubmit, formData, type }) => {
           </button>
         </div>
         <div className="control">
-          <button type="button" className="button--danger button hvr-grow">
+          <button
+            onClick={onDelete}
+            type="button"
+            className="button--danger button hvr-grow"
+          >
             Delete
           </button>
         </div>

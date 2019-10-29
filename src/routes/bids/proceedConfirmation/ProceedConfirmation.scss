@@ -1,0 +1,39 @@
+@import 'assets/scss/variables';
+
+.proceedConfirmation {
+  .confirmation {
+    &__details {
+      text-align: center;
+      margin-bottom: 3rem;
+      &__label {
+        font-family: $weight-heavy;
+        padding-bottom: 0.2rem;
+      }
+
+      &__value {
+        font-family: $weight-light;
+        font-size: 1.4rem;
+        padding-bottom: 0.6rem;
+      }
+    }
+
+    &__disclaimer {
+      font-size: 0.8rem;
+      font-family: $weight-light;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    &__action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+
+      button {
+        min-width: 7rem;
+        min-height: 3rem;
+      }
+    }
+  }
+}
