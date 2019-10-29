@@ -1,9 +1,13 @@
 import React from 'react';
-import Item from './Item';
+import OrderItem from 'components/orderItem';
+import OrderItemGhost from 'components/orderItem/OrderItemGhost';
 
 import './Items.scss';
 
-const OngoingItems = ({ ongoingItems, type }) => {
+const OngoingItems = ({ ongoingItems, type, loading }) => {
+  if (loading) {
+    return <OrderItemGhost />;
+  }
   return (
     <div className="ongoingItems">
       {ongoingItems.length === 0 ? (
@@ -12,7 +16,11 @@ const OngoingItems = ({ ongoingItems, type }) => {
         </div>
       ) : (
         ongoingItems.map((item, i) => (
-          <Item key={item.id || i} item={item} type={type} />
+          <OrderItem
+            key={item.id || i}
+            item={item}
+            actionLink={{ pathname: `/${type}/edit/${item.id}`, item }}
+          />
         ))
       )}
     </div>

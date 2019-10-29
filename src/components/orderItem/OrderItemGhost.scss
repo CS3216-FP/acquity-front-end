@@ -1,0 +1,11 @@
+.item__header {
+  &__info--ghost {
+    display: block;
+    width: 5rem;
+  }
+
+  &__timestamp--ghost {
+    display: block;
+    width: 6rem;
+  }
+}
