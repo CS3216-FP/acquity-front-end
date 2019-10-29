@@ -8,19 +8,30 @@ import { moneyFormatter, toLocaleCurrency } from 'utils/moneyUtils';
 import OrderDisclaimer from '../orderDisclaimer';
 import './ProceedConfirmation.scss';
 
+const ErrorMessage = () => {
+  return (
+    <article className="message is-danger">
+      <div className="message-body">
+        Something went wrong. Have you reached your bid or offer limit?
+      </div>
+    </article>
+  );
+};
+
 const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: false,
-    isSuccessfulRequest: false
+    isSuccess: false,
+    isError: false
   });
 
   const handleConfirmClick = () => {
-    setState({ isLoading: true });
+    setState({ isLoading: true, isError: false });
     apiCall()
       .then(_response => {
         setState({ isLoading: false, isSuccess: true });
       })
-      .catch(() => setState({ isLoading: false }));
+      .catch(() => setState({ isLoading: false, isError: true }));
   };
 
   if (state.isSuccess) {
@@ -37,6 +48,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
         <div className="page__content columns is-mobile">
           <div className="column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <div className="confirmation__details">
+              {state.isError && <ErrorMessage />}
               <div className="confirmation__details__block">
                 <div className="confirmation__details__label">Company</div>
                 <div className="confirmation__details__value">

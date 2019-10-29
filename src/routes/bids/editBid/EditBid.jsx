@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useReducer } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import ApiService from 'services/apiService';
 import PageContainer from 'components/pageContainer';
@@ -74,7 +75,7 @@ const EditBid = ({ match, location, apiEndpoint, type }) => {
   }
 
   if (state.hasError) {
-    return <div>ERRORRRR</div>;
+    return <Redirect to="/" />;
   }
 
   return (
