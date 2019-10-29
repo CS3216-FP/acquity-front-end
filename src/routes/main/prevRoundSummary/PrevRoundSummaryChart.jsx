@@ -91,7 +91,7 @@ const PrevRoundSummaryChart = () => {
     }
   ];
 
-  return <Chart type="area" options={options} series={series} />;
+  return <Chart type="area" options={options} series={series} height={250} />;
 };
 
 export default PrevRoundSummaryChart;

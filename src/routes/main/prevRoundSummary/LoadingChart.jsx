@@ -78,7 +78,7 @@ const LoadingChart = () => {
     }
   };
 
-  return <Chart type="area" options={options} series={[]} />;
+  return <Chart type="area" options={options} series={[]} height={250} />;
 };
 
 export default LoadingChart;
