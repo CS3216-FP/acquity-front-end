@@ -24,8 +24,8 @@ const Main = () => {
           )}
           <OngoingItems type="bids" apiEndpoint="buy_order" />
           <div className="is-divider main__content__divider" />
-          <div className="details columns is-gapless">
-            <div className="details--left column is-one-third">
+          <div className="details columns is-gapless is-multiline">
+            <div className="details--left column is-narrow">
               <RoundDetails />
               <CurrentMarketPrice />
             </div>

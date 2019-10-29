@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 
 import 'assets/scss/modal.scss';
 
+import { toLocaleCurrency } from 'utils/moneyUtils';
 import { LANDING_URL } from 'constants/urls';
 import CurrentMarketPriceGhost from './CurrentMarketPriceGhost';
 import './CurrentMarketPrice.scss';
@@ -38,7 +39,7 @@ const CurrentMarketPrice = () => {
       <div className="details__header">Unofficial market price</div>
       <div className="currentMarketPrice__price">
         <span className="currentMarketPrice__price--price">
-          SGD {state.marketPrice}
+          {toLocaleCurrency(state.marketPrice)}
         </span>
         <span className="currentMarketPrice__price--label">/share</span>
       </div>

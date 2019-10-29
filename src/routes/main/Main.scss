@@ -17,6 +17,10 @@
 .details {
   width: 100%;
 
+  &--left {
+    margin-right: 5rem !important;
+  }
+
   &--left,
   &--right {
     margin-bottom: 1rem !important;

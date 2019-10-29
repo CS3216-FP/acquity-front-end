@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 
+import { addCommasToNumber } from 'utils';
+import { toLocaleCurrency } from 'utils/moneyUtils';
 import './PrevRoundSummary.scss';
 import PrevRoundSummaryChart from './PrevRoundSummaryChart';
 import PrevRoundSummaryGhost from './PrevRoundSummaryGhost';
@@ -33,7 +35,7 @@ const PrevRoundSummary = () => {
               Avg price per share
             </div>
             <div className="prevRoundSummary__data--value">
-              SGD {state.data.avgPrice}
+              {toLocaleCurrency(state.data.avgPrice)}
             </div>
           </div>
           <div className="prevRoundSummary__data">
@@ -41,7 +43,7 @@ const PrevRoundSummary = () => {
               Avg quantity per trade
             </div>
             <div className="prevRoundSummary__data--value">
-              {state.data.avgQuantity}
+              {addCommasToNumber(state.data.avgQuantity)}
             </div>
           </div>
         </div>

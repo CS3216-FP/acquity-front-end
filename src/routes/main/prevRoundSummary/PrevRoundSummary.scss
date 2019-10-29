@@ -1,7 +1,6 @@
 @import 'assets/scss/variables';
 
 .prevRoundSummary {
-  margin-left: 1rem;
   @media only screen and (max-width: $tablet) {
     margin-left: 0;
   }
@@ -17,6 +16,10 @@
     &--value {
       font-family: $weight-heavy;
       font-size: 2rem;
+
+      @media only screen and (max-width: $mobile) {
+        font-size: 1.5rem;
+      }
     }
   }
 }

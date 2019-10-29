@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
-import { moneyFormatter } from 'utils/moneyUtils';
+import { moneyFormatter, toLocaleCurrency } from 'utils/moneyUtils';
 
 import OrderDisclaimer from '../orderDisclaimer';
 import './ProceedConfirmation.scss';
@@ -48,7 +48,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
                   Number of shares
                 </div>
                 <div className="confirmation__details__value">
-                  {bid.numberOfShares}
+                  {Number(bid.numberOfShares).toLocaleString()}
                 </div>
               </div>
               <div className="confirmation__details__block">
@@ -58,7 +58,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
                     : 'Minimum price per share'}
                 </div>
                 <div className="confirmation__details__value">
-                  SGD {moneyFormatter(bid.price)}
+                  {toLocaleCurrency(bid.price)}
                 </div>
               </div>
               <div className="confirmation__details__block">
@@ -67,7 +67,10 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
                 </div>
                 <div className="confirmation__estimate__amount">
                   <span className="estimate__amount--currency">SGD </span>
-                  <span className="estimate__amount--amount">
+                  <span
+                    className="estimate__amount--amount"
+                    title={toLocaleCurrency(bid.price * bid.numberOfShares)}
+                  >
                     {moneyFormatter(bid.price * bid.numberOfShares)}
                   </span>
                 </div>

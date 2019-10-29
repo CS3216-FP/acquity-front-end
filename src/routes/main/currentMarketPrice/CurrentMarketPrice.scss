@@ -6,7 +6,14 @@
     font-size: 1.3rem;
 
     &--price {
-      font-size: 2.7rem;
+      font-size: 2.5rem;
+
+      @media only screen and (max-width: $mobile) {
+        font-size: 2rem;
+      }
+      @media only screen and (max-width: 380px) {
+        font-size: 1.5rem;
+      }
     }
   }
 }

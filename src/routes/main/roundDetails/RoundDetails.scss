@@ -4,11 +4,8 @@
   text-align: left;
 
   &__content {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 
-    @media only screen and (max-width: $tablet) {
-      margin-bottom: 1rem;
-    }
     .countdownDetails {
       color: $dark;
       display: flex;
@@ -33,7 +30,7 @@
             content: ':';
           }
           padding: 0 0.5rem;
-          font-size: 4rem;
+          font-size: 2.5rem;
           font-family: $weight-heavy;
 
           @media only screen and (max-width: $mobile) {
@@ -50,7 +47,7 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          min-width: 6rem;
+          min-width: 3.5rem;
 
           @media only screen and (max-width: $mobile) {
             min-width: 2rem;
@@ -60,7 +57,7 @@
           }
 
           &__value {
-            font-size: 4rem;
+            font-size: 2.5rem;
             margin-bottom: -1rem;
             font-family: $weight-heavy;
 

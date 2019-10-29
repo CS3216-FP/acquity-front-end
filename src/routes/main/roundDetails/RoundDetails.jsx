@@ -13,7 +13,6 @@ const countdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
 
   return (
     <div className="countdownDetails">
-      <div className="countdownDetails__header">Round Closing In:</div>
       <div className="countdownDetails__timer">
         <span className="countdownDetails__timer__counter">
           <span className="countdownDetails__timer__counter__value">
