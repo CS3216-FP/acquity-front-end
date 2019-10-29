@@ -49,12 +49,12 @@ const ChatItem = ({ chat, basePath }) => {
         {/* <div className={`chatlist__status ${'chatlist__status--online'}`} /> */}
         <Avatar
           className="chatlist__item__avatar column is-narrow"
-          userName={chat.dealerName}
+          userName={chat.dealerId}
           diameter="3rem"
         />
         <div className="column chatlist__item__details">
           <div className="detail__header">
-            <div className="detail__header--name">{chat.dealerName}</div>
+            <div className="detail__header--name">{chat.dealerId}</div>
             <div className="detail__header--timeago">
               <TimeAgo date={chat.createdAt * 1000} formatter={formatter} />
             </div>

@@ -2,7 +2,6 @@ import React, { useEffect, useReducer } from 'react';
 import { Link } from 'react-router-dom';
 
 import ApiService from 'services/apiService';
-import ItemsGhost from './ItemsGhost';
 import Items from './Items';
 
 import './OngoingItemsContainer.scss';
@@ -25,21 +24,19 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
     <div className="info">
       <div className="info__header">Ongoing {type}</div>
       <div className="info__content">
-        {state.isLoading ? (
-          <ItemsGhost />
-        ) : (
-          <>
-            <Items type={type} ongoingItems={state.ongoingItems} />
-            <Link to={`${type}/new`}>
-              <button
-                type="button"
-                className="button button--cta hvr-grow info__button"
-              >
-                Create New {type}
-              </button>
-            </Link>
-          </>
-        )}
+        <Items
+          type={type}
+          loading={state.isLoading}
+          ongoingItems={state.ongoingItems}
+        />
+        <Link to={`${type}/new`}>
+          <button
+            type="button"
+            className="button button--cta hvr-grow info__button"
+          >
+            Create New {type}
+          </button>
+        </Link>
       </div>
     </div>
   );

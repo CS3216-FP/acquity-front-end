@@ -1,0 +1,13 @@
+@import 'assets/scss/variables';
+
+.deleteConfirmation {
+  &__subheader {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    font-family: $weight-light;
+  }
+
+  .confirmation__action {
+    margin-top: 2rem;
+  }
+}

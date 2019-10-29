@@ -4,7 +4,7 @@ import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
 import ApiService from 'services/apiService';
 import NewBidForm from './NewBidForm';
-import Confirmation from '../confirmation';
+import Confirmation from '../proceedConfirmation';
 
 import '../style.scss';
 
