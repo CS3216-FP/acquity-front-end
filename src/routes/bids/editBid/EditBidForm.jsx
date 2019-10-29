@@ -2,6 +2,7 @@ import React from 'react';
 import useForm from 'react-hook-form';
 
 import { validateMoneyString } from 'utils/moneyUtils';
+import OrderDisclaimer from '../orderDisclaimer';
 
 const StockFormAddon = ({ stockName, iconUrl }) => {
   return (
@@ -152,7 +153,7 @@ const EditBidForm = ({ onSubmit, formData, type, onDelete }) => {
           </span>
         </div>
       </div>
-
+      <OrderDisclaimer type={type} />
       <div className="actions is-grouped field">
         <div className="control">
           <button type="submit" className="button--cta button hvr-grow">

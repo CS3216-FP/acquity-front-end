@@ -26,3 +26,18 @@
     text-transform: capitalize;
   }
 }
+
+.bidWarning {
+  .message-body {
+    text-align: center;
+    padding: 1rem;
+  }
+  &__message {
+    font-family: $weight-heavy;
+    color: #947600;
+  }
+
+  .modal__trigger {
+    color: #6d5700;
+  }
+}

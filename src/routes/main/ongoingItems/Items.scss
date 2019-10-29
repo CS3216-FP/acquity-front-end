@@ -6,11 +6,11 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-bottom: 2rem;
   width: 100%;
   &__emptyText {
     color: $blue;
     font-family: $weight-heavy;
     font-size: 1.6rem;
+    margin-bottom: 2rem;
   }
 }

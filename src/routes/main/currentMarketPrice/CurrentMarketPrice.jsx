@@ -45,12 +45,12 @@ const CurrentMarketPrice = () => {
       <button
         type="button"
         onClick={handleOpenModalClick}
-        className="currentMarketPrice__disclaimer as-non-button"
+        className="modal__trigger as-non-button"
       >
         <span className="icon">
           <i className="fas fa-question-circle" />
         </span>
-        <span className="currentMarketPrice__disclaimer--text">
+        <span className="modal__trigger--text">
           Where do we get this value from?
         </span>
       </button>
@@ -71,10 +71,10 @@ const CurrentMarketPrice = () => {
 const ModalContent = ({ handleCloseModal }) => {
   return (
     <div className="currentMarketPriceModal">
-      <div className="currentMarketPriceModal__header details__header">
+      <div className="modal__header details__header">
         Where do we get this value from?
       </div>
-      <div className="currentMarketPriceModal__text">
+      <div className="modal__text">
         The market price* of this company’s share is determined by a voluntary,
         non-profit committee made up of current and ex-employees of that
         company. The price is determined to the best of the committee’s
@@ -83,7 +83,7 @@ const ModalContent = ({ handleCloseModal }) => {
         <br />
         For more information on the team, do check out{' '}
         <a
-          className="currentMarketPriceModal__text--link"
+          className="modal__text--link"
           href={LANDING_URL}
           rel="noopener noreferrer"
           target="_blank"
@@ -91,7 +91,7 @@ const ModalContent = ({ handleCloseModal }) => {
           Our Team
         </a>{' '}
         page.
-        <div className="currentMarketPriceModal__text--subtext">
+        <div className="modal__text--subtext">
           *If no value exists, that means that there is no current committee for
           that company.
         </div>
@@ -99,7 +99,7 @@ const ModalContent = ({ handleCloseModal }) => {
       <button
         onClick={handleCloseModal}
         type="button"
-        className="delete is-large currentMarketPriceModal__close"
+        className="delete is-large modal__close"
         aria-label="close"
       />
     </div>
