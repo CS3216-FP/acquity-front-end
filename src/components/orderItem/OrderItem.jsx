@@ -2,17 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 
+import { useUser } from 'contexts/userContext';
 import { addCommasToNumber } from 'utils';
 import { moneyFormatter, toLocaleCurrency } from 'utils/moneyUtils';
 import './OrderItem.scss';
 
 const OrderItem = ({ item, actionLink = null, className = '' }) => {
+  const user = useUser();
   const lastUpdateTime = new Date(item.updatedAt * 1000);
   return (
     <div className={`item ${className}`}>
       <div className="item__header">
         <span className="item__header__info">
           <span className="item__header__info__name">{item.securityName}</span>
+          {!user.canBuy && (
+            <span className="item__header__info--pending">
+              Account pending approval
+            </span>
+          )}
         </span>
         <span className="item__header__timestamp">
           <TimeAgo

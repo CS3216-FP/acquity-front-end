@@ -10,8 +10,8 @@ import './ProceedConfirmation.scss';
 
 const ErrorMessage = () => {
   return (
-    <article className="message is-danger">
-      <div className="message-body">
+    <article className="confirmationError message is-danger">
+      <div className="confirmationError__message message-body">
         Something went wrong. Have you reached your bid or offer limit?
       </div>
     </article>
@@ -22,7 +22,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: false,
     isSuccess: false,
-    isError: false
+    isError: true
   });
 
   const handleConfirmClick = () => {
