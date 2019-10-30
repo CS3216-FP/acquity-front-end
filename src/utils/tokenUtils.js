@@ -12,8 +12,13 @@ const storeToken = response => {
   return Promise.reject(response.statusText);
 };
 
+const storeLinkedInToken = token => {
+  localStorage.setItem(TOKEN_KEY, token);
+  return Promise.resolve(null);
+};
+
 const removeToken = () => {
   localStorage.removeItem(TOKEN_KEY);
 };
 
-export default { getToken, storeToken, removeToken };
+export default { getToken, storeToken, removeToken, storeLinkedInToken };

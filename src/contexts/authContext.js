@@ -40,12 +40,14 @@ const AuthProvider = props => {
     }
   }
   const login = form => AuthService.login(form).then(reload);
+  const saveLinkedInToken = token =>
+    AuthService.saveLinkedInToken(token).then(reload);
   const register = form => AuthService.register(form).then(reload);
   const logout = () => AuthService.logout().then(reload);
 
   return (
     <AuthContext.Provider
-      value={{ data, login, logout, register }}
+      value={{ data, login, logout, register, saveLinkedInToken }}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     />

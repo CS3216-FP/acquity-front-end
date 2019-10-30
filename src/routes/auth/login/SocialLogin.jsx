@@ -10,7 +10,7 @@ const SocialLogin = () => {
     return () => {
       setSocket(socket.disconnect());
     };
-  });
+  }, [socket]);
 
   return <SocialAuth socket={socket} />;
 };

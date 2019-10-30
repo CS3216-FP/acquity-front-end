@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth } from 'contexts/authContext';
+import camelcaseKeys from 'camelcase-keys';
 
 const SocialAuth = ({ socket }) => {
-  const [disabled, disableButton] = useState(false);
-  let pop = window;
+  const { saveLinkedInToken } = useAuth();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  let popUpWindow = window;
 
   const updatedBuyerPrivileges = () => {
-    socket.on('provider', val => {
-      // TODO: Redirect to home page upon successful authentication with Linkedin
-      // eslint-disable-next-line no-console
-      console.log(val);
-      pop.close();
-      disableButton(false);
+    socket.on('provider', async val => {
+      popUpWindow.close();
+      setIsButtonDisabled(false);
+      await saveLinkedInToken(camelcaseKeys(val));
     });
   };
 
   const checkPopup = () => {
     const check = setInterval(() => {
-      if (!pop || pop.closed || pop.closed === undefined) {
+      if (popUpWindow && popUpWindow.closed) {
         clearInterval(check);
-        disableButton(false);
+        setIsButtonDisabled(false);
       }
     }, 1000);
   };
@@ -47,9 +49,10 @@ const SocialAuth = ({ socket }) => {
   };
 
   const activateBuyerPrivileges = () => {
-    disableButton(true);
+    setIsButtonDisabled(true);
+    popUpWindow = openPopup();
     checkPopup();
-    pop = openPopup();
+    // popUpWindow.close()
   };
 
   return (
@@ -57,7 +60,7 @@ const SocialAuth = ({ socket }) => {
       onClick={() => activateBuyerPrivileges()}
       className="button is-info"
       type="button"
-      disabled={disabled}
+      disabled={isButtonDisabled}
     >
       Activate Buyer Privileges
     </button>
