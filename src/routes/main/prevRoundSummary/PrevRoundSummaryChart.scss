@@ -1,7 +1,7 @@
 @import 'assets/scss/variables';
 
 .apexcharts-tooltip {
-  background: $dark !important;
+  background: $dark-transclucent !important;
   border: none !important;
   color: white;
   border-radius: 10px;
@@ -9,11 +9,10 @@
   flex-direction: column-reverse;
   align-items: center;
   padding: 0.3rem 0.5rem;
-  opacity: 0.9 !important;
 
   &-title {
     font-family: $weight-heavy;
-    background: $dark !important;
+    background: none !important;
     border: none !important;
     color: #bfc4ce;
     margin-bottom: -0.2rem;
