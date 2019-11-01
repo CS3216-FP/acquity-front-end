@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
+import { Redirect } from 'react-router-dom';
 
+import { useUser } from 'contexts/userContext';
 import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
 import ApiService from 'services/apiService';
@@ -9,6 +11,7 @@ import Confirmation from '../proceedConfirmation';
 import '../style.scss';
 
 const NewBid = ({ apiEndpoint, type }) => {
+  const user = useUser();
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     hasError: false,
@@ -29,6 +32,10 @@ const NewBid = ({ apiEndpoint, type }) => {
         setState({ isLoading: false, hasError: true });
       });
   }, []);
+
+  if (type === 'offer' && !user.canSell) {
+    return <Redirect to="/" />;
+  }
 
   if (state.showConfirm) {
     const apiCall = () =>
@@ -55,7 +62,7 @@ const NewBid = ({ apiEndpoint, type }) => {
     <PageContainer>
       <div className="bidPage page">
         <PageHeader headerText={`${type} Information`} />
-        <div className="page__content columns is-mobile">
+        <div className="page__content columns is-mobile is-gapless">
           <div className="form-wrapper column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <NewBidForm
               isLoading={state.isLoading}

@@ -11,6 +11,20 @@ const moneyFormatter = num => {
   return parseFloat(num).toFixed(2);
 };
 
+const toLocaleCurrency = (value, isSgdPrefixed = true) => {
+  // On purpose en-US locale so it will be appended with "SGD" instead of "$"
+  if (isSgdPrefixed) {
+    return Number(value).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'SGD'
+    });
+  }
+  return Number(value).toLocaleString('en-SG', {
+    style: 'currency',
+    currency: 'SGD'
+  });
+};
+
 const validateMoneyString = money => {
   if (money) {
     if (typeof money === 'number') {
@@ -21,4 +35,4 @@ const validateMoneyString = money => {
   return false;
 };
 
-export { moneyFormatter, validateMoneyString };
+export { moneyFormatter, validateMoneyString, toLocaleCurrency };

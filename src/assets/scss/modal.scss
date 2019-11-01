@@ -1,0 +1,80 @@
+// Note: This scss file must be imported when using 'react-modal'
+@import 'assets/scss/variables';
+
+.ReactModal {
+  &__Body--open,
+  &__Html--open {
+    overflow: hidden;
+  }
+}
+
+.modal {
+  &__content {
+    position: relative;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    border-radius: 15px;
+    outline: none;
+    padding: 2rem;
+    margin: auto;
+    max-height: calc(100vh - 40px);
+    width: 100%;
+
+    @media only screen and (min-width: $tablet) {
+      width: 50rem;
+    }
+  }
+  &__overlay {
+    display: flex;
+    z-index: 999;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(89, 95, 111, 0.5);
+  }
+
+  &__header {
+    font-size: 1.5rem;
+  }
+
+  &__text {
+    font-family: $weight-light;
+    line-height: 2rem;
+
+    &--subtext {
+      font-size: 0.8rem;
+    }
+
+    &--link {
+      font-family: $weight-light;
+      text-decoration: underline;
+      color: $dark;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2rem;
+    font-family: $weight-light;
+    color: $blue;
+
+    .icon {
+      font-size: 1.5rem;
+    }
+
+    &--text {
+      margin-left: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+}

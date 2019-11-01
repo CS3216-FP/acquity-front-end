@@ -13,4 +13,8 @@ const getCurrentPathWithoutParam = path => {
   return path.slice(0, path.lastIndexOf('/')) || path;
 };
 
-export { getInitials, getCurrentPathWithoutParam };
+const addCommasToNumber = value => {
+  return Number(value).toLocaleString('en-SG');
+};
+
+export { getInitials, getCurrentPathWithoutParam, addCommasToNumber };

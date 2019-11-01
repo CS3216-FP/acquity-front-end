@@ -4,6 +4,7 @@ import useForm from 'react-hook-form';
 
 import { validateMoneyString } from 'utils/moneyUtils';
 import InputDropdownSelect from 'components/inputDropdownSelect';
+import OrderDisclaimer from '../orderDisclaimer';
 
 const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
   const {
@@ -172,7 +173,7 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
           </span>
         </div>
       </div>
-
+      <OrderDisclaimer type={type} />
       <div className="actions is-grouped field">
         <div className="control">
           <button type="submit" className="button--cta button hvr-grow">

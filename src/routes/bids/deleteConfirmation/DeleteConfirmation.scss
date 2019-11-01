@@ -10,4 +10,12 @@
   .confirmation__action {
     margin-top: 2rem;
   }
+
+  .page__content {
+    margin: 2rem;
+
+    @media only screen and (max-width: $tablet) {
+      margin: 1rem;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useReducer } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import ApiService from 'services/apiService';
 import PageContainer from 'components/pageContainer';
@@ -74,14 +75,14 @@ const EditBid = ({ match, location, apiEndpoint, type }) => {
   }
 
   if (state.hasError) {
-    return <div>ERRORRRR</div>;
+    return <Redirect to="/" />;
   }
 
   return (
     <PageContainer>
       <div className="bidPage page">
         <PageHeader headerText={`Edit ${type}`} />
-        <div className="page__content columns is-mobile">
+        <div className="page__content columns is-mobile is-gapless">
           <div className="form-wrapper column is-full-mobile is-four-fifths-tablet is-half-desktop">
             {state.isLoading ? (
               <div>Loading</div>

@@ -17,13 +17,18 @@
   }
 
   &__content {
-    margin: 3rem 2rem !important;
+    margin: 3rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     @media only screen and (max-width: $tablet) {
+      margin: 2rem 1rem;
+      margin-bottom: 2rem !important;
+    }
+
+    @media only screen and (max-width: $mobile) {
       margin: auto 1rem;
       margin-bottom: 2rem !important;
     }

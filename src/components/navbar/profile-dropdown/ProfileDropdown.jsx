@@ -15,22 +15,22 @@ const ProfileDropdown = () => {
     <div className="profile-dropdown navbar-item has-dropdown is-hoverable">
       <button type="button" className="navbar-link">
         <Avatar
+          className={`${user.canBuy ? '' : 'avatar--unapproved'}`}
           userName={user.fullName}
           profileImageUrl={user.profileImageUrl}
         />
       </button>
       <div className="navbar-dropdown is-right">
-        <Link className="navbar-item" to="/profile">
-          <span className="icon">
-            <i className="fas fa-user" />
-          </span>
-          Account
-        </Link>
-        <hr className="navbar-divider" />
-        <Link className="navbar-item" to="/settings/profile">
-          <span className="icon">
-            <i className="fas fa-cog" />
-          </span>
+        {!user.canBuy && (
+          <>
+            <div className="dropdown-item profile-dropdown__pending">
+              Your account is still pending approval. Bids you make will not be
+              included in the round until you are verified.
+            </div>
+            <hr className="navbar-divider" />
+          </>
+        )}
+        <Link className="navbar-item font-light" to="/settings/profile">
           Account Settings
         </Link>
         <button
@@ -39,9 +39,6 @@ const ProfileDropdown = () => {
           className="navbar-item"
           onClick={logout}
         >
-          <span className="icon">
-            <i className="fas fa-door-open" />
-          </span>
           Log Out
         </button>
       </div>

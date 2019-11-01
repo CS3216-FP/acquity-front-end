@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from 'app';
@@ -10,6 +11,8 @@ import * as serviceWorker from './serviceWorker';
 import './index.scss';
 
 import store from './app/store';
+
+Modal.setAppElement('#root');
 
 const render = () => {
   ReactDOM.render(

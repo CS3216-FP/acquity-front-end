@@ -1,0 +1,34 @@
+@import 'assets/scss/variables';
+
+.apexcharts-tooltip {
+  background: $dark-transclucent !important;
+  border: none !important;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 0.3rem 0.5rem;
+
+  &-title {
+    font-family: $weight-heavy;
+    background: none !important;
+    border: none !important;
+    color: #bfc4ce;
+    margin-bottom: -0.2rem;
+  }
+  &-marker {
+    display: none;
+  }
+  &-text {
+    font-family: $weight-heavy;
+    font-size: 1rem !important;
+    margin-bottom: -1rem;
+  }
+}
+
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label {
+  fill: #bfc4ce;
+  font-family: $weight-heavy;
+}

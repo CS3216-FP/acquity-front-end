@@ -2,6 +2,9 @@
 @import 'assets/scss/form';
 
 .bidPage {
+  .page__content {
+    padding: 1rem;
+  }
   .form {
     &__field {
       input {

@@ -1,4 +1,7 @@
+@import 'assets/scss/variables';
+
 .avatar {
+  font-family: $weight-heavy;
   display: flex;
   align-items: center;
 
@@ -24,7 +27,6 @@
     border: 2px solid rgba(36, 46, 76, 0.1);
     color: #9b9aa9;
     text-transform: uppercase;
-    font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
 

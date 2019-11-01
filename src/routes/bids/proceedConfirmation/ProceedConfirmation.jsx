@@ -1,25 +1,37 @@
 import React, { useReducer } from 'react';
 import { Redirect } from 'react-router-dom';
+
 import PageContainer from 'components/pageContainer';
-
 import PageHeader from 'components/pageHeader';
-import { moneyFormatter } from 'utils/moneyUtils';
+import { moneyFormatter, toLocaleCurrency } from 'utils/moneyUtils';
 
+import OrderDisclaimer from '../orderDisclaimer';
 import './ProceedConfirmation.scss';
+
+const ErrorMessage = () => {
+  return (
+    <article className="confirmationError message is-danger">
+      <div className="confirmationError__message message-body">
+        Something went wrong. Have you reached your bid or offer limit?
+      </div>
+    </article>
+  );
+};
 
 const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: false,
-    isSuccessfulRequest: false
+    isSuccess: false,
+    isError: true
   });
 
   const handleConfirmClick = () => {
-    setState({ isLoading: true });
+    setState({ isLoading: true, isError: false });
     apiCall()
       .then(_response => {
         setState({ isLoading: false, isSuccess: true });
       })
-      .catch(() => setState({ isLoading: false }));
+      .catch(() => setState({ isLoading: false, isError: true }));
   };
 
   if (state.isSuccess) {
@@ -33,43 +45,50 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
           headerText={`${type} Information`}
           handleBackClick={handleBackClick}
         />
-        <div className="page__content columns is-mobile">
+        <div className="page__content columns is-mobile is-gapless">
           <div className="column is-full-mobile is-four-fifths-tablet is-half-desktop">
             <div className="confirmation__details">
-              <div className="confirmation__details__label">Company</div>
-              <div className="confirmation__details__value">
-                {bid.securityName}
+              {state.isError && <ErrorMessage />}
+              <div className="confirmation__details__block">
+                <div className="confirmation__details__label">Company</div>
+                <div className="confirmation__details__value">
+                  {bid.securityName}
+                </div>
               </div>
-              <div className="confirmation__details__label">
-                Number of shares
+              <div className="confirmation__details__block">
+                <div className="confirmation__details__label">
+                  Number of shares
+                </div>
+                <div className="confirmation__details__value">
+                  {Number(bid.numberOfShares).toLocaleString()}
+                </div>
               </div>
-              <div className="confirmation__details__value">
-                {bid.numberOfShares}
+              <div className="confirmation__details__block">
+                <div className="confirmation__details__label">
+                  {type === 'bid'
+                    ? 'Maximum price per share'
+                    : 'Minimum price per share'}
+                </div>
+                <div className="confirmation__details__value">
+                  {toLocaleCurrency(bid.price)}
+                </div>
               </div>
-              <div className="confirmation__details__label">
-                {type === 'bid'
-                  ? 'Maximum price per share'
-                  : 'Minimum price per share'}
-              </div>
-              <div className="confirmation__details__value">
-                SGD {moneyFormatter(bid.price)}
-              </div>
-              <div className="confirmation__details__label">
-                Estimated total
-              </div>
-              <div className="confirmation__estimate__amount confirmation__details__value">
-                <span className="estimate__amount--currency">SGD</span>
-                <span className="estimate__amount--amount">
-                  {moneyFormatter(bid.price * bid.numberOfShares)}
-                </span>
+              <div className="confirmation__details__block">
+                <div className="confirmation__details__label">
+                  Estimated total
+                </div>
+                <div className="confirmation__estimate__amount">
+                  <span className="estimate__amount--currency">SGD </span>
+                  <span
+                    className="estimate__amount--amount"
+                    title={toLocaleCurrency(bid.price * bid.numberOfShares)}
+                  >
+                    {moneyFormatter(bid.price * bid.numberOfShares)}
+                  </span>
+                </div>
               </div>
             </div>
-            <div className="confirmation__disclaimer">
-              {/* TODO: Update copywriting of disclaimer */}
-              Placing this {type} does not guarantee a match nor the final
-              price. It is up the buyers&apos; and sellers&apos; mutual
-              agreement after discussion.
-            </div>
+            <OrderDisclaimer type={type} />
             <div className="confirmation__action">
               <button
                 onClick={handleConfirmClick}

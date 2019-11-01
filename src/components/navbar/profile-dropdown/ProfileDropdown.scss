@@ -2,11 +2,22 @@
 @import 'bulma/sass/components/navbar';
 
 .profile-dropdown {
+  font-family: $weight-light;
+  &__pending {
+    color: $yellow-dark;
+  }
   .is-container {
     border-top: none;
   }
   .avatar {
     margin-right: 1rem;
+
+    &--unapproved {
+      .initials {
+        border-color: $yellow-dark;
+        color: $yellow-dark;
+      }
+    }
   }
   button.navbar-link,
   button.navbar-item {

@@ -33,9 +33,9 @@ const DeleteConfirmation = ({ bid, handleBackClick, apiCall, type }) => {
           headerText="Confirm deletion"
           handleBackClick={handleBackClick}
         />
-        <div className="page__content columns is-mobile">
+        <div className="page__content columns is-mobile is-gapless">
           <div className="deleteConfirmation__subheader">
-            Are you sure you wish to delete this {bid.securityName} offer?
+            Are you sure you wish to delete this {bid.securityName} {type}?
           </div>
           <OrderItem item={bid} type={type} />
           <div className="confirmation__action">

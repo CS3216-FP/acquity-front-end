@@ -2,16 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 
-import { moneyFormatter } from 'utils/moneyUtils';
+import { useUser } from 'contexts/userContext';
+import { addCommasToNumber } from 'utils';
+import { moneyFormatter, toLocaleCurrency } from 'utils/moneyUtils';
 import './OrderItem.scss';
 
-const OrderItem = ({ item, actionLink = null }) => {
+const OrderItem = ({ item, actionLink = null, className = '' }) => {
+  const user = useUser();
   const lastUpdateTime = new Date(item.updatedAt * 1000);
   return (
-    <div className="item">
+    <div className={`item ${className}`}>
       <div className="item__header">
         <span className="item__header__info">
           <span className="item__header__info__name">{item.securityName}</span>
+          {!user.canBuy && (
+            <span className="item__header__info--pending">
+              Account pending approval
+            </span>
+          )}
         </span>
         <span className="item__header__timestamp">
           <TimeAgo
@@ -20,33 +28,31 @@ const OrderItem = ({ item, actionLink = null }) => {
           />
         </span>
       </div>
-      <div className="columns is-mobile">
-        <div className="item__content column">
+      <div className="item__content columns is-mobile">
+        <div className="column">
           <div className="columns">
             <div className="item__details column">
               <span className="item__details__label">Quantity:</span>
               <span className="item__details__value">
-                {parseFloat(item.numberOfShares).toLocaleString()}
+                {addCommasToNumber(item.numberOfShares)}
               </span>
             </div>
             <div className="item__details column">
               <span className="item__details__label">Price:</span>
               <span
                 className="item__details__value"
-                title={`$S ${item.price.toLocaleString()}`}
+                title={toLocaleCurrency(item.price)}
               >
-                S$ {moneyFormatter(item.price)}
+                {toLocaleCurrency(item.price)}
               </span>
             </div>
             <div className="item__details column">
               <span className="item__details__label">Estimated total:</span>
               <span
                 className="item__details__value"
-                title={`$S ${(
-                  item.price * item.numberOfShares
-                ).toLocaleString()}`}
+                title={toLocaleCurrency(item.price * item.numberOfShares)}
               >
-                S$ {moneyFormatter(item.price * item.numberOfShares)}
+                SGD {moneyFormatter(item.price * item.numberOfShares)}
               </span>
             </div>
           </div>

@@ -7,8 +7,8 @@
   border-radius: 10px;
   padding: 1rem;
 
-  &:not(:last-child) {
-    margin-bottom: 1rem;
+  &:first-child:not(:last-child) {
+    margin-right: 1.5rem;
   }
 
   &__header {
@@ -22,9 +22,21 @@
     &__info {
       font-size: 1.2rem;
       display: flex;
+      align-items: center;
       flex-flow: row wrap;
       flex-wrap: wrap;
       margin-right: 1rem;
+
+      &__name {
+        margin-right: 1.5rem;
+      }
+
+      &--pending {
+        font-family: $weight-light;
+        font-size: 0.9rem;
+        text-transform: capitalize;
+        color: $red-dark;
+      }
     }
 
     &__timestamp {
@@ -36,6 +48,7 @@
 
   &__content {
     text-align: start;
+    height: 100%;
 
     .columns {
       display: flex;
@@ -70,5 +83,10 @@
 
   &__actionButton {
     align-self: flex-end;
+    margin-bottom: 0.75rem;
+
+    @media only screen and (max-width: $tablet) {
+      margin-bottom: 0;
+    }
   }
 }

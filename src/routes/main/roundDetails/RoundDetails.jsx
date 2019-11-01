@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer } from 'react';
-import { Link } from 'react-router-dom';
 import Countdown, { zeroPad } from 'react-countdown-now';
 
 import ApiService from 'services/apiService';
@@ -14,7 +13,6 @@ const countdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
 
   return (
     <div className="countdownDetails">
-      <div className="countdownDetails__header">Round Closing In:</div>
       <div className="countdownDetails__timer">
         <span className="countdownDetails__timer__counter">
           <span className="countdownDetails__timer__counter__value">
@@ -59,7 +57,6 @@ const RoundDetails = () => {
   });
 
   // TODO: add catch statement to show error,
-  // TODO: add animation for loading
   useEffect(() => {
     ApiService.get('round/active').then(res => {
       // Multiply by 1000 since converting timestamp to milliseconds
@@ -74,6 +71,7 @@ const RoundDetails = () => {
 
   return (
     <div className="roundDetails">
+      <div className="details__header">Round closing in</div>
       <div className="roundDetails__content">
         {state.isLoading ? (
           <RoundDetailsGhost />
@@ -84,9 +82,6 @@ const RoundDetails = () => {
           />
         )}
       </div>
-      <Link to="/previous-round/summary">
-        View summary of the previous round &gt;
-      </Link>
     </div>
   );
 };
