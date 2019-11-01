@@ -4,7 +4,7 @@ import {
   updateChatListAction,
   updateChatRoomAction,
   updateNewMessageAction
-} from '../../routes/chat/ChatDux';
+} from 'reducers/ChatDux';
 import Socket from './socketSetup';
 
 export const getChatList = () => {

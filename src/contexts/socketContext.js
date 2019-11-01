@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
+
+import { fetchChatListAction } from 'reducers/ChatDux';
 import {
   socketConnect,
   socketDisconnect
 } from 'services/SocketService/socketSetup';
 import SocketResponseService from 'services/SocketService/socketResponseService';
 import { useDispatch } from 'react-redux';
-import { fetchChatListAction } from 'routes/chat/ChatDux';
 
 const SocketContext = React.createContext();
 

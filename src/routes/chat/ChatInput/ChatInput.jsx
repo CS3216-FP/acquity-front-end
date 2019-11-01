@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { fetchNewMessageAction } from 'reducers/ChatDux';
 import './ChatInput.scss';
-import { fetchNewMessageAction } from '../ChatDux';
 
 const ChatInput = () => {
   const dispatch = useDispatch();

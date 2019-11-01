@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux-starter-kit';
-import chat from 'routes/chat/ChatDux';
+import chat from 'reducers/ChatDux';
+import securities from 'reducers/SecuritiesDux';
 
 const rootReducer = combineReducers({
-  chat
+  chat,
+  securities
 });
 
 export default rootReducer;

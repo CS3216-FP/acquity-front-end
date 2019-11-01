@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import TimeAgo from 'react-timeago';
 
 import Avatar from 'components/avatar';
-import { fetchChatRoomAction } from '../ChatDux';
+import { fetchChatRoomAction } from 'reducers/ChatDux';
 import './ChatItem.scss';
 
 const ChatItem = ({ chat, basePath }) => {
