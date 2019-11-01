@@ -13,11 +13,14 @@ const storeToken = response => {
 };
 
 const storeLinkedInToken = response => {
-  if (response.accessToken) {
-    localStorage.setItem(TOKEN_KEY, response.accessToken);
-    return Promise.resolve(null);
+  if (response.status === 200) {
+    if (response.data.accessToken) {
+      console.log(response.data.accessToken);
+      localStorage.setItem(TOKEN_KEY, response.data[TOKEN_KEY]);
+      return Promise.resolve(null);
+    }
   }
-  return Promise.reject(response.error);
+  return Promise.reject(response.statusText);
 };
 
 const removeToken = () => {

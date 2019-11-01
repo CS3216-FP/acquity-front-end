@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-import SocialAuth from './SocialAuth';
+import React from 'react';
+import LinkedinConstant from './linkedinConstant';
 
 const SocialLogin = () => {
-  const [socket, setSocket] = useState(
-    io(`${process.env.REACT_APP_BACKEND_API}`)
+  const linkedInAuth = () => {
+    window.open(LinkedinConstant.url, '_self');
+  };
+  return (
+    <button
+      onClick={() => linkedInAuth()}
+      className="button is-info"
+      type="button"
+    >
+      Activate Buyer Privileges
+    </button>
   );
-  useEffect(() => {
-    return () => {
-      setSocket(socket.disconnect());
-    };
-  }, [socket]);
-
-  return <SocialAuth socket={socket} />;
 };
 
 export default SocialLogin;
