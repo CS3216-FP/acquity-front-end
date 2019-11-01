@@ -9,6 +9,7 @@ import {
 import Login from 'routes/auth/login';
 import Signup from 'routes/auth/signup';
 import ForgotPassword from 'routes/auth/forgot-password';
+import LoginCallback from 'routes/auth/login/LoginCallback';
 
 import Navbar from 'components/navbar';
 
@@ -26,6 +27,9 @@ const UnauthenticatedApp = () => {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/auth/callback">
+            <LoginCallback />
           </Route>
           <Route path="/" render={() => <Redirect to="/login" />} />
         </Switch>
