@@ -1,9 +1,16 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import pluralize from 'pluralize';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useUser } from 'contexts/userContext';
 import ApiService from 'services/apiService';
+import {
+  updateSecurities,
+  setCurrentSelectedBuySecurity,
+  setCurrentSelectedSellSecurity
+} from 'reducers/SecuritiesDux';
 import { isUnapprovedBuyer } from 'utils/userUtils';
+import InputDropdownSelect from 'components/inputDropdownSelect';
 import AccountApprovalModal from 'components/modal/AccountApprovalModal';
 import 'assets/scss/modal.scss';
 
@@ -53,24 +60,62 @@ const BidWarning = () => {
 
 const OngoingItemsContainer = ({ type, apiEndpoint }) => {
   const user = useUser();
+
+  const dispatch = useDispatch();
+  const {
+    securities,
+    currentSelectedBuySecurity,
+    currentSelectedSellSecurity
+  } = useSelector(state => state.securities);
+
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     ongoingItems: []
   });
 
+  const handleSelectSecurity = value => {
+    if (type === 'bids') {
+      dispatch(setCurrentSelectedBuySecurity(value[0]));
+    } else {
+      dispatch(setCurrentSelectedSellSecurity(value[0]));
+    }
+  };
+
   useEffect(() => {
-    ApiService.get(apiEndpoint).then(res => {
-      const ongoingItems = res.data;
-      ongoingItems.sort((a, b) => b.updatedAt - a.updatedAt);
-      setState({ ongoingItems, isLoading: false });
-    });
-  }, [type, apiEndpoint]);
+    Promise.all([ApiService.get(apiEndpoint), ApiService.get('security/')])
+      .then(responses => {
+        const ongoingItems = responses[0].data;
+        ongoingItems.sort((a, b) => b.updatedAt - a.updatedAt);
+        dispatch(updateSecurities(responses[1].data));
+        setState({ ongoingItems, isLoading: false });
+      })
+      .catch(() => {
+        setState({ isLoading: false, hasError: true });
+      });
+  }, [type, apiEndpoint, dispatch]);
 
   return (
     <div className="info">
       <div className="info__header">
-        Ongoing {pluralize(type, 1)} for{' '}
-        <span className="info__header--company">Grab</span>{' '}
+        <span className="header--pretext">
+          Ongoing {pluralize(type, 1)} for&nbsp;
+        </span>
+        <span className="info__header--company">
+          <InputDropdownSelect
+            options={securities}
+            useDefaultStyles={false}
+            valueField="id"
+            labelField="name"
+            iconField="iconUrl"
+            isLoading={state.isLoading}
+            values={
+              type === 'bids'
+                ? [currentSelectedBuySecurity]
+                : [currentSelectedSellSecurity]
+            }
+            onChange={handleSelectSecurity}
+          />
+        </span>{' '}
       </div>
       {isUnapprovedBuyer(user) && type === 'bids' && <BidWarning />}
       <div className="info__content">

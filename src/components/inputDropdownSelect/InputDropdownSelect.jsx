@@ -94,14 +94,17 @@ const InputDropdownSelect = ({
   labelField,
   iconField,
   handleBlur,
-  values = []
+  values = [],
+  useDefaultStyles = true
 }) => {
   return (
     <Select
       contentRenderer={customContentRenderer}
       dropdownRenderer={customDropdownRenderer}
       loadingRenderer={customLoadingRenderer}
-      className={`dropdown input__dropdown ${isError ? 'is-danger' : ''}`}
+      className={`dropdown input__dropdown ${
+        useDefaultStyles ? 'default' : ''
+      } ${isError ? 'is-danger' : ''}`}
       loading={isLoading}
       valueField={valueField}
       labelField={labelField}
