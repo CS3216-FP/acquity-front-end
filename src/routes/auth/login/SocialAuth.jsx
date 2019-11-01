@@ -52,7 +52,6 @@ const SocialAuth = ({ socket }) => {
     setIsButtonDisabled(true);
     popUpWindow = openPopup();
     checkPopup();
-    // popUpWindow.close()
   };
 
   return (

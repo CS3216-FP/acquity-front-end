@@ -12,9 +12,12 @@ const storeToken = response => {
   return Promise.reject(response.statusText);
 };
 
-const storeLinkedInToken = token => {
-  localStorage.setItem(TOKEN_KEY, token);
-  return Promise.resolve(null);
+const storeLinkedInToken = response => {
+  if (response.accessToken) {
+    localStorage.setItem(TOKEN_KEY, response.accessToken);
+    return Promise.resolve(null);
+  }
+  return Promise.reject(response.error);
 };
 
 const removeToken = () => {

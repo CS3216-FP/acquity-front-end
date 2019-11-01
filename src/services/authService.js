@@ -6,10 +6,6 @@ const logout = () => {
   return Promise.resolve();
 };
 
-const saveLinkedInToken = token => {
-  return TokenUtils.storeLinkedInToken(token.accessToken);
-};
-
 const login = async ({ email, password }) => {
   const response = await ApiService.post('auth', { email, password });
   return TokenUtils.storeToken(response);
@@ -45,4 +41,4 @@ const getUser = async () => {
   return Promise.reject(response.statusText);
 };
 
-export default { login, register, logout, getUser, saveLinkedInToken };
+export default { login, register, logout, getUser };
