@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import { useAuth } from 'contexts/authContext';
-import AuthContainer from 'components/authContainer';
 
 import '../styles.scss';
 
@@ -13,7 +12,7 @@ const LoginCallback = ({ history }) => {
     saveLinkedInToken({ code });
     history.push('/login');
   }
-  return <AuthContainer>hi</AuthContainer>;
+  return <div>Callback</div>;
 };
 
 export default withRouter(LoginCallback);
