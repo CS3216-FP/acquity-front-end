@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
+import { useSelector } from 'react-redux';
 
+import ApiService from 'services/apiService';
 import { addCommasToNumber } from 'utils';
 import { toLocaleCurrency } from 'utils/moneyUtils';
 import './PrevRoundSummary.scss';
@@ -7,19 +9,23 @@ import PrevRoundSummaryChart from './PrevRoundSummaryChart';
 import PrevRoundSummaryGhost from './PrevRoundSummaryGhost';
 
 const PrevRoundSummary = () => {
+  const { currentSelectedBuySecurity } = useSelector(state => state.securities);
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     data: {}
   });
 
   useEffect(() => {
-    setTimeout(() => {
+    // TODO: Get chart timeline from backend when it's available
+    ApiService.get(
+      `/round/previous/statistics/${currentSelectedBuySecurity.id}`
+    ).then(response => {
       setState({
         isLoading: false,
-        data: { avgPrice: '6.42', avgQuantity: '3000' }
+        data: response.data
       });
-    }, 250);
-  }, []);
+    });
+  }, [currentSelectedBuySecurity.id]);
 
   if (state.isLoading) {
     return <PrevRoundSummaryGhost />;
@@ -35,7 +41,9 @@ const PrevRoundSummary = () => {
               Avg price per share
             </div>
             <div className="prevRoundSummary__data--value">
-              {toLocaleCurrency(state.data.avgPrice)}
+              {state.data
+                ? toLocaleCurrency(state.data.averagePrice)
+                : 'No data'}
             </div>
           </div>
           <div className="prevRoundSummary__data">
@@ -43,7 +51,9 @@ const PrevRoundSummary = () => {
               Avg quantity per trade
             </div>
             <div className="prevRoundSummary__data--value">
-              {addCommasToNumber(state.data.avgQuantity)}
+              {state.data
+                ? addCommasToNumber(state.data.averageQuantity)
+                : 'No data'}
             </div>
           </div>
         </div>

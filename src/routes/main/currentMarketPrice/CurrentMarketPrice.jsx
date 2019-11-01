@@ -1,4 +1,5 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
+import { useSelector } from 'react-redux';
 import Modal from 'react-modal';
 
 import 'assets/scss/modal.scss';
@@ -9,18 +10,10 @@ import CurrentMarketPriceGhost from './CurrentMarketPriceGhost';
 import './CurrentMarketPrice.scss';
 
 const CurrentMarketPrice = () => {
+  const { currentSelectedBuySecurity } = useSelector(state => state.securities);
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
-    isLoading: true,
-    isModalOpen: false,
-    marketPrice: null
+    isModalOpen: false
   });
-
-  // TODO: hook up to backend to get current selected security's current market price.
-  useEffect(() => {
-    setTimeout(() => {
-      setState({ isLoading: false, marketPrice: '999.99' });
-    }, 250);
-  }, []);
 
   const handleOpenModalClick = () => {
     setState({ isModalOpen: true });
@@ -39,7 +32,9 @@ const CurrentMarketPrice = () => {
       <div className="details__header">Unofficial market price</div>
       <div className="currentMarketPrice__price">
         <span className="currentMarketPrice__price--price">
-          {toLocaleCurrency(state.marketPrice)}
+          {currentSelectedBuySecurity && currentSelectedBuySecurity.marketPrice
+            ? toLocaleCurrency(currentSelectedBuySecurity.marketPrice)
+            : 'SGD ?.??'}
         </span>
         <span className="currentMarketPrice__price--label">/share</span>
       </div>

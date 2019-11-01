@@ -22,7 +22,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: false,
     isSuccess: false,
-    isError: true
+    isError: false
   });
 
   const handleConfirmClick = () => {

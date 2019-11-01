@@ -7,7 +7,9 @@
 
   &__data {
     margin-bottom: 0.5rem;
+    margin-right: 1rem;
     &--label {
+      white-space: nowrap;
       line-height: 1.8rem;
       font-family: $weight-light;
       font-size: 0.9rem;
@@ -16,6 +18,7 @@
     &--value {
       font-family: $weight-heavy;
       font-size: 2rem;
+      white-space: nowrap;
 
       @media only screen and (max-width: $mobile) {
         font-size: 1.5rem;
