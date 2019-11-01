@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import Login from 'routes/auth/login';
-import LoginCallback from 'routes/auth/login/LoginCallback';
 import Signup from 'routes/auth/signup';
 import ForgotPassword from 'routes/auth/forgot-password';
 
@@ -27,9 +26,6 @@ const UnauthenticatedApp = () => {
           </Route>
           <Route path="/login">
             <Login />
-          </Route>
-          <Route path="/auth/callback">
-            <LoginCallback />
           </Route>
           <Route path="/" render={() => <Redirect to="/login" />} />
         </Switch>

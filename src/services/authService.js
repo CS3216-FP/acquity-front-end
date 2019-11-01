@@ -11,6 +11,11 @@ const login = async ({ email, password }) => {
   return TokenUtils.storeToken(response);
 };
 
+const fetchLinkedInToken = async ({ code }) => {
+  const response = await ApiService.post('auth/login', { code });
+  return TokenUtils.storeToken(response);
+};
+
 const register = async ({ email, password, fullName }) => {
   const response = await ApiService.post('user/', {
     email,
@@ -41,4 +46,4 @@ const getUser = async () => {
   return Promise.reject(response.statusText);
 };
 
-export default { login, register, logout, getUser };
+export default { login, register, logout, getUser, fetchLinkedInToken };

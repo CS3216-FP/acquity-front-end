@@ -3,7 +3,6 @@ import { useAsync } from 'react-async';
 
 import AuthService from 'services/authService';
 import FullPageSpinner from 'components/FullPageSpinner';
-import TokenUtils from 'utils/tokenUtils';
 
 const AuthContext = React.createContext();
 
@@ -40,8 +39,8 @@ const AuthProvider = props => {
     }
   }
   const login = form => AuthService.login(form).then(reload);
-  const saveLinkedInToken = token =>
-    TokenUtils.storeLinkedInToken(token).then(reload);
+  const saveLinkedInToken = code =>
+    AuthService.fetchLinkedInToken(code).then(reload);
   const register = form => AuthService.register(form).then(reload);
   const logout = () => AuthService.logout().then(reload);
 
