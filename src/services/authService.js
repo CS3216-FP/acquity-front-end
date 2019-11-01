@@ -31,14 +31,21 @@ const getUser = async () => {
     return Promise.resolve(null);
   }
   // Check with backend to see if key is still valid
-  const response = await ApiService.get('auth/me');
-
-  if (response.status === 200) {
-    const { me: userData } = response.data;
-    return userData;
+  let response;
+  try {
+    response = await ApiService.get('auth/me');
+    if (response.ok) {
+      const { me: userData } = response.data;
+      return userData;
+    }
+    throw new Error({
+      status: response.statusText,
+      message: response.statusText
+    });
+  } catch (error) {
+    logout();
+    return Promise.reject(error);
   }
-  logout();
-  return Promise.reject(response.statusText);
 };
 
 export default { login, register, logout, getUser };
