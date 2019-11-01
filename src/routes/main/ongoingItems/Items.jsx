@@ -9,7 +9,13 @@ import './Items.scss';
 
 const OngoingItems = ({ ongoingItems, type, loading }) => {
   if (loading) {
-    return <OrderItemGhost />;
+    return (
+      <div className="ongoingItems">
+        <div className="columns ongoingItems__orders is-marginless">
+          <OrderItemGhost />
+        </div>
+      </div>
+    );
   }
 
   return (

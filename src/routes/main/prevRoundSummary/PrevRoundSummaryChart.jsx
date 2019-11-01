@@ -9,7 +9,7 @@ const PrevRoundSummaryChart = ({ data = [] }) => {
       text: 'Not enough data to display yet',
       style: {
         color: '#1f4190',
-        fontSize: '1.5rem',
+        fontSize: window.innerWidth < 426 ? '1rem' : '1.5rem',
         fontFamily: 'Nexa Bold'
       }
     },

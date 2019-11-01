@@ -5,7 +5,7 @@ import './OrderItemGhost.scss';
 
 const OrderItemGhost = () => {
   return (
-    <div className="item">
+    <div className="ghost item">
       <div className="item__header">
         <span className="item__header__info item__header__info--ghost">
           <Skeleton />
@@ -37,7 +37,7 @@ const OrderItemGhost = () => {
             </div>
           </div>
         </div>
-        <div className="column is-narrow item__actionButton">
+        <div className="column is-narrow item__actionButton item__actionButton--ghost">
           <Skeleton circle height="2rem" width="2rem" />
         </div>
       </div>

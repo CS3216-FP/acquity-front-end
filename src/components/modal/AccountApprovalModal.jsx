@@ -6,6 +6,7 @@ const AccountApprovalModal = ({ isOpen, handleClose }) => {
     <Modal
       className="modal__content"
       overlayClassName="modal__overlay"
+      closeTimeoutMS={200}
       isOpen={isOpen}
       onRequestClose={handleClose}
       contentLabel="Why does my account need to be approved modal"

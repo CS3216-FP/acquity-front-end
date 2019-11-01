@@ -9,7 +9,7 @@ const LoadingChart = () => {
       text: 'Loading',
       style: {
         color: '#bfc4ce',
-        fontSize: '1.5rem',
+        fontSize: window.innerWidth < 426 ? '1rem' : '1.5rem',
         fontFamily: 'Nexa Bold'
       }
     },

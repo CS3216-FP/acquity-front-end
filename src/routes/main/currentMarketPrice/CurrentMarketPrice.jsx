@@ -54,6 +54,7 @@ const CurrentMarketPrice = () => {
       <Modal
         className="modal__content"
         overlayClassName="modal__overlay"
+        closeTimeoutMS={200}
         isOpen={state.isModalOpen}
         onRequestClose={handleCloseModal}
         contentLabel="Where do we get this value from modal"

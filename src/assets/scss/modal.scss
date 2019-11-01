@@ -6,6 +6,17 @@
   &__Html--open {
     overflow: hidden;
   }
+
+  &__Overlay {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+    &--after-open {
+      opacity: 1;
+    }
+    &--before-close {
+      opacity: 0;
+    }
+  }
 }
 
 .modal {
