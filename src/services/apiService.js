@@ -2,6 +2,8 @@ import axios from 'axios';
 import applyConverters from 'axios-case-converter';
 import tokenUtils from 'utils/tokenUtils';
 
+export const { CancelToken } = axios;
+
 const ApiService = applyConverters(
   axios.create({
     baseURL: process.env.REACT_APP_BACKEND_API,
