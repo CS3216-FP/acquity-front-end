@@ -34,7 +34,7 @@ const getUser = async () => {
   let response;
   try {
     response = await ApiService.get('auth/me');
-    if (response.ok) {
+    if (response.status === 200) {
       const { me: userData } = response.data;
       return userData;
     }
