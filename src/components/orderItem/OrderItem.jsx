@@ -4,6 +4,7 @@ import TimeAgo from 'react-timeago';
 
 import { useUser } from 'contexts/userContext';
 import { addCommasToNumber } from 'utils';
+import { isUnapprovedBuyer } from 'utils/userUtils';
 import { moneyFormatter, toLocaleCurrency } from 'utils/moneyUtils';
 import './OrderItem.scss';
 
@@ -15,7 +16,7 @@ const OrderItem = ({ item, actionLink = null, className = '' }) => {
       <div className="item__header">
         <span className="item__header__info">
           <span className="item__header__info__name">{item.securityName}</span>
-          {!user.canBuy && (
+          {isUnapprovedBuyer(user) && (
             <span className="item__header__info--pending">
               Account pending approval
             </span>

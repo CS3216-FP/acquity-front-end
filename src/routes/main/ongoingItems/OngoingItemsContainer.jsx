@@ -3,6 +3,7 @@ import pluralize from 'pluralize';
 
 import { useUser } from 'contexts/userContext';
 import ApiService from 'services/apiService';
+import { isUnapprovedBuyer } from 'utils/userUtils';
 import AccountApprovalModal from 'components/modal/AccountApprovalModal';
 import 'assets/scss/modal.scss';
 
@@ -71,7 +72,7 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
         Ongoing {pluralize(type, 1)} for{' '}
         <span className="info__header--company">Grab</span>{' '}
       </div>
-      {!user.canBuy && type === 'bids' && <BidWarning />}
+      {isUnapprovedBuyer(user) && type === 'bids' && <BidWarning />}
       <div className="info__content">
         <Items
           type={type}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { isUnapprovedBuyer } from 'utils/userUtils';
 import { useUser } from 'contexts/userContext';
 import { useAuth } from 'contexts/authContext';
 
@@ -15,13 +16,13 @@ const ProfileDropdown = () => {
     <div className="profile-dropdown navbar-item has-dropdown is-hoverable">
       <button type="button" className="navbar-link">
         <Avatar
-          className={`${user.canBuy ? '' : 'avatar--unapproved'}`}
+          className={`${isUnapprovedBuyer(user) ? '' : 'avatar--unapproved'}`}
           userName={user.fullName}
           profileImageUrl={user.profileImageUrl}
         />
       </button>
       <div className="navbar-dropdown is-right">
-        {!user.canBuy && (
+        {isUnapprovedBuyer(user) && (
           <>
             <div className="dropdown-item profile-dropdown__pending">
               Your account is still pending approval. Bids you make will not be
