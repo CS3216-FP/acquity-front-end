@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { isSeller } from 'utils/userUtils';
 import { useUser } from 'contexts/userContext';
 import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
@@ -33,7 +34,7 @@ const NewBid = ({ apiEndpoint, type }) => {
       });
   }, []);
 
-  if (type === 'offer' && !user.canSell) {
+  if (type === 'offer' && !isSeller(user)) {
     return <Redirect to="/" />;
   }
 

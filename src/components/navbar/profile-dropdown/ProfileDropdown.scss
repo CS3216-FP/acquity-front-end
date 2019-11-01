@@ -13,8 +13,9 @@
     margin-right: 1rem;
 
     &--unapproved {
+      .profile-pic,
       .initials {
-        border-color: $yellow-dark;
+        border-color: rgba($yellow-dark, 0.4);
         color: $yellow-dark;
       }
     }

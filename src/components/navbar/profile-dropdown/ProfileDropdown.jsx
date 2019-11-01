@@ -16,9 +16,9 @@ const ProfileDropdown = () => {
     <div className="profile-dropdown navbar-item has-dropdown is-hoverable">
       <button type="button" className="navbar-link">
         <Avatar
-          className={`${isUnapprovedBuyer(user) ? '' : 'avatar--unapproved'}`}
+          className={`${isUnapprovedBuyer(user) ? 'avatar--unapproved' : ''}`}
           userName={user.fullName}
-          profileImageUrl={user.profileImageUrl}
+          profileImageUrl={user.displayImageUrl}
         />
       </button>
       <div className="navbar-dropdown is-right">
