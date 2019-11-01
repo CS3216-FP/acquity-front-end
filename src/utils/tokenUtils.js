@@ -14,11 +14,8 @@ const storeToken = response => {
 
 const storeLinkedInToken = response => {
   if (response.status === 200) {
-    if (response.data.accessToken) {
-      console.log(response.data.accessToken);
-      localStorage.setItem(TOKEN_KEY, response.data[TOKEN_KEY]);
-      return Promise.resolve(null);
-    }
+    localStorage.setItem(TOKEN_KEY, response.data[TOKEN_KEY]);
+    return Promise.resolve(null);
   }
   return Promise.reject(response.statusText);
 };

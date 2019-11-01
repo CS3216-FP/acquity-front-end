@@ -3,17 +3,17 @@ import queryString from 'query-string';
 import { useAuth } from 'contexts/authContext';
 import ApiService from '../../../services/apiService';
 
-async function fetchToken({ code }) {
-  return ApiService.post('auth/login', { code });
-}
-
-const LoginCallback = async () => {
+const LoginCallback = () => {
   const { saveLinkedInToken } = useAuth();
 
-  const { code } = queryString.parse(window.location.search);
+  const fetchToken = ({ code }) => {
+    return ApiService.post('auth/login', { code }).then(r => {
+      saveLinkedInToken(r);
+    });
+  };
 
-  const response = await fetchToken({ code });
-  saveLinkedInToken(response);
+  const { code } = queryString.parse(window.location.search);
+  fetchToken({ code });
   return <div />;
 };
 
