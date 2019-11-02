@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { isUnapprovedBuyer, isAdmin } from 'utils/userUtils';
+import { isUnapprovedBuyer, isCommittee } from 'utils/userUtils';
 import { HOME, SETTINGS, ADMIN } from 'constants/routes';
 import { useUser } from 'contexts/userContext';
 import { useAuth } from 'contexts/authContext';
@@ -32,7 +32,7 @@ const ProfileDropdown = ({ isInAdminPath = false }) => {
             <hr className="navbar-divider" />
           </>
         )}
-        {isAdmin(user) && (
+        {isCommittee(user) && (
           <>
             {isInAdminPath ? (
               <Link className="navbar-item font-light" to={HOME}>

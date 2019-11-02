@@ -14,8 +14,8 @@ export const isSeller = user => {
   return user.canSell === 'UNAPPROVED' || user.canSell === 'YES';
 };
 
-export const isAdmin = user => {
-  return user.isAdmin;
+export const isCommittee = user => {
+  return user.isCommittee;
 };
 
 export default {
@@ -23,5 +23,5 @@ export default {
   isUnapprovedSeller,
   isBuyer,
   isSeller,
-  isAdmin
+  isCommittee
 };

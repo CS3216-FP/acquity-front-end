@@ -3,13 +3,13 @@ import { Redirect } from 'react-router-dom';
 
 import { useUser } from 'contexts/userContext';
 import PageContainer from 'components/pageContainer';
-import { isAdmin } from 'utils/userUtils';
+import { isCommittee } from 'utils/userUtils';
 import { HOME } from 'constants/routes';
 
 const Admin = () => {
   const user = useUser();
 
-  if (!isAdmin(user)) {
+  if (!isCommittee(user)) {
     return <Redirect to={HOME} />;
   }
 
