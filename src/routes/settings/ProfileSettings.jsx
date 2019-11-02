@@ -17,6 +17,12 @@ const ProfileSettings = () => {
           className="accountSettings"
         />
         <div className="page__content">
+          <div className="message is-info">
+            <div className="message-body">
+              The ability to update account details will come in a later update.
+              Please check back later.
+            </div>
+          </div>
           {isUnapprovedBuyer(user) && (
             <div className="notification is-warning">
               You will be unable to post a bid until you connect your account to
