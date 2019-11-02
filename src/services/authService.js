@@ -1,3 +1,4 @@
+import { SITE_URL } from 'constants/urls';
 import TokenUtils from 'utils/tokenUtils';
 import ApiService from './apiService';
 
@@ -9,6 +10,14 @@ const logout = () => {
 const login = async ({ email, password }) => {
   const response = await ApiService.post('auth', { email, password });
   return TokenUtils.storeToken(response);
+};
+
+const getLinkedInRedirect = () => {
+  return ApiService.get('/auth/linkedin', {
+    params: {
+      redirectUri: `${SITE_URL}/auth/callback`
+    }
+  });
 };
 
 const register = async ({ email, password, fullName }) => {
@@ -48,4 +57,4 @@ const getUser = async () => {
   }
 };
 
-export default { login, register, logout, getUser };
+export default { login, register, logout, getUser, getLinkedInRedirect };
