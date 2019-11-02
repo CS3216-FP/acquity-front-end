@@ -20,8 +20,10 @@ import {
   BIDS,
   OFFERS,
   CHAT,
-  SETTINGS
+  SETTINGS,
+  ADMIN
 } from 'constants/routes';
+import Admin from 'routes/admin/Admin';
 
 const redirectToRoot = () => <Redirect to={ROOT} />;
 
@@ -65,6 +67,9 @@ const AuthenticatedApp = () => {
                 <EditBid {...props} apiEndpoint="sell_order" type="offer" />
               )}
             />
+            <Route path={ADMIN}>
+              <Admin />
+            </Route>
             <Route exact path={`${CHAT}/:chatRoomId?`} component={Chat} />
             <Route exact path="/" render={() => <Redirect to="/home" />} />
           </Switch>
