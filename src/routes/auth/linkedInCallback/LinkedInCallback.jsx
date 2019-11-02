@@ -7,6 +7,8 @@ import { useAuth } from 'contexts/authContext';
 import AuthContainer from 'components/authContainer';
 
 import '../styles.scss';
+import '../login/TypeSelector.scss';
+import './LinkedInCallback.scss';
 
 const LinkedInCallback = () => {
   const { login } = useAuth();
@@ -37,7 +39,42 @@ const LinkedInCallback = () => {
 
   return (
     <AuthContainer>
-      <div className="content-container">Redirecting...</div>
+      <div className="login content-container linkedin-callback">
+        <h1 className="form-title">Log In</h1>
+        <div className="form-wrapper">
+          <div className="login">
+            <div className="login__type">
+              <span className="login__type--text">I am a:</span>
+              <div className="typeselector">
+                <div className="typeselector__selected no-outline">
+                  <span className="typeselector__selected--text">
+                    {userType}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="linkedin-callback__redirect">
+              Logging in with LinkedIn...
+            </div>
+            <div className="login__action">
+              <button
+                type="button"
+                disabled
+                className="button button--cta hvr-grow login__button is-loading"
+              >
+                Login Now with LinkedIn
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="actions">
+          <span className="actions__signup">
+            Don&apos;t have an account yet? <br />
+            Just sign in with LinkedIn and we&apos;ll do the rest.
+          </span>
+        </div>
+      </div>
     </AuthContainer>
   );
 };

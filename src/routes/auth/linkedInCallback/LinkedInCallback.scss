@@ -1,0 +1,26 @@
+@import 'assets/scss/variables';
+
+.linkedin-callback {
+  &__redirect {
+    font-family: $weight-heavy;
+    height: 6rem;
+    font-size: 1.2rem;
+    margin-bottom: -6rem;
+    display: flex;
+    align-items: center;
+
+    @media only screen and (max-width: $tablet) {
+      justify-content: center;
+      margin-bottom: -3rem;
+    }
+  }
+  .typeselector {
+    border-color: rgba($blue, 0.8);
+
+    &__selected {
+      background: none;
+      color: rgba($blue, 0.8);
+      cursor: default;
+    }
+  }
+}
