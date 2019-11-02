@@ -19,7 +19,7 @@ const Loading = () => {
   return (
     <FadeIn>
       <div className="loading">
-        <Lottie options={defaultOptions} width={400} />
+        <Lottie options={defaultOptions} width="40rem" />
       </div>
     </FadeIn>
   );
