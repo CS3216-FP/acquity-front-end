@@ -12,3 +12,5 @@ export const BIDS = '/bids';
 export const OFFERS = '/offers';
 export const CHAT = '/matches';
 export const SETTINGS = '/settings';
+
+export const ADMIN = '/admin';

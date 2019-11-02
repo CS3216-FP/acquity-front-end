@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { isUnapprovedBuyer } from 'utils/userUtils';
+import { isUnapprovedBuyer, isAdmin } from 'utils/userUtils';
+import { HOME, SETTINGS, ADMIN } from 'constants/routes';
 import { useUser } from 'contexts/userContext';
 import { useAuth } from 'contexts/authContext';
 
 import Avatar from 'components/avatar';
 import './ProfileDropdown.scss';
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({ isInAdminPath = false }) => {
   const user = useUser();
   const { logout } = useAuth();
 
@@ -31,7 +32,21 @@ const ProfileDropdown = () => {
             <hr className="navbar-divider" />
           </>
         )}
-        <Link className="navbar-item font-light" to="/settings/profile">
+        {isAdmin(user) && (
+          <>
+            {isInAdminPath ? (
+              <Link className="navbar-item font-light" to={HOME}>
+                User View
+              </Link>
+            ) : (
+              <Link className="navbar-item font-light" to={ADMIN}>
+                Admin View
+              </Link>
+            )}
+            <hr className="navbar-divider" />
+          </>
+        )}
+        <Link className="navbar-item font-light" to={`${SETTINGS}/profile`}>
           Account Settings
         </Link>
         <button

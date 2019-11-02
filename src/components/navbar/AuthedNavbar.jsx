@@ -29,7 +29,7 @@ const AdminTabs = () => {
   );
 };
 
-const AuthedNavbar = ({ isNavbarExpanded, isAdmin = false }) => {
+const AuthedNavbar = ({ isNavbarExpanded, isInAdminPath = false }) => {
   const { pathname } = useLocation();
   return (
     <div
@@ -38,11 +38,13 @@ const AuthedNavbar = ({ isNavbarExpanded, isAdmin = false }) => {
     >
       <div className="navbar-item main-route-tabs">
         <div className="tabs is-centered">
-          <ul>{isAdmin ? <AdminTabs /> : <AuthTabs pathname={pathname} />}</ul>
+          <ul>
+            {isInAdminPath ? <AdminTabs /> : <AuthTabs pathname={pathname} />}
+          </ul>
         </div>
       </div>
       <div className="navbar-end">
-        <ProfileDropdown />
+        <ProfileDropdown isInAdminPath={isInAdminPath} />
       </div>
     </div>
   );

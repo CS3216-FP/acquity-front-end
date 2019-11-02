@@ -54,7 +54,7 @@ const Navbar = ({ isAuthenticated }) => {
       {isAuthenticated && (
         <AuthedNavbar
           isNavbarExpanded={isNavbarExpanded}
-          isAdmin={isAdminPath}
+          isInAdminPath={isAdminPath}
         />
       )}
     </nav>
