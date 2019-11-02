@@ -1,4 +1,30 @@
-.remember-me {
-  display: flex;
-  align-items: center;
+@import 'assets/scss/variables';
+
+.login {
+  &__type {
+    justify-content: flex-start;
+    font-size: 1.2rem;
+    font-family: $weight-light;
+    display: flex;
+
+    @media only screen and (max-width: $tablet) {
+      justify-content: center;
+    }
+  }
+
+  &__action {
+    margin-top: 6rem;
+
+    @media only screen and (max-width: $tablet) {
+      margin-top: 3rem;
+    }
+  }
+
+  &__button {
+    min-width: 20rem;
+
+    @media only screen and (max-width: $tablet) {
+      min-width: fit-content;
+    }
+  }
 }

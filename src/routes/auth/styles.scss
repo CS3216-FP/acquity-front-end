@@ -3,7 +3,6 @@
 .unauth {
   .actions {
     margin-top: 2rem;
-    padding-left: 0.5rem;
     font-size: 0.9rem;
     font-family: $weight-heavy;
     display: inline-flex;
@@ -11,6 +10,12 @@
 
     a:not(:last-child) {
       padding-bottom: 0.2rem;
+    }
+  }
+
+  .content-container {
+    @media only screen and (max-width: $tablet) {
+      text-align: center;
     }
   }
 }

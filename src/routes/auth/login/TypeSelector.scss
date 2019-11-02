@@ -1,0 +1,79 @@
+@import 'assets/scss/variables';
+
+.typeselector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid $blue;
+  margin-left: 0.5rem;
+
+  &--open {
+    .typeselector__options {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .typeselector__selected {
+      &:after {
+        content: '\f0d8';
+      }
+    }
+  }
+
+  &__options {
+    background: $grey;
+    box-shadow: 0 2px 20px 0 hsla(0, 0%, 0%, 0.12);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: none;
+    position: absolute;
+    top: 2rem;
+    width: 100%;
+  }
+
+  &__selected,
+  &__option {
+    text-align: start;
+    text-transform: capitalize;
+    font-family: $weight-heavy;
+    font-size: inherit;
+    color: $blue;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $grey-lighter;
+    }
+  }
+
+  &__selected {
+    &--text {
+      min-width: 4rem;
+      display: inline-block;
+    }
+    &:after {
+      margin-left: 0.5rem;
+      content: '\f0d7';
+      font-weight: 900 !important;
+      color: $blue;
+      font-family: $fontawesome;
+    }
+  }
+
+  &__option {
+    padding: 0.5rem;
+    margin-right: -0.5rem;
+    &:hover,
+    &:active,
+    &:focus {
+      background: $grey-lighter;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+}
