@@ -9,7 +9,7 @@ const storeToken = response => {
     localStorage.setItem(TOKEN_KEY, response.data[TOKEN_KEY]);
     return Promise.resolve(null);
   }
-  return Promise.reject(response.statusText);
+  return Promise.reject(new Error(response.statusText));
 };
 
 const removeToken = () => {

@@ -15,7 +15,7 @@ const login = async ({ userType, code }) => {
   };
   const response = await ApiService.post(`/auth/linkedin`, requestBody).catch(
     error => {
-      return Promise.reject(error);
+      return Promise.reject(new Error(error));
     }
   );
   return TokenUtils.storeToken(response);
@@ -49,7 +49,7 @@ const getUser = async () => {
     });
   } catch (error) {
     logout();
-    return Promise.reject(error);
+    return Promise.reject(new Error(error));
   }
 };
 

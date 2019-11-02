@@ -17,15 +17,17 @@ const PrevRoundSummary = () => {
 
   useEffect(() => {
     // TODO: Get chart timeline from backend when it's available
-    ApiService.get(
-      `/round/previous/statistics/${currentSelectedBuySecurity.id}`
-    ).then(response => {
-      setState({
-        isLoading: false,
-        data: response.data
+    if (currentSelectedBuySecurity) {
+      ApiService.get(
+        `/round/previous/statistics/${currentSelectedBuySecurity.id}`
+      ).then(response => {
+        setState({
+          isLoading: false,
+          data: response.data
+        });
       });
-    });
-  }, [currentSelectedBuySecurity.id]);
+    }
+  }, [currentSelectedBuySecurity]);
 
   if (state.isLoading) {
     return <PrevRoundSummaryGhost />;

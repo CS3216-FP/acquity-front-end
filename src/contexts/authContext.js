@@ -42,7 +42,7 @@ const AuthProvider = props => {
     AuthService.login(code)
       .then(reload)
       .catch(e => {
-        return Promise.reject(e);
+        return Promise.reject(new Error(e));
       });
   const logout = () => AuthService.logout().then(reload);
 

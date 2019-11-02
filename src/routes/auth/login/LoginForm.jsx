@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthService from 'services/authService';
 import TypeSelector from './TypeSelector';
 
 import './LoginForm.scss';
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = async () => {
+    setIsLoading(true);
     const response = await AuthService.getLinkedInRedirect();
     window.location.replace(response.data);
   };
@@ -20,7 +23,10 @@ const LoginForm = () => {
         <button
           type="button"
           onClick={handleLogin}
-          className="button button--cta hvr-grow login__button"
+          disabled={isLoading}
+          className={`button button--cta hvr-grow login__button ${
+            isLoading ? 'is-loading' : ''
+          }`}
         >
           Login Now with LinkedIn
         </button>
