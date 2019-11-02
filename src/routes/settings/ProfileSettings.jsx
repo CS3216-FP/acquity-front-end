@@ -4,7 +4,6 @@ import { useUser } from 'contexts/userContext';
 import { isUnapprovedBuyer } from 'utils/userUtils';
 import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader/PageHeader';
-import SocialLogin from './SocialLogin';
 
 const ProfileSettings = () => {
   const user = useUser();
@@ -55,7 +54,6 @@ const ProfileSettings = () => {
                     name="email"
                   />
                 </div>
-                <SocialLogin />
               </div>
             </div>
           </div>
