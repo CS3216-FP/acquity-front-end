@@ -1,10 +1,36 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ProfileDropdown from './profile-dropdown';
 
 import './AuthedNavbar.scss';
 
-const AuthedNavbar = ({ isNavbarExpanded, location: { pathname } }) => {
+const AuthTabs = ({ pathname }) => {
+  return (
+    <>
+      <li
+        className={`${
+          pathname.match('(/home|/bids|/offers).*') ? 'is-active' : ''
+        }`}
+      >
+        <Link to="/">Home</Link>
+      </li>
+      <li className={`${pathname.startsWith('/matches') ? 'is-active' : ''}`}>
+        <Link to="/matches">Matches</Link>
+      </li>
+    </>
+  );
+};
+
+const AdminTabs = () => {
+  return (
+    <li className="is-active">
+      <Link to="/admin">Admin Panel</Link>
+    </li>
+  );
+};
+
+const AuthedNavbar = ({ isNavbarExpanded, isAdmin = false }) => {
+  const { pathname } = useLocation();
   return (
     <div
       id="navbar"
@@ -12,22 +38,7 @@ const AuthedNavbar = ({ isNavbarExpanded, location: { pathname } }) => {
     >
       <div className="navbar-item main-route-tabs">
         <div className="tabs is-centered">
-          <ul>
-            <li
-              className={`${
-                pathname.match('(/home|/bids|/offers).*') ? 'is-active' : ''
-              }`}
-            >
-              <Link to="/">Home</Link>
-            </li>
-            <li
-              className={`${
-                pathname.startsWith('/matches') ? 'is-active' : ''
-              }`}
-            >
-              <Link to="/matches">Matches</Link>
-            </li>
-          </ul>
+          <ul>{isAdmin ? <AdminTabs /> : <AuthTabs pathname={pathname} />}</ul>
         </div>
       </div>
       <div className="navbar-end">
@@ -37,4 +48,4 @@ const AuthedNavbar = ({ isNavbarExpanded, location: { pathname } }) => {
   );
 };
 
-export default withRouter(AuthedNavbar);
+export default AuthedNavbar;

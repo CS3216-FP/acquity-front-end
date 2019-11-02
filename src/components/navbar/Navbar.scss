@@ -10,4 +10,8 @@
   &--background-white {
     background: white;
   }
+
+  &--admin {
+    background-color: $dark !important;
+  }
 }

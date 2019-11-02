@@ -40,10 +40,17 @@
         }
       }
     }
-    // a {
-    //   padding: 1.2em 1em;
-    //   border-width: 5px;
-    //   border-color: transparent;
-    // }
+  }
+}
+
+.navbar--admin {
+  .tabs {
+    .is-active a {
+      color: white;
+
+      &:before {
+        background: white !important;
+      }
+    }
   }
 }
