@@ -28,7 +28,7 @@
     border-radius: 15px;
     outline: none;
     padding: 2rem;
-    margin: auto;
+    margin: 0 1rem;
     max-height: calc(100vh - 40px);
     width: 100%;
 
@@ -38,6 +38,8 @@
   }
   &__overlay {
     display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 999;
     position: fixed;
     top: 0px;

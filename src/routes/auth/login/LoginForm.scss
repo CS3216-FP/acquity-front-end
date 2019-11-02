@@ -14,10 +14,16 @@
   }
 
   &__action {
+    display: inline-flex;
+    flex-direction: column;
     margin-top: 6rem;
 
     @media only screen and (max-width: $tablet) {
       margin-top: 3rem;
+    }
+
+    .modal__trigger {
+      margin-top: 1rem;
     }
   }
 
