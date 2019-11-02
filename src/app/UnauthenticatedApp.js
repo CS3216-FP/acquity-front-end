@@ -7,10 +7,12 @@ import {
 } from 'react-router-dom';
 
 import Login from 'routes/auth/login';
-import Signup from 'routes/auth/signup';
-import ForgotPassword from 'routes/auth/forgot-password';
 
 import Navbar from 'components/navbar';
+import { LOGIN, LINKEDIN_CALLBACK, ROOT } from 'constants/routes';
+import LinkedInCallback from 'routes/auth/linkedInCallback';
+
+const redirectToLogin = () => <Redirect to={LOGIN} />;
 
 const UnauthenticatedApp = () => {
   return (
@@ -18,16 +20,13 @@ const UnauthenticatedApp = () => {
       <div className="unauth app">
         <Navbar isAuthenticated={false} />
         <Switch>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/forgot-password">
-            <ForgotPassword />
-          </Route>
-          <Route path="/login">
+          <Route path={LOGIN}>
             <Login />
           </Route>
-          <Route path="/" render={() => <Redirect to="/login" />} />
+          <Route path={`${LINKEDIN_CALLBACK}`}>
+            <LinkedInCallback />
+          </Route>
+          <Route path={ROOT} render={redirectToLogin} />
         </Switch>
       </div>
     </Router>

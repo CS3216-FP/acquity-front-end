@@ -7,8 +7,17 @@ const logout = () => {
   return Promise.resolve();
 };
 
-const login = async ({ email, password }) => {
-  const response = await ApiService.post('auth', { email, password });
+const login = async ({ userType, code }) => {
+  const requestBody = {
+    redirectUri: `${SITE_URL}/auth/callback`,
+    code,
+    userType
+  };
+  const response = await ApiService.post(`/auth/linkedin`, requestBody).catch(
+    error => {
+      return Promise.reject(error);
+    }
+  );
   return TokenUtils.storeToken(response);
 };
 
@@ -18,19 +27,6 @@ const getLinkedInRedirect = () => {
       redirectUri: `${SITE_URL}/auth/callback`
     }
   });
-};
-
-const register = async ({ email, password, fullName }) => {
-  const response = await ApiService.post('user/', {
-    email,
-    password,
-    fullName
-  });
-
-  if (response.status === 200) {
-    return login({ email, password });
-  }
-  return Promise.reject(response.statusText);
 };
 
 const getUser = async () => {
@@ -57,4 +53,9 @@ const getUser = async () => {
   }
 };
 
-export default { login, register, logout, getUser, getLinkedInRedirect };
+export default {
+  login,
+  logout,
+  getUser,
+  getLinkedInRedirect
+};
