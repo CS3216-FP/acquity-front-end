@@ -41,11 +41,6 @@ const Main = () => {
       <div className="main page">
         <div className="page__content">
           {userOngoingItems}
-          <OngoingItems type="bids" apiEndpoint="buy_order" />
-          <div
-            key="buy-divider"
-            className="is-divider main__content__divider"
-          />
           <div className="details columns is-gapless is-multiline">
             <div className="details--left column is-narrow">
               <RoundDetails />
