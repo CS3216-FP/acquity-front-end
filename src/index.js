@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 import Modal from 'react-modal';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -10,18 +11,20 @@ import * as Sentry from '@sentry/browser';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
 
-import store from './app/store';
+import store, { persistor } from './app/store';
 
 Modal.setAppElement('#root');
 
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <AppProviders>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AppProviders>
+      <PersistGate persistor={persistor}>
+        <AppProviders>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AppProviders>
+      </PersistGate>
     </Provider>,
     document.getElementById('root')
   );
