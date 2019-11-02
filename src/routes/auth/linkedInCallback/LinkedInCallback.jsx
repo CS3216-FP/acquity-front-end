@@ -23,7 +23,8 @@ const LinkedInCallback = () => {
     login({ code, userType }).catch(() => {
       setHasError(true);
     });
-    // We must include the square brackets so as to only ensure login is called only once
+    // Ensure login is called only once
+    // eslint-disable-next-line
   }, []);
 
   if (hasError) {
