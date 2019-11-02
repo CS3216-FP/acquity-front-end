@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useUser } from 'contexts/userContext';
-import FullPageSpinner from 'components/FullPageSpinner';
+import Loading from 'components/loading';
 import './App.scss';
 
 const loadAuthenticatedApp = () => import('./AuthenticatedApp');
@@ -20,7 +20,7 @@ const App = () => {
   }, []);
 
   return (
-    <React.Suspense fallback={<FullPageSpinner />}>
+    <React.Suspense fallback={<Loading />}>
       {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </React.Suspense>
   );

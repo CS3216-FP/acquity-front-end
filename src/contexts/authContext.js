@@ -2,8 +2,7 @@ import React from 'react';
 import { useAsync } from 'react-async';
 
 import AuthService from 'services/authService';
-
-import FullPageSpinner from 'components/FullPageSpinner';
+import Loading from 'components/loading';
 
 const AuthContext = React.createContext();
 
@@ -28,7 +27,7 @@ const AuthProvider = props => {
 
   if (!firstAttemptFinished) {
     if (isPending) {
-      return <FullPageSpinner />;
+      return <Loading />;
     }
     if (isRejected) {
       return (
