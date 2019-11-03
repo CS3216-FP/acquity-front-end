@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+
+import ErrorMessage from 'components/errorMessage';
 import AuthContainer from 'components/authContainer';
 import LoginForm from './LoginForm';
 
@@ -14,9 +16,7 @@ const Login = () => {
         <h1 className="form-title">Log In</h1>
 
         {error && (
-          <div className="notification is-danger">
-            Something went wrong. Try logging in again.
-          </div>
+          <ErrorMessage message="Something went wrong. Try logging in again." />
         )}
         <div className="form-wrapper">
           <LoginForm />
