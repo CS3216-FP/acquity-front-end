@@ -1,0 +1,15 @@
+@import 'assets/scss/variables';
+
+.ongoingOffers {
+  &__warning {
+    width: 100%;
+    color: $blue;
+    font-family: $weight-heavy;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+
+    &__button {
+      margin-top: 2rem;
+    }
+  }
+}

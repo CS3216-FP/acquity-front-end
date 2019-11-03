@@ -6,8 +6,7 @@ import { useUser } from 'contexts/userContext';
 import ApiService from 'services/apiService';
 import {
   updateSecurities,
-  setCurrentSelectedBuySecurity,
-  setCurrentSelectedSellSecurity
+  setCurrentSelectedBuySecurity
 } from 'reducers/SecuritiesDux';
 import { isUnapprovedBuyer } from 'utils/userUtils';
 import InputDropdownSelect from 'components/inputDropdownSelect';
@@ -15,8 +14,9 @@ import AccountApprovalModal from 'components/modal/AccountApprovalModal';
 import ErrorMessage from 'components/errorMessage';
 import 'assets/scss/modal.scss';
 
-import Items from './Items';
-import './OngoingItemsContainer.scss';
+import OngoingBids from './OngoingBids';
+import '../containerStyle.scss';
+import './OngoingBidsContainer.scss';
 
 const BidWarning = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,28 +59,22 @@ const BidWarning = () => {
   );
 };
 
-const OngoingItemsContainer = ({ type, apiEndpoint }) => {
+const OngoingBidsContainer = () => {
   const user = useUser();
 
   const dispatch = useDispatch();
-  const {
-    securities,
-    currentSelectedBuySecurity,
-    currentSelectedSellSecurity
-  } = useSelector(state => state.securities);
+  const { securities, currentSelectedBuySecurity } = useSelector(
+    state => state.securities
+  );
 
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
     isError: false,
-    ongoingItems: []
+    ongoingBids: []
   });
 
   const handleSelectSecurity = value => {
-    if (type === 'bids') {
-      dispatch(setCurrentSelectedBuySecurity(value[0]));
-    } else {
-      dispatch(setCurrentSelectedSellSecurity(value[0]));
-    }
+    dispatch(setCurrentSelectedBuySecurity(value[0]));
   };
 
   useEffect(() => {
@@ -89,8 +83,8 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
     const fetchData = async () => {
       try {
         const responses = await Promise.all([
-          ApiService.get(apiEndpoint),
-          ApiService.get('security/')
+          ApiService.get('buy_order'),
+          ApiService.get('security')
         ]);
         if (!didCancel) {
           const ongoingItems = responses[0].data;
@@ -110,13 +104,13 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
     return () => {
       didCancel = true;
     };
-  }, [type, apiEndpoint, dispatch]);
+  }, [dispatch]);
 
   return (
     <div className="info">
       <div className="info__header">
         <span className="header--pretext">
-          Ongoing {pluralize(type, 1)} for&nbsp;
+          Ongoing {pluralize('Bid', state.ongoingBids.length)} for&nbsp;
         </span>
         <span className="info__header--company">
           <InputDropdownSelect
@@ -126,26 +120,19 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
             labelField="name"
             iconField="iconUrl"
             isLoading={state.isLoading}
-            values={
-              type === 'bids'
-                ? [currentSelectedBuySecurity]
-                : [currentSelectedSellSecurity]
-            }
+            values={[currentSelectedBuySecurity]}
             onChange={handleSelectSecurity}
           />
         </span>{' '}
       </div>
-      {isUnapprovedBuyer(user) && type === 'bids' && <BidWarning />}
+      {isUnapprovedBuyer(user) && <BidWarning />}
       <div className="info__content">
         {state.isError && <ErrorMessage />}
-        <Items
-          type={type}
-          loading={state.isLoading}
-          ongoingItems={state.ongoingItems}
-        />
+        <OngoingBids isLoading={state.isLoading} bids={state.ongoingBids} />
       </div>
+      <div className="is-divider main__content__divider" />
     </div>
   );
 };
 
-export default OngoingItemsContainer;
+export default OngoingBidsContainer;
