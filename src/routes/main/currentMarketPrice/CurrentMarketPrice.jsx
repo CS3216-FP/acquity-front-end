@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 
 import 'assets/scss/modal.scss';
 
-import { toLocaleCurrency } from 'utils/moneyUtils';
+import { toSgdCurrency } from 'utils/moneyUtils';
 import { LANDING_URL } from 'constants/urls';
 import CurrentMarketPriceGhost from './CurrentMarketPriceGhost';
 import './CurrentMarketPrice.scss';
@@ -23,7 +23,7 @@ const CurrentMarketPrice = () => {
     setState({ isModalOpen: false });
   };
 
-  if (state.isLoading) {
+  if (!currentSelectedBuySecurity) {
     return <CurrentMarketPriceGhost />;
   }
 
@@ -31,10 +31,17 @@ const CurrentMarketPrice = () => {
     <div className="currentMarketPrice">
       <div className="details__header">Unofficial market price</div>
       <div className="currentMarketPrice__price">
-        <span className="currentMarketPrice__price--price">
-          {currentSelectedBuySecurity && currentSelectedBuySecurity.marketPrice
-            ? toLocaleCurrency(currentSelectedBuySecurity.marketPrice)
-            : 'SGD ?.??'}
+        <span className="currentMarketPrice__price__value">
+          {currentSelectedBuySecurity.marketPrice ? (
+            <span>{toSgdCurrency(currentSelectedBuySecurity.marketPrice)}</span>
+          ) : (
+            <span>
+              SGD{' '}
+              <span className="currentMarketPrice__price__value--empty">
+                0.00
+              </span>
+            </span>
+          )}
         </span>
         <span className="currentMarketPrice__price--label">/share</span>
       </div>
@@ -78,14 +85,15 @@ const ModalContent = ({ handleCloseModal }) => {
         knowledge, and serves as an unofficial estimate of the market price.
         <br />
         <br />
-        For more information on the team, do check out{' '}
+        For more information on the various companies&apos; committees, do check
+        out our{' '}
         <a
           className="modal__text--link"
-          href={LANDING_URL}
+          href={`${LANDING_URL}/#team`}
           rel="noopener noreferrer"
           target="_blank"
         >
-          Our Team
+          Our Committees
         </a>{' '}
         page.
         <div className="modal__text--subtext">

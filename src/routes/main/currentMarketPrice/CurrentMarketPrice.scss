@@ -6,8 +6,12 @@
     font-family: $weight-heavy;
     font-size: 1.3rem;
 
-    &--price {
+    &__value {
       font-size: 2rem;
+
+      &--empty {
+        opacity: 0.4;
+      }
     }
   }
 }
