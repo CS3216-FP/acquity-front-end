@@ -41,12 +41,12 @@ const Main = () => {
       <div className="main page">
         <div className="page__content">
           {userOngoingItems}
-          <div className="details columns is-gapless is-multiline">
-            <div className="details--left column is-narrow">
+          <div className="details columns is-gapless is-multiline-desktop">
+            <div className="details--left column is-one-third-desktop">
               <RoundDetails />
               <CurrentMarketPrice />
             </div>
-            <div className="details--right column">
+            <div className="details--right column is-full is-two-thirds-desktop">
               <PrevRoundSummary />
             </div>
           </div>

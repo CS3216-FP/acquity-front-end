@@ -62,7 +62,9 @@ const PrevRoundSummary = () => {
         <div className="column">
           <div className="prevRoundSummary__data">
             <div className="prevRoundSummary__data--label">Price History</div>
-            <PrevRoundSummaryChart />
+            <div className="prevRoundSummary__chart">
+              <PrevRoundSummaryChart />
+            </div>
           </div>
         </div>
       </div>

@@ -40,6 +40,9 @@ const LoadingChart = () => {
         lines: {
           show: true
         }
+      },
+      padding: {
+        top: -45
       }
     },
 

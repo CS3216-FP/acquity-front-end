@@ -40,6 +40,9 @@ const PrevRoundSummaryChart = ({ data = [] }) => {
         lines: {
           show: true
         }
+      },
+      padding: {
+        top: -45
       }
     },
 

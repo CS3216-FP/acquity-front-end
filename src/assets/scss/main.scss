@@ -51,3 +51,11 @@ a {
 .message {
   font-family: $weight-heavy;
 }
+
+.columns {
+  @media screen and (max-width: $desktop) {
+    &.is-multiline-desktop {
+      flex-wrap: wrap;
+    }
+  }
+}

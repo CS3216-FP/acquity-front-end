@@ -32,18 +32,14 @@ const countdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
           <span className="countdownDetails__timer__counter__value">
             {zeroPad(minutes)}
           </span>
-          <span className="countdownDetails__timer__counter__text">
-            minutes
-          </span>
+          <span className="countdownDetails__timer__counter__text">mins</span>
         </span>
         <span className="countdownDetails__timer__colon" />
         <span className="countdownDetails__timer__counter">
           <span className="countdownDetails__timer__counter__value">
             {zeroPad(seconds)}
           </span>
-          <span className="countdownDetails__timer__counter__text">
-            seconds
-          </span>
+          <span className="countdownDetails__timer__counter__text">secs</span>
         </span>
       </div>
     </div>

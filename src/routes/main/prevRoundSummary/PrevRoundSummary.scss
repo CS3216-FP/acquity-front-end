@@ -7,7 +7,6 @@
 
   &__data {
     margin-bottom: 0.5rem;
-    margin-right: 1rem;
     &--label {
       white-space: nowrap;
       line-height: 1.8rem;
@@ -24,5 +23,9 @@
         font-size: 1.5rem;
       }
     }
+  }
+
+  &__chart {
+    margin-left: -1.3rem;
   }
 }

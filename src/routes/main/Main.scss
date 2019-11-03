@@ -17,15 +17,6 @@
 .details {
   width: 100%;
 
-  &--left {
-    min-width: 20rem;
-    margin-right: 5rem !important;
-
-    @media only screen and (max-width: $mobile) {
-      min-width: min-content;
-    }
-  }
-
   &--left,
   &--right {
     margin-bottom: 1rem !important;
