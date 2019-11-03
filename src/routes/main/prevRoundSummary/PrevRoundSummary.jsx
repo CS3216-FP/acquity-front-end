@@ -12,21 +12,38 @@ const PrevRoundSummary = () => {
   const { currentSelectedBuySecurity } = useSelector(state => state.securities);
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
+    isError: true,
     data: {}
   });
 
   useEffect(() => {
+    let didCancel = false;
+
+    const fetchData = async () => {
+      try {
+        const response = await ApiService.get(
+          `/round/previous/statistics/${currentSelectedBuySecurity.id}`
+        );
+        if (!didCancel) {
+          setState({
+            isLoading: false,
+            data: response.data
+          });
+        }
+      } catch (error) {
+        if (!didCancel) {
+          setState({ isLoading: false, isError: true });
+        }
+      }
+    };
     // TODO: Get chart timeline from backend when it's available
     if (currentSelectedBuySecurity) {
-      ApiService.get(
-        `/round/previous/statistics/${currentSelectedBuySecurity.id}`
-      ).then(response => {
-        setState({
-          isLoading: false,
-          data: response.data
-        });
-      });
+      fetchData();
     }
+
+    return () => {
+      didCancel = true;
+    };
   }, [currentSelectedBuySecurity]);
 
   if (state.isLoading) {

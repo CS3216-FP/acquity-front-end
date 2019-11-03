@@ -15,7 +15,7 @@ import DeleteConfirmation from '../deleteConfirmation/DeleteConfirmation';
 const EditBid = ({ match, location, apiEndpoint, type }) => {
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
-    hasError: false,
+    isError: false,
     showConfirm: false,
     showDelete: false,
     // For deleting of bid, should show the initial data instead of modified data
@@ -27,23 +27,33 @@ const EditBid = ({ match, location, apiEndpoint, type }) => {
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    // Did not come from home page, came from URL
-    if (!item) {
-      ApiService.get(`${apiEndpoint}/${itemId}`)
-        .then(response => {
+    let didCancel = false;
+
+    const fetchData = async () => {
+      try {
+        const response = await ApiService.get(`${apiEndpoint}/${itemId}`);
+        if (!didCancel) {
           setState({
             initialData: response.data,
             formData: response.data,
             isLoading: false
           });
-        })
-        .catch(() => {
-          setState({ isLoading: false, hasError: true });
-        });
+        }
+      } catch (error) {
+        if (!didCancel) {
+          setState({ isLoading: false, isError: true });
+        }
+      }
+    };
+    // Did not come from home page, came from URL
+    if (!item) {
+      fetchData();
     } else {
       setState({ initialData: item, formData: item, isLoading: false });
     }
-    return () => {};
+    return () => {
+      didCancel = true;
+    };
   }, [itemId, item, apiEndpoint]);
 
   if (state.showConfirm) {
@@ -74,7 +84,7 @@ const EditBid = ({ match, location, apiEndpoint, type }) => {
     );
   }
 
-  if (state.hasError) {
+  if (state.isError) {
     return <Redirect to="/" />;
   }
 

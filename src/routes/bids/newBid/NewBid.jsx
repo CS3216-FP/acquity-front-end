@@ -5,7 +5,8 @@ import { isSeller } from 'utils/userUtils';
 import { useUser } from 'contexts/userContext';
 import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
-import ApiService, { CancelToken } from 'services/apiService';
+import ErrorMessage from 'components/errorMessage';
+import ApiService from 'services/apiService';
 import NewBidForm from './NewBidForm';
 import Confirmation from '../proceedConfirmation';
 
@@ -15,30 +16,34 @@ const NewBid = ({ apiEndpoint, type }) => {
   const user = useUser();
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
-    hasError: false,
+    isError: false,
     showConfirm: false,
     formData: null,
     securities: []
   });
 
   useEffect(() => {
-    let unmounted = false;
-    const source = CancelToken.source();
-    ApiService.get('security/', { cancelToken: source.token })
-      .then(response => {
-        setState({
-          isLoading: false,
-          securities: response.data
-        });
-      })
-      .catch(() => {
-        if (!unmounted) {
-          setState({ isLoading: false, hasError: true });
+    let didCancel = false;
+    const fetchData = async () => {
+      try {
+        const response = await ApiService.get('security/');
+        if (!didCancel) {
+          setState({
+            isLoading: false,
+            securities: response.data
+          });
         }
-      });
+      } catch (error) {
+        if (!didCancel) {
+          setState({ isLoading: false, isError: true });
+        }
+      }
+    };
+
+    fetchData();
+
     return () => {
-      unmounted = true;
-      source.cancel();
+      didCancel = true;
     };
   }, []);
 
@@ -63,16 +68,13 @@ const NewBid = ({ apiEndpoint, type }) => {
     );
   }
 
-  if (state.hasError) {
-    return <div>ERRORRRR</div>;
-  }
-
   return (
     <PageContainer>
       <div className="bidPage page">
         <PageHeader headerText={`${type} Information`} />
         <div className="page__content columns is-mobile is-gapless">
           <div className="form-wrapper column is-full-mobile is-four-fifths-tablet is-half-desktop">
+            {state.isError && <ErrorMessage />}
             <NewBidForm
               isLoading={state.isLoading}
               type={type}

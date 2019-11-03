@@ -17,17 +17,25 @@ const LinkedInCallback = () => {
     ignoreQueryPrefix: true
   });
   const { userType } = useSelector(state => state.misc);
-  const [hasError, setHasError] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
+    let didCancel = false;
+
     login({ code, userType }).catch(() => {
-      setHasError(true);
+      if (!didCancel) {
+        setIsError(true);
+      }
     });
+
+    return () => {
+      didCancel = true;
+    };
     // Ensure login is called only once
     // eslint-disable-next-line
   }, []);
 
-  if (hasError) {
+  if (isError) {
     return (
       <Redirect
         to={{

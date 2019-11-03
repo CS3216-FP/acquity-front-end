@@ -16,7 +16,7 @@ const Login = () => {
         <h1 className="form-title">Log In</h1>
 
         {error && (
-          <ErrorMessage message="Something went wrong. Try logging in again." />
+          <ErrorMessage message="Something went wrong. Please try logging in again." />
         )}
         <div className="form-wrapper">
           <LoginForm />

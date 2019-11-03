@@ -12,6 +12,7 @@ import {
 import { isUnapprovedBuyer } from 'utils/userUtils';
 import InputDropdownSelect from 'components/inputDropdownSelect';
 import AccountApprovalModal from 'components/modal/AccountApprovalModal';
+import ErrorMessage from 'components/errorMessage';
 import 'assets/scss/modal.scss';
 
 import Items from './Items';
@@ -70,6 +71,7 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
 
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isLoading: true,
+    isError: false,
     ongoingItems: []
   });
 
@@ -82,16 +84,32 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
   };
 
   useEffect(() => {
-    Promise.all([ApiService.get(apiEndpoint), ApiService.get('security/')])
-      .then(responses => {
-        const ongoingItems = responses[0].data;
-        ongoingItems.sort((a, b) => b.updatedAt - a.updatedAt);
-        dispatch(updateSecurities(responses[1].data));
-        setState({ ongoingItems, isLoading: false });
-      })
-      .catch(() => {
-        setState({ isLoading: false, hasError: true });
-      });
+    let didCancel = false;
+
+    const fetchData = async () => {
+      try {
+        const responses = await Promise.all([
+          ApiService.get(apiEndpoint),
+          ApiService.get('security/')
+        ]);
+        if (!didCancel) {
+          const ongoingItems = responses[0].data;
+          ongoingItems.sort((a, b) => b.updatedAt - a.updatedAt);
+          dispatch(updateSecurities(responses[1].data));
+          setState({ ongoingItems, isLoading: false });
+        }
+      } catch (error) {
+        if (!didCancel) {
+          setState({ isLoading: false, isError: true });
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      didCancel = true;
+    };
   }, [type, apiEndpoint, dispatch]);
 
   return (
@@ -119,6 +137,7 @@ const OngoingItemsContainer = ({ type, apiEndpoint }) => {
       </div>
       {isUnapprovedBuyer(user) && type === 'bids' && <BidWarning />}
       <div className="info__content">
+        {state.isError && <ErrorMessage />}
         <Items
           type={type}
           loading={state.isLoading}
