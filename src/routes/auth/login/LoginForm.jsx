@@ -39,6 +39,9 @@ const LoginForm = () => {
               isLoading ? 'is-loading' : ''
             }`}
           >
+            <span className="icon">
+              <i className="fab fa-linkedin fa-lg" />
+            </span>
             Login Now with LinkedIn
           </button>
           <button
