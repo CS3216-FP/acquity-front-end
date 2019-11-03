@@ -135,7 +135,7 @@ const OngoingOffersContainer = () => {
           <OfferWarning />
         ) : (
           <OngoingOffers
-            loading={state.isLoading}
+            isLoading={state.isLoading}
             offers={state.ongoingOffers}
           />
         )}

@@ -7,7 +7,7 @@ import OrderItemGhost from 'components/orderItem/OrderItemGhost';
 
 import '../itemStyle.scss';
 
-const renderOffers = (offers = [], isLoading = false) => {
+const renderOffers = (offers = [], isLoading) => {
   if (isLoading) {
     return <OrderItemGhost />;
   }
@@ -26,7 +26,8 @@ const renderOffers = (offers = [], isLoading = false) => {
   ));
 };
 
-const OngoingOffers = ({ offers, isLoading }) => {
+// Default isLoading to true to easier catch bugs, force isLoading to be passed in
+const OngoingOffers = ({ offers, isLoading = true }) => {
   return (
     <div className="ongoingItems">
       <div className="columns ongoingItems__orders columns is-marginless">

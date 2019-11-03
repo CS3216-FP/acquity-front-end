@@ -7,7 +7,7 @@ import OrderItemGhost from 'components/orderItem/OrderItemGhost';
 
 import '../itemStyle.scss';
 
-const renderBids = (bids = [], isLoading = false) => {
+const renderBids = (bids = [], isLoading) => {
   if (isLoading) {
     return <OrderItemGhost />;
   }
@@ -26,7 +26,7 @@ const renderBids = (bids = [], isLoading = false) => {
   ));
 };
 
-const OngoingBids = ({ bids, isLoading }) => {
+const OngoingBids = ({ bids, isLoading = true }) => {
   return (
     <div className="ongoingItems">
       <div className="columns ongoingItems__orders is-marginless">
