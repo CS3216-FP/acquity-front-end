@@ -85,14 +85,15 @@ const ModalContent = ({ handleCloseModal }) => {
         knowledge, and serves as an unofficial estimate of the market price.
         <br />
         <br />
-        For more information on the team, do check out{' '}
+        For more information on the various companies&apos; committees, do check
+        out our{' '}
         <a
           className="modal__text--link"
-          href={LANDING_URL}
+          href={`${LANDING_URL}/#team`}
           rel="noopener noreferrer"
           target="_blank"
         >
-          Our Team
+          Our Committees
         </a>{' '}
         page.
         <div className="modal__text--subtext">
