@@ -87,10 +87,10 @@ const OngoingBidsContainer = () => {
           ApiService.get('security')
         ]);
         if (!didCancel) {
-          const ongoingItems = responses[0].data;
-          ongoingItems.sort((a, b) => b.updatedAt - a.updatedAt);
+          const ongoingBids = responses[0].data;
+          ongoingBids.sort((a, b) => b.updatedAt - a.updatedAt);
           dispatch(updateSecurities(responses[1].data));
-          setState({ ongoingItems, isLoading: false });
+          setState({ ongoingBids, isLoading: false });
         }
       } catch (error) {
         if (!didCancel) {
