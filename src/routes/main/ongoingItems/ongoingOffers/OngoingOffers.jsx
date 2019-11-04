@@ -21,7 +21,7 @@ const renderOffers = (offers = [], isLoading) => {
       className={offers.length > 1 ? 'column' : ''}
       key={item.id || i}
       item={item}
-      actionLink={{ pathname: `/${OFFERS}/edit/${item.id}`, item }}
+      actionLink={{ pathname: `${OFFERS}/edit/${item.id}`, item }}
     />
   ));
 };

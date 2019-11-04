@@ -21,7 +21,7 @@ const renderBids = (bids = [], isLoading) => {
       className={bids.length > 1 ? 'column' : ''}
       key={item.id || i}
       item={item}
-      actionLink={{ pathname: `/${BIDS}/edit/${item.id}`, item }}
+      actionLink={{ pathname: `${BIDS}/edit/${item.id}`, item }}
     />
   ));
 };
