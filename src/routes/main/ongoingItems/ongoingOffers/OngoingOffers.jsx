@@ -13,7 +13,7 @@ const renderOffers = (offers = [], isLoading) => {
   }
   if (offers.length === 0) {
     return (
-      <div className="ongoingItems__emptyText">You have no ongoing offers!</div>
+      <div className="ongoingItems__emptyText">You have no ongoing asks!</div>
     );
   }
   return offers.map((item, i) => (
@@ -39,12 +39,12 @@ const OngoingOffers = ({ offers, isLoading = true }) => {
           type="button"
           className="button button--cta hvr-grow info__button"
         >
-          Create New Offer
+          Create New Ask
         </button>
       </Link>
       {offers.length > 1 && (
         <div className="ongoingItems__disclaimer">
-          You can only post up to two offers for each round.
+          You can only post up to two asks for each round.
         </div>
       )}
     </div>

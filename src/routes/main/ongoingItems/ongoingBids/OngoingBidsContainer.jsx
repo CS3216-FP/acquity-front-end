@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import pluralize from 'pluralize';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useUser } from 'contexts/userContext';
@@ -109,9 +108,7 @@ const OngoingBidsContainer = () => {
   return (
     <div className="info">
       <div className="info__header">
-        <span className="header--pretext">
-          Ongoing {pluralize('Bid', state.ongoingBids.length)} for&nbsp;
-        </span>
+        <span className="header--pretext">Ongoing Bids for&nbsp;</span>
         <span className="info__header--company">
           <InputDropdownSelect
             options={securities}

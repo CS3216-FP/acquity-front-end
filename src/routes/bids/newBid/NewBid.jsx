@@ -55,7 +55,7 @@ const NewBid = ({ apiEndpoint, type }) => {
     };
   }, [securities, dispatch]);
 
-  if (type === 'offer' && !isSeller(user)) {
+  if (type === 'ask' && !isSeller(user)) {
     return <Redirect to="/" />;
   }
 
