@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import pluralize from 'pluralize';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useUser } from 'contexts/userContext';
@@ -91,10 +90,10 @@ const OngoingOffersContainer = () => {
           ApiService.get('security')
         ]);
         if (!didCancel) {
-          const ongoingItems = responses[0].data;
-          ongoingItems.sort((a, b) => b.updatedAt - a.updatedAt);
+          const ongoingOffers = responses[0].data;
+          ongoingOffers.sort((a, b) => b.updatedAt - a.updatedAt);
           dispatch(updateSecurities(responses[1].data));
-          setState({ ongoingItems, isLoading: false });
+          setState({ ongoingOffers, isLoading: false });
         }
       } catch (error) {
         if (!didCancel) {
@@ -113,9 +112,7 @@ const OngoingOffersContainer = () => {
   return (
     <div className="info">
       <div className="info__header">
-        <span className="header--pretext">
-          Ongoing {pluralize('Offer', state.ongoingOffers.length)} for&nbsp;
-        </span>
+        <span className="header--pretext">Ongoing Asks for&nbsp;</span>
         <span className="info__header--company">
           <InputDropdownSelect
             options={securities}

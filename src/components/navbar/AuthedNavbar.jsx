@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
+import { HOME, BIDS, OFFERS, CHAT, ROOT, ADMIN } from 'constants/routes';
+
 import ProfileDropdown from './profile-dropdown';
 
 import './AuthedNavbar.scss';
@@ -9,13 +12,13 @@ const AuthTabs = ({ pathname }) => {
     <>
       <li
         className={`${
-          pathname.match('(/home|/bids|/offers).*') ? 'is-active' : ''
+          pathname.match(`(${HOME}|${BIDS}|${OFFERS})`) ? 'is-active' : ''
         }`}
       >
-        <Link to="/">Home</Link>
+        <Link to={ROOT}>Home</Link>
       </li>
-      <li className={`${pathname.startsWith('/matches') ? 'is-active' : ''}`}>
-        <Link to="/matches">Matches</Link>
+      <li className={`${pathname.startsWith(`${CHAT}`) ? 'is-active' : ''}`}>
+        <Link to={CHAT}>Matches</Link>
       </li>
     </>
   );
@@ -24,7 +27,7 @@ const AuthTabs = ({ pathname }) => {
 const AdminTabs = () => {
   return (
     <li className="is-active">
-      <Link to="/admin">Admin Panel</Link>
+      <Link to={ADMIN}>Admin Panel</Link>
     </li>
   );
 };

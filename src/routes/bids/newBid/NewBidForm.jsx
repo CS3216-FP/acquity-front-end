@@ -7,6 +7,18 @@ import InputDropdownSelect from 'components/inputDropdownSelect';
 import OrderDisclaimer from '../orderDisclaimer';
 
 const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
+  const getDefaultValues = () => {
+    // return if exist without change
+    if (formData) return formData;
+    // prepopulate with first security if exist
+    if (securities) {
+      return {
+        securityId: securities[0].id,
+        securityName: securities[0].name
+      };
+    }
+    return {};
+  };
   const {
     register,
     handleSubmit: validateInputs,
@@ -16,7 +28,7 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
     triggerValidation
   } = useForm({
     mode: 'onBlur',
-    defaultValues: formData || {}
+    defaultValues: getDefaultValues()
   });
   const watchedFields = watch();
 
@@ -62,6 +74,7 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
               setValue('securityId', value[0].id, true);
             }}
             values={
+              // eslint-disable-next-line no-nested-ternary
               formData
                 ? [
                     {
@@ -69,6 +82,8 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
                       name: formData.securityName
                     }
                   ]
+                : securities
+                ? [securities[0]]
                 : []
             }
           />

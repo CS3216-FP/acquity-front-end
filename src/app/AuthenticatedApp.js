@@ -70,13 +70,13 @@ const AuthenticatedApp = () => {
               exact
               path={`${OFFERS}/new`}
               render={props => (
-                <NewBid {...props} apiEndpoint="sell_order" type="offer" />
+                <NewBid {...props} apiEndpoint="sell_order" type="ask" />
               )}
             />
             <Route
               path={`${OFFERS}/edit/:id`}
               render={props => (
-                <EditBid {...props} apiEndpoint="sell_order" type="offer" />
+                <EditBid {...props} apiEndpoint="sell_order" type="ask" />
               )}
             />
             <Route path={ADMIN} render={adminRouting} />

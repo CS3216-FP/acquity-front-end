@@ -19,8 +19,8 @@ const OrderDisclaimer = ({ type }) => {
           ? '\nThis bid will only be confirmed once your account has been approved.'
           : ''
       }`;
-    } else if (type === 'offer') {
-      disclaimer = `You can only post up to two offers for each round.`;
+    } else if (type === 'ask') {
+      disclaimer = `You can only post up to two asks for each round.`;
     }
     setDisclaimerText(disclaimer);
   }, [type, user]);

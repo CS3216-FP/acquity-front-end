@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { isSeller } from 'utils/userUtils';
@@ -7,6 +8,8 @@ import PageContainer from 'components/pageContainer';
 import PageHeader from 'components/pageHeader';
 import ErrorMessage from 'components/errorMessage';
 import ApiService from 'services/apiService';
+import { updateSecurities } from 'reducers/SecuritiesDux';
+
 import NewBidForm from './NewBidForm';
 import Confirmation from '../proceedConfirmation';
 
@@ -18,20 +21,25 @@ const NewBid = ({ apiEndpoint, type }) => {
     isLoading: true,
     isError: false,
     showConfirm: false,
-    formData: null,
-    securities: []
+    formData: null
   });
+  const dispatch = useDispatch();
+  const { securities } = useSelector(rootState => rootState.securities);
 
   useEffect(() => {
     let didCancel = false;
     const fetchData = async () => {
+      if (securities) {
+        setState({ isLoading: false });
+        return;
+      }
       try {
         const response = await ApiService.get('security/');
         if (!didCancel) {
           setState({
-            isLoading: false,
-            securities: response.data
+            isLoading: false
           });
+          dispatch(updateSecurities(response.data));
         }
       } catch (error) {
         if (!didCancel) {
@@ -45,9 +53,9 @@ const NewBid = ({ apiEndpoint, type }) => {
     return () => {
       didCancel = true;
     };
-  }, []);
+  }, [securities, dispatch]);
 
-  if (type === 'offer' && !isSeller(user)) {
+  if (type === 'ask' && !isSeller(user)) {
     return <Redirect to="/" />;
   }
 
@@ -78,7 +86,7 @@ const NewBid = ({ apiEndpoint, type }) => {
             <NewBidForm
               isLoading={state.isLoading}
               type={type}
-              securities={state.securities}
+              securities={securities}
               formData={state.formData}
               onSubmit={data => {
                 setState({ formData: data, showConfirm: true });

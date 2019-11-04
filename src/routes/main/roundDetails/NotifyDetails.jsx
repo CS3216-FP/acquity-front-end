@@ -7,7 +7,7 @@ const NotifyDetails = () => {
         The round has not opened yet.
       </div>
       <div className="countdownDetails__text">
-        You may still place your offers or bids. <br />
+        You may still place your asks or bids. <br />
         We will notify you when the next round begins.
       </div>
     </div>
