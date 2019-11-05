@@ -34,17 +34,12 @@ const getLinkedInRedirect = () => {
 };
 
 const getUser = async () => {
-  const state = store.getState();
-  const { user } = state.misc;
   const token = TokenUtils.getToken();
   // No user yet.
   if (!token) {
     return Promise.resolve(null);
   }
 
-  if (user && Date.now() - user.lastRetrieved < 600000) {
-    return user;
-  }
   // Check with backend to see if key is still valid
   try {
     const response = await ApiService.get('auth/me');
