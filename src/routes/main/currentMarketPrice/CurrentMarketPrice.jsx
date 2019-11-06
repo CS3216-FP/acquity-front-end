@@ -30,9 +30,7 @@ const CurrentMarketPrice = () => {
         x => x.id === currentSelectedSellSecurity.id
       ).marketPrice;
       setState({ currentMarketPrice });
-    }
-
-    if (isBuyer(user) && currentSelectedBuySecurity) {
+    } else if (isBuyer(user) && currentSelectedBuySecurity) {
       const currentMarketPrice = securities.find(
         x => x.id === currentSelectedBuySecurity.id
       ).marketPrice;
