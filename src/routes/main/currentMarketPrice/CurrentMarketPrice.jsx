@@ -1,19 +1,50 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Modal from 'react-modal';
 
 import 'assets/scss/modal.scss';
 
+import { useUser } from 'contexts/userContext';
+import { isSeller, isBuyer } from 'utils/userUtils';
 import { toSgdCurrency } from 'utils/moneyUtils';
 import { LANDING_URL } from 'constants/urls';
-import CurrentMarketPriceGhost from './CurrentMarketPriceGhost';
 import './CurrentMarketPrice.scss';
+import CurrentMarketPriceGhost from './CurrentMarketPriceGhost';
 
 const CurrentMarketPrice = () => {
-  const { currentSelectedBuySecurity } = useSelector(state => state.securities);
+  const user = useUser();
+  const {
+    currentSelectedBuySecurity,
+    currentSelectedSellSecurity,
+    securities
+  } = useSelector(state => state.securities);
+
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
-    isModalOpen: false
+    isModalOpen: false,
+    currentMarketPrice: null
   });
+
+  useEffect(() => {
+    if (isSeller(user) && currentSelectedSellSecurity) {
+      const currentMarketPrice = securities.find(
+        x => x.id === currentSelectedSellSecurity.id
+      ).marketPrice;
+      setState({ currentMarketPrice });
+    }
+
+    if (isBuyer(user) && currentSelectedBuySecurity) {
+      const currentMarketPrice = securities.find(
+        x => x.id === currentSelectedBuySecurity.id
+      ).marketPrice;
+
+      setState({ currentMarketPrice });
+    }
+  }, [
+    currentSelectedBuySecurity,
+    currentSelectedSellSecurity,
+    securities,
+    user
+  ]);
 
   const handleOpenModalClick = () => {
     setState({ isModalOpen: true });
@@ -32,8 +63,8 @@ const CurrentMarketPrice = () => {
       <div className="details__header">Unofficial market price</div>
       <div className="currentMarketPrice__price">
         <span className="currentMarketPrice__price__value">
-          {currentSelectedBuySecurity.marketPrice ? (
-            <span>{toSgdCurrency(currentSelectedBuySecurity.marketPrice)}</span>
+          {state.currentMarketPrice ? (
+            <span>{toSgdCurrency(state.currentMarketPrice)}</span>
           ) : (
             <span>
               SGD{' '}
