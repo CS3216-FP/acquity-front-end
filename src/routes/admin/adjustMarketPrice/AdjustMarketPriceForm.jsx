@@ -23,7 +23,7 @@ const AdjustMarketPriceForm = ({ security }) => {
   const onClickSubmit = data => {
     setState({ isLoading: true });
     const { price } = data;
-    ApiService.patch(`security/${security.id}`, { marketValue: price })
+    ApiService.patch(`security/${security.id}`, { marketPrice: Number(price) })
       .then(() => {
         setState({ isSuccess: true, isLoading: false });
         dispatch(
