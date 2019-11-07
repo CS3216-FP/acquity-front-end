@@ -1,21 +1,21 @@
 import snakecaseKeys from 'snakecase-keys';
+
 import tokenUtils from 'utils/tokenUtils';
 import {
-  REQ_CHAT_ROOMS,
-  REQ_CONVERSATION,
-  REQ_NEW_MESSAGE
+  EMIT_CHAT_ROOMS,
+  EMIT_CONVERSATION,
+  EMIT_NEW_MESSAGE
 } from 'constants/socket';
-import Socket from './socketSetup';
 
-const getChatRooms = () => {
-  Socket.socket.emit(REQ_CHAT_ROOMS, {
+const getChatRooms = ({ socket }) => {
+  socket.emit(EMIT_CHAT_ROOMS, {
     token: tokenUtils.getToken()
   });
 };
 
-const getChatConversation = ({ chatRoomId }) => {
-  Socket.socket.emit(
-    REQ_CONVERSATION,
+const getChatConversation = ({ chatRoomId, socket }) => {
+  socket.emit(
+    EMIT_CONVERSATION,
     snakecaseKeys({
       token: tokenUtils.getToken(),
       chatRoomId
@@ -23,9 +23,9 @@ const getChatConversation = ({ chatRoomId }) => {
   );
 };
 
-const addNewMessage = ({ chatRoomId, message }) => {
-  Socket.socket.emit(
-    REQ_NEW_MESSAGE,
+const addNewMessage = ({ chatRoomId, message, socket }) => {
+  socket.emit(
+    EMIT_NEW_MESSAGE,
     snakecaseKeys({
       token: tokenUtils.getToken(),
       message,

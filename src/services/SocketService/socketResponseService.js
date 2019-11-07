@@ -6,14 +6,13 @@ import {
   addNewMessage
 } from 'reducers/ChatDux';
 import {
-  RES_CHAT_ROOMS,
-  RES_CONVERSATION,
-  RES_NEW_MESSAGE
+  RECEIVE_CHAT_ROOMS,
+  RECEIVE_CONVERSATION,
+  RECEIVE_NEW_MESSAGE
 } from 'constants/socket';
-import Socket from './socketSetup';
 
-export const setChatRoomsListener = () => {
-  Socket.socket.on(RES_CHAT_ROOMS, payload => {
+export const setChatRoomsListener = socket => {
+  socket.on(RECEIVE_CHAT_ROOMS, payload => {
     store.dispatch(
       setChatRooms({
         ...camelcaseKeys(payload)
@@ -22,8 +21,8 @@ export const setChatRoomsListener = () => {
   });
 };
 
-export const setChatConversationListener = () => {
-  Socket.socket.on(RES_CONVERSATION, payload => {
+export const setChatConversationListener = socket => {
+  socket.on(RECEIVE_CONVERSATION, payload => {
     store.dispatch(
       setChatConversation({
         ...camelcaseKeys(payload)
@@ -32,8 +31,8 @@ export const setChatConversationListener = () => {
   });
 };
 
-export const addNewMessageListener = () => {
-  Socket.socket.on(RES_NEW_MESSAGE, payload => {
+export const addNewMessageListener = socket => {
+  socket.on(RECEIVE_NEW_MESSAGE, payload => {
     store.dispatch(
       addNewMessage({
         ...camelcaseKeys(payload)
@@ -42,10 +41,10 @@ export const addNewMessageListener = () => {
   });
 };
 
-const initialize = () => {
-  Socket.setChatListListener = setChatRoomsListener();
-  Socket.setChatRoomListener = setChatConversationListener();
-  Socket.addNewMessageListenser = addNewMessageListener();
+const initialize = socket => {
+  setChatRoomsListener(socket);
+  setChatConversationListener(socket);
+  addNewMessageListener(socket);
 };
 
 export default {

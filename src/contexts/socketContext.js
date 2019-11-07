@@ -1,25 +1,22 @@
-import React from 'react';
-import {
-  socketConnect,
-  socketDisconnect
-} from 'services/SocketService/socketSetup';
+import React, { useEffect } from 'react';
+import io from 'socket.io-client';
+
 import SocketResponseService from 'services/SocketService/socketResponseService';
 
 const SocketContext = React.createContext();
 
 const SocketProvider = props => {
-  const openChatSocket = () => {
-    socketConnect();
-    SocketResponseService.initialize();
-  };
+  const socket = io(`${process.env.REACT_APP_BACKEND_API}chat`);
 
-  const closeChatSocket = () => {
-    socketDisconnect();
-  };
+  useEffect(() => {
+    SocketResponseService.initialize(socket);
+
+    return () => socket.disconnect();
+  }, [socket]);
 
   return (
     <SocketContext.Provider
-      value={{ openChatSocket, closeChatSocket }}
+      value={socket}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     />

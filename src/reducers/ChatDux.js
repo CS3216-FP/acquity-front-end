@@ -1,7 +1,6 @@
 import { createSlice } from 'redux-starter-kit';
 import _orderBy from 'lodash/orderBy';
 import _findIndex from 'lodash/findIndex';
-import SocketRequestService from 'services/SocketService/socketRequestService';
 
 const chat = createSlice({
   name: 'chat',
@@ -15,21 +14,9 @@ const chat = createSlice({
       // eslint-disable-next-line no-param-reassign
       state.chatRooms = _orderBy(payload, ['createdAt'], ['desc']);
     },
-    getChatRooms: () => {
-      SocketRequestService.getChatRooms();
-    },
-    getChatConversation: (state, { payload }) => {
-      const { chatRoomId } = payload;
-      // eslint-disable-next-line no-param-reassign
-      state.chatRoomId = chatRoomId;
-      SocketRequestService.getChatConversation({ chatRoomId });
-    },
     setChatConversation: (state, { payload }) => {
       // eslint-disable-next-line no-param-reassign
       state.chatConversation = payload;
-    },
-    getNewMessage: (state, { payload }) => {
-      SocketRequestService.getNewMessage(payload);
     },
     addNewMessage: (state, { payload }) => {
       state.chatConversation.push({ ...payload });
@@ -46,10 +33,7 @@ const chat = createSlice({
 
 export const {
   setChatRooms,
-  getChatRooms,
-  getChatConversation,
   setChatConversation,
-  getNewMessage,
   addNewMessage
 } = chat.actions;
 

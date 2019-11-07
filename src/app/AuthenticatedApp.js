@@ -4,17 +4,18 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  useParams
+  Redirect
 } from 'react-router-dom';
+
 import { useSocket } from 'contexts/socketContext';
+import { useUser } from 'contexts/userContext';
+import SocketRequestService from 'services/SocketService/socketRequestService';
 import Navbar from 'components/navbar';
 import Main from 'routes/main';
 import NewBid from 'routes/bids/newBid';
 import EditBid from 'routes/bids/editBid';
 import ProfileSettings from 'routes/settings/ProfileSettings';
 import Chat from 'routes/chat';
-import { getChatConversation, getChatRooms } from 'reducers/ChatDux';
 import {
   UNAUTHED_ROUTES,
   ROOT,
@@ -26,15 +27,12 @@ import {
   ADMIN
 } from 'constants/routes';
 import Admin from 'routes/admin/Admin';
-import { useUser } from 'contexts/userContext';
 import { isCommittee } from 'utils/userUtils';
-import { useDispatch } from 'react-redux';
 
 const redirectToRoot = () => <Redirect to={ROOT} />;
 const redirectToHome = () => <Redirect to={HOME} />;
 
 const AuthenticatedApp = () => {
-  const dispatch = useDispatch();
   const user = useUser();
 
   const adminRouting = () => {
@@ -44,19 +42,11 @@ const AuthenticatedApp = () => {
     return redirectToHome();
   };
 
-  const { openChatSocket, closeChatSocket } = useSocket();
-  const { chatRoomId } = useParams();
+  const socket = useSocket();
 
   useEffect(() => {
-    openChatSocket();
-    dispatch(getChatRooms());
-    if (chatRoomId) {
-      dispatch(getChatConversation({ chatRoomId }));
-    }
-    return () => {
-      closeChatSocket();
-    };
-  }, [chatRoomId, dispatch, openChatSocket, closeChatSocket]);
+    SocketRequestService.getChatRooms({ socket });
+  }, [socket]);
 
   return (
     <Router>
