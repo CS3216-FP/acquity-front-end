@@ -1,8 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { useUser } from 'contexts/userContext';
 import PageContainer from 'components/pageContainer';
-import { isSeller, isBuyer } from 'utils/userUtils';
+import { SELLER, BUYER } from 'constants/user';
+
 import OngoingOffers from './ongoingItems/ongoingOffers';
 import OngoingBids from './ongoingItems/ongoingBids';
 import RoundDetails from './roundDetails';
@@ -12,14 +13,14 @@ import PrevRoundSummary from './prevRoundSummary/PrevRoundSummary';
 import './Main.scss';
 
 const Main = () => {
-  const user = useUser();
+  const { userType } = useSelector(rootState => rootState.misc);
 
   return (
     <PageContainer>
       <div className="main page">
         <div className="page__content">
-          {isSeller(user) && <OngoingOffers />}
-          {isBuyer(user) && <OngoingBids />}
+          {userType === SELLER && <OngoingOffers />}
+          {userType === BUYER && <OngoingBids />}
           <div className="details columns is-gapless is-multiline-desktop">
             <div className="details--left column is-one-third-desktop">
               <RoundDetails />

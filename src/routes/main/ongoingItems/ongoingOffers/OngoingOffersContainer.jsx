@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useUser } from 'contexts/userContext';
@@ -7,60 +7,16 @@ import {
   updateSecurities,
   setCurrentSelectedSellSecurity
 } from 'reducers/SecuritiesDux';
-import { isUnapprovedSeller } from 'utils/userUtils';
+import { isUnapprovedSeller, isSeller } from 'utils/userUtils';
 import InputDropdownSelect from 'components/inputDropdownSelect';
-import AccountApprovalModal from 'components/modal/AccountApprovalModal';
 import ErrorMessage from 'components/errorMessage';
 import 'assets/scss/modal.scss';
 
+import OngoingOffers from './OngoingOffers';
+import OfferWarning from './OfferWarning';
+import NonSellerWarning from './NonSellerWarning';
 import '../containerStyle.scss';
 import './OngoingOffersContainer.scss';
-import OngoingOffers from './OngoingOffers';
-
-const OfferWarning = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModalClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  return (
-    <div className="ongoingItems ongoingOffers">
-      <div className="ongoingItems__orders is-marginless">
-        <div className="ongoingOffers__warning">
-          You cannot place offers until your account has been approved.
-        </div>
-        <button
-          onClick={handleOpenModalClick}
-          type="button"
-          className="modal__trigger as-non-button"
-        >
-          <span className="icon">
-            <i className="fas fa-question-circle" />
-          </span>
-          <span className="modal__trigger--text">
-            Why does my account need to be approved?
-          </span>
-        </button>
-      </div>
-      <button
-        disabled
-        type="button"
-        className="button button--cta hvr-grow info__button ongoingOffers__warning__button"
-      >
-        Create New Offer
-      </button>
-      <AccountApprovalModal
-        isOpen={isModalOpen}
-        handleClose={handleCloseModal}
-      />
-    </div>
-  );
-};
 
 const OngoingOffersContainer = () => {
   const user = useUser();
@@ -84,15 +40,19 @@ const OngoingOffersContainer = () => {
     let didCancel = false;
 
     const fetchData = async () => {
+      const promises = [ApiService.get('security')];
+      if (isSeller(user)) {
+        promises.push(ApiService.get('sell_order'));
+      }
       try {
-        const responses = await Promise.all([
-          ApiService.get('sell_order'),
-          ApiService.get('security')
-        ]);
+        const responses = await Promise.all(promises);
         if (!didCancel) {
-          const ongoingOffers = responses[0].data;
-          ongoingOffers.sort((a, b) => b.updatedAt - a.updatedAt);
-          dispatch(updateSecurities(responses[1].data));
+          dispatch(updateSecurities(responses[0].data));
+          let ongoingOffers = [];
+          if (isSeller(user)) {
+            ongoingOffers = responses[1].data;
+            ongoingOffers.sort((a, b) => b.updatedAt - a.updatedAt);
+          }
           setState({ ongoingOffers, isLoading: false });
         }
       } catch (error) {
@@ -107,7 +67,22 @@ const OngoingOffersContainer = () => {
     return () => {
       didCancel = true;
     };
-  }, [dispatch]);
+  }, [dispatch, user]);
+
+  const renderContent = () => {
+    // Prompt user to switch back to buyer role if they accidentally logged in as Seller
+    if (!isSeller(user)) {
+      return <NonSellerWarning />;
+    }
+
+    if (isUnapprovedSeller(user)) {
+      return <OfferWarning />;
+    }
+
+    return (
+      <OngoingOffers isLoading={state.isLoading} offers={state.ongoingOffers} />
+    );
+  };
 
   return (
     <div className="info">
@@ -128,14 +103,7 @@ const OngoingOffersContainer = () => {
       </div>
       <div className="info__content">
         {state.isError && <ErrorMessage />}
-        {isUnapprovedSeller(user) ? (
-          <OfferWarning />
-        ) : (
-          <OngoingOffers
-            isLoading={state.isLoading}
-            offers={state.ongoingOffers}
-          />
-        )}
+        {renderContent()}
       </div>
       <div className="is-divider main__content__divider" />
     </div>

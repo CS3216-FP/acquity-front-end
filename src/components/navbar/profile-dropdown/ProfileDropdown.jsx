@@ -1,13 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { isUnapprovedBuyer, isCommittee } from 'utils/userUtils';
+import Avatar from 'components/avatar';
+import { isUnapprovedBuyer, isCommittee, isSeller } from 'utils/userUtils';
 import { HOME, SETTINGS, ADMIN } from 'constants/routes';
 import { useUser } from 'contexts/userContext';
 import { useAuth } from 'contexts/authContext';
+import { setUserType } from 'reducers/MiscDux';
+import { BUYER, SELLER } from 'constants/user';
 
-import Avatar from 'components/avatar';
 import './ProfileDropdown.scss';
+
+const RoleSwitcher = () => {
+  const dispatch = useDispatch();
+  const { userType } = useSelector(rootState => rootState.misc);
+  const handleSwitchToBuyer = () => {
+    dispatch(setUserType(BUYER));
+  };
+
+  const handleSwitchToSeller = () => {
+    dispatch(setUserType(SELLER));
+  };
+
+  return (
+    <>
+      {userType === BUYER ? (
+        <button
+          type="button"
+          aria-label="switch to seller"
+          className="navbar-item"
+          onClick={handleSwitchToSeller}
+        >
+          Switch to Seller Role
+        </button>
+      ) : (
+        <button
+          type="button"
+          aria-label="switch to buyer"
+          className="navbar-item"
+          onClick={handleSwitchToBuyer}
+        >
+          Switch to Buyer Role
+        </button>
+      )}
+      <hr className="navbar-divider" />
+    </>
+  );
+};
 
 const ProfileDropdown = ({ isInAdminPath = false }) => {
   const user = useUser();
@@ -23,6 +63,7 @@ const ProfileDropdown = ({ isInAdminPath = false }) => {
         />
       </button>
       <div className="navbar-dropdown is-right">
+        {isSeller(user) && <RoleSwitcher />}
         {isUnapprovedBuyer(user) && (
           <>
             <div className="dropdown-item profile-dropdown__pending">

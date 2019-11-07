@@ -1,23 +1,21 @@
 import React, { useReducer, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Modal from 'react-modal';
-
 import 'assets/scss/modal.scss';
 
-import { useUser } from 'contexts/userContext';
-import { isSeller, isBuyer } from 'utils/userUtils';
+import { SELLER, BUYER } from 'constants/user';
 import { toSgdCurrency } from 'utils/moneyUtils';
 import { LANDING_URL } from 'constants/urls';
 import './CurrentMarketPrice.scss';
 import CurrentMarketPriceGhost from './CurrentMarketPriceGhost';
 
 const CurrentMarketPrice = () => {
-  const user = useUser();
   const {
     currentSelectedBuySecurity,
     currentSelectedSellSecurity,
     securities
   } = useSelector(state => state.securities);
+  const { userType } = useSelector(state => state.misc);
 
   const [state, setState] = useReducer((s, a) => ({ ...s, ...a }), {
     isModalOpen: false,
@@ -25,12 +23,12 @@ const CurrentMarketPrice = () => {
   });
 
   useEffect(() => {
-    if (isSeller(user) && currentSelectedSellSecurity) {
+    if (userType === SELLER && currentSelectedSellSecurity) {
       const currentMarketPrice = securities.find(
         x => x.id === currentSelectedSellSecurity.id
       ).marketPrice;
       setState({ currentMarketPrice });
-    } else if (isBuyer(user) && currentSelectedBuySecurity) {
+    } else if (userType === BUYER && currentSelectedBuySecurity) {
       const currentMarketPrice = securities.find(
         x => x.id === currentSelectedBuySecurity.id
       ).marketPrice;
@@ -41,7 +39,7 @@ const CurrentMarketPrice = () => {
     currentSelectedBuySecurity,
     currentSelectedSellSecurity,
     securities,
-    user
+    userType
   ]);
 
   const handleOpenModalClick = () => {
