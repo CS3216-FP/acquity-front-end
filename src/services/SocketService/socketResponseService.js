@@ -8,7 +8,7 @@ import {
 import Socket from './socketSetup';
 
 export const getChatList = () => {
-  Socket.socket.on('get_chat_list', payload => {
+  Socket.socket.on('res_chat_rooms', payload => {
     store.dispatch(
       updateChatListAction({
         ...camelcaseKeys(payload)

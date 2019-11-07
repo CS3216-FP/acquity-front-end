@@ -6,7 +6,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import SocketProvider from 'contexts/socketContext';
+import { SocketProvider } from 'contexts/socketContext';
 import Navbar from 'components/navbar';
 import Main from 'routes/main';
 import NewBid from 'routes/bids/newBid';

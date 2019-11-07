@@ -3,7 +3,7 @@ import tokenUtils from 'utils/tokenUtils';
 import Socket from './socketSetup';
 
 const requestChatList = () => {
-  Socket.socket.emit('set_chat_list', {
+  Socket.socket.emit('req_chat_rooms', {
     token: tokenUtils.getToken()
   });
 };

@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import TimeAgo from 'react-timeago';
 
 import Avatar from 'components/avatar';
-import { fetchChatRoomAction } from 'reducers/ChatDux';
 import './ChatItem.scss';
 
 const ChatItem = ({ chat, basePath }) => {
   const { chatRoomId } = useParams();
-  const dispatch = useDispatch();
 
   const formatter = (value, unit, _suffix) => {
     let shortenedUnit;
@@ -31,12 +28,6 @@ const ChatItem = ({ chat, basePath }) => {
     return `${value}${shortenedUnit}`;
   };
 
-  useEffect(() => {
-    if (chatRoomId) {
-      dispatch(fetchChatRoomAction({ chatRoomId }));
-    }
-  }, [chatRoomId, dispatch]);
-
   return (
     <li role="row">
       <Link
@@ -49,7 +40,7 @@ const ChatItem = ({ chat, basePath }) => {
         {/* <div className={`chatlist__status ${'chatlist__status--online'}`} /> */}
         <Avatar
           className="chatlist__item__avatar column is-narrow"
-          userName={chat.dealerId}
+          userName={chat.chatRoomId}
           diameter="3rem"
         />
         <div className="column chatlist__item__details">

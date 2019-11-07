@@ -1,36 +1,37 @@
-import React, { useCallback, useEffect } from 'react';
-
-import { fetchChatListAction } from 'reducers/ChatDux';
+import React from 'react';
 import {
   socketConnect,
   socketDisconnect
 } from 'services/SocketService/socketSetup';
 import SocketResponseService from 'services/SocketService/socketResponseService';
-import { useDispatch } from 'react-redux';
 
 const SocketContext = React.createContext();
 
 const SocketProvider = props => {
-  const dispatch = useDispatch();
-
-  const fetchChatList = useCallback(() => {
-    dispatch(fetchChatListAction());
-  }, [dispatch]);
-  useEffect(() => {
+  const openChatSocket = () => {
     socketConnect();
     SocketResponseService.initialize();
-    fetchChatList();
-    return () => {
-      socketDisconnect();
-    };
-  });
+  };
+
+  const closeChatSocket = () => {
+    socketDisconnect();
+  };
 
   return (
     <SocketContext.Provider
+      value={{ openChatSocket, closeChatSocket }}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     />
   );
 };
 
-export default SocketProvider;
+const useSocket = () => {
+  const context = React.useContext(SocketContext);
+  if (context === undefined) {
+    throw new Error(`useSocket must be used within a SocketProvider`);
+  }
+  return context;
+};
+
+export { SocketProvider, useSocket };
