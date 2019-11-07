@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { retryPromise } from 'utils';
+import { SocketProvider } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
 import Loading from 'components/loading';
 import './App.scss';
@@ -24,7 +25,13 @@ const App = () => {
 
   return (
     <React.Suspense fallback={<Loading />}>
-      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {user ? (
+        <SocketProvider>
+          <AuthenticatedApp />
+        </SocketProvider>
+      ) : (
+        <UnauthenticatedApp />
+      )}
     </React.Suspense>
   );
 };
