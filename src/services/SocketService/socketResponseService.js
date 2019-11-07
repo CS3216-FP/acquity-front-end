@@ -1,16 +1,21 @@
 import camelcaseKeys from 'camelcase-keys';
 import store from 'app/store';
 import {
-  updateChatListAction,
-  updateChatRoomAction,
-  updateNewMessageAction
+  updateChatList,
+  updateChatRoom,
+  updateNewMessage
 } from 'reducers/ChatDux';
+import {
+  RES_CHAT_ROOMS,
+  RES_CONVERSATION,
+  RES_NEW_MESSAGE
+} from 'constants/socket';
 import Socket from './socketSetup';
 
 export const getChatList = () => {
-  Socket.socket.on('res_chat_rooms', payload => {
+  Socket.socket.on(RES_CHAT_ROOMS, payload => {
     store.dispatch(
-      updateChatListAction({
+      updateChatList({
         ...camelcaseKeys(payload)
       })
     );
@@ -18,9 +23,9 @@ export const getChatList = () => {
 };
 
 export const getChatRoom = () => {
-  Socket.socket.on('get_chat_room', payload => {
+  Socket.socket.on(RES_CONVERSATION, payload => {
     store.dispatch(
-      updateChatRoomAction({
+      updateChatRoom({
         chatRoom: camelcaseKeys(payload)
       })
     );
@@ -28,9 +33,9 @@ export const getChatRoom = () => {
 };
 
 export const getNewMessage = () => {
-  Socket.socket.on('get_new_message', payload => {
+  Socket.socket.on(RES_NEW_MESSAGE, payload => {
     store.dispatch(
-      updateNewMessageAction({
+      updateNewMessage({
         ...camelcaseKeys(payload)
       })
     );

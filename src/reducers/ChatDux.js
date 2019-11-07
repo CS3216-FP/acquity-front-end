@@ -12,26 +12,26 @@ const chat = createSlice({
     chatRoomId: ''
   },
   reducers: {
-    updateChatListAction: (state, { payload }) => {
+    updateChatList: (state, { payload }) => {
       // eslint-disable-next-line no-param-reassign
       state.chatList = _orderBy(payload, ['createdAt'], ['desc']);
     },
-    fetchChatListAction: () => {
+    fetchChatList: () => {
       SocketRequestService.requestChatList();
     },
-    fetchChatRoomAction: (state, { payload }) => {
+    fetchChatRoom: (state, { payload }) => {
       // eslint-disable-next-line no-param-reassign
       state.chatRoomId = payload.chatRoomId;
       SocketRequestService.requestChatRoom({ chatRoomId: payload.chatRoomId });
     },
-    updateChatRoomAction: (state, { payload }) => {
+    updateChatRoom: (state, { payload }) => {
       // eslint-disable-next-line no-param-reassign
       state.chatRoom = payload.chatRoom;
     },
-    fetchNewMessageAction: (state, { payload }) => {
+    fetchNewMessage: (state, { payload }) => {
       SocketRequestService.requestNewMessage(payload);
     },
-    updateNewMessageAction: (state, { payload }) => {
+    updateNewMessage: (state, { payload }) => {
       state.chatRoom.push({ ...payload });
       const index = _findIndex(
         state.chatList,
@@ -45,12 +45,12 @@ const chat = createSlice({
 });
 
 export const {
-  updateChatListAction,
-  fetchChatListAction,
-  fetchChatRoomAction,
-  updateChatRoomAction,
-  fetchNewMessageAction,
-  updateNewMessageAction
+  updateChatList,
+  fetchChatList,
+  fetchChatRoom,
+  updateChatRoom,
+  fetchNewMessage,
+  updateNewMessage
 } = chat.actions;
 
 export default chat.reducer;
