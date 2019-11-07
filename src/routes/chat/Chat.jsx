@@ -1,30 +1,28 @@
 import React from 'react';
 import PageContainer from 'components/pageContainer';
 import { useParams } from 'react-router-dom';
-import ChatList from './ChatList';
-import ChatRoom from './ChatRoom/ChatRoom';
+import ChatRooms from './ChatRooms';
+import ChatMessages from './ChatConversation/ChatMessages';
 import ChatInput from './ChatInput/ChatInput';
-import ChatOffer from './ChatOffer';
+import ChatHeader from './ChatHeader';
 import './Chat.scss';
 
-const ChatHeader = () => {
+const ChatNav = () => {
   return (
-    <>
-      <div className="chat__header columns">
-        <div className="column chat__header__left is-two-fifths">
-          <span>Matches</span>
-          <span className="view-archive">View archive</span>
-        </div>
+    <div className="chat__header columns">
+      <div className="column chat__header__left is-two-fifths">
+        <span>Matches</span>
+        <span className="view-archive">View archive</span>
       </div>
-    </>
+    </div>
   );
 };
 
 const ChatContent = () => {
   return (
     <div className="column chat__content">
-      <ChatOffer />
-      <ChatRoom />
+      <ChatHeader />
+      <ChatMessages />
       <ChatInput />
     </div>
   );
@@ -36,9 +34,9 @@ const Chat = () => {
   return (
     <PageContainer className="chat">
       {/* TODO: clean up redux model to not use arrays and make keys more meaningful */}
-      <ChatHeader />
+      <ChatNav />
       <div className="columns is-gapless">
-        <ChatList />
+        <ChatRooms />
         {chatRoomId && <ChatContent />}
       </div>
     </PageContainer>

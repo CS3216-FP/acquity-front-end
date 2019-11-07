@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import pluralize from 'pluralize';
 
 import ChatMessage from './ChatMessage';
-import './ChatRoom.scss';
+import './ChatMessages.scss';
 
-const ChatRoom = () => {
+const ChatMessages = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const [prevMessageLength, setPrevMessageLength] = useState(0);
   const [isBottom, setIsBottom] = useState(false);
@@ -14,7 +14,7 @@ const ChatRoom = () => {
   let chatMessagesRef = document.getElementById('messagesContainer');
   let newMessageDividerRef = document.getElementById('newMessageDivider');
 
-  const chatMessages = useSelector(state => state.chat.chatRoom);
+  const chatMessages = useSelector(state => state.chat.chatConversation);
 
   const handleScroll = useCallback(
     event => {
@@ -113,4 +113,4 @@ const ChatRoom = () => {
   );
 };
 
-export default ChatRoom;
+export default ChatMessages;

@@ -6,51 +6,51 @@ import SocketRequestService from 'services/SocketService/socketRequestService';
 const chat = createSlice({
   name: 'chat',
   initialState: {
-    chatList: [],
-    chatRoom: [],
-    message: '',
+    chatRooms: [],
+    chatConversation: [],
     chatRoomId: ''
   },
   reducers: {
-    updateChatList: (state, { payload }) => {
+    setChatRooms: (state, { payload }) => {
       // eslint-disable-next-line no-param-reassign
-      state.chatList = _orderBy(payload, ['createdAt'], ['desc']);
+      state.chatRooms = _orderBy(payload, ['createdAt'], ['desc']);
     },
-    fetchChatList: () => {
-      SocketRequestService.requestChatList();
+    getChatRooms: () => {
+      SocketRequestService.getChatRooms();
     },
-    fetchChatRoom: (state, { payload }) => {
+    getChatConversation: (state, { payload }) => {
+      const { chatRoomId } = payload;
       // eslint-disable-next-line no-param-reassign
-      state.chatRoomId = payload.chatRoomId;
-      SocketRequestService.requestChatRoom({ chatRoomId: payload.chatRoomId });
+      state.chatRoomId = chatRoomId;
+      SocketRequestService.getChatConversation({ chatRoomId });
     },
-    updateChatRoom: (state, { payload }) => {
+    setChatConversation: (state, { payload }) => {
       // eslint-disable-next-line no-param-reassign
-      state.chatRoom = payload.chatRoom;
+      state.chatConversation = payload;
     },
-    fetchNewMessage: (state, { payload }) => {
-      SocketRequestService.requestNewMessage(payload);
+    getNewMessage: (state, { payload }) => {
+      SocketRequestService.getNewMessage(payload);
     },
-    updateNewMessage: (state, { payload }) => {
-      state.chatRoom.push({ ...payload });
+    addNewMessage: (state, { payload }) => {
+      state.chatConversation.push({ ...payload });
       const index = _findIndex(
-        state.chatList,
+        state.chatRooms,
         c => c.chatRoomId === payload.chatRoomId
       );
-      state.chatList.splice(index, 1, payload);
+      state.chatRooms.splice(index, 1, payload);
       // eslint-disable-next-line no-param-reassign
-      state.chatList = _orderBy(state.chatList, ['createdAt'], ['desc']);
+      state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
     }
   }
 });
 
 export const {
-  updateChatList,
-  fetchChatList,
-  fetchChatRoom,
-  updateChatRoom,
-  fetchNewMessage,
-  updateNewMessage
+  setChatRooms,
+  getChatRooms,
+  getChatConversation,
+  setChatConversation,
+  getNewMessage,
+  addNewMessage
 } = chat.actions;
 
 export default chat.reducer;

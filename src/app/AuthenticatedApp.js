@@ -14,7 +14,7 @@ import NewBid from 'routes/bids/newBid';
 import EditBid from 'routes/bids/editBid';
 import ProfileSettings from 'routes/settings/ProfileSettings';
 import Chat from 'routes/chat';
-import { fetchChatRoom, fetchChatList } from 'reducers/ChatDux';
+import { getChatConversation, getChatRooms } from 'reducers/ChatDux';
 import {
   UNAUTHED_ROUTES,
   ROOT,
@@ -49,9 +49,9 @@ const AuthenticatedApp = () => {
 
   useEffect(() => {
     openChatSocket();
-    dispatch(fetchChatList());
+    dispatch(getChatRooms());
     if (chatRoomId) {
-      dispatch(fetchChatRoom({ chatRoomId }));
+      dispatch(getChatConversation({ chatRoomId }));
     }
     return () => {
       closeChatSocket();

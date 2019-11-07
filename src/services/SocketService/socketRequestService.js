@@ -7,13 +7,13 @@ import {
 } from 'constants/socket';
 import Socket from './socketSetup';
 
-const requestChatList = () => {
+const getChatRooms = () => {
   Socket.socket.emit(REQ_CHAT_ROOMS, {
     token: tokenUtils.getToken()
   });
 };
 
-const requestChatRoom = ({ chatRoomId }) => {
+const getChatConversation = ({ chatRoomId }) => {
   Socket.socket.emit(
     REQ_CONVERSATION,
     snakecaseKeys({
@@ -23,7 +23,7 @@ const requestChatRoom = ({ chatRoomId }) => {
   );
 };
 
-const requestNewMessage = ({ chatRoomId, message }) => {
+const addNewMessage = ({ chatRoomId, message }) => {
   Socket.socket.emit(
     REQ_NEW_MESSAGE,
     snakecaseKeys({
@@ -35,7 +35,7 @@ const requestNewMessage = ({ chatRoomId, message }) => {
 };
 
 export default {
-  requestChatList,
-  requestChatRoom,
-  requestNewMessage
+  getChatRooms,
+  getChatConversation,
+  addNewMessage
 };

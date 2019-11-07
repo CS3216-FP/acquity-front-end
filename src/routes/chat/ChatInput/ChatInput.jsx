@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchNewMessage } from 'reducers/ChatDux';
+import { getNewMessage } from 'reducers/ChatDux';
 import './ChatInput.scss';
 
 const ChatInput = () => {
@@ -11,7 +11,7 @@ const ChatInput = () => {
 
   const handleNewMessage = useCallback(
     ({ message }) => {
-      dispatch(fetchNewMessage({ chatRoomId, message }));
+      dispatch(getNewMessage({ chatRoomId, message }));
     },
     [dispatch, chatRoomId]
   );
