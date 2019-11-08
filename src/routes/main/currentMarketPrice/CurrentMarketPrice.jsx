@@ -65,7 +65,7 @@ const CurrentMarketPrice = () => {
             <span>
               SGD{' '}
               <span className="currentMarketPrice__price__value--empty">
-                0.00
+                N/A
               </span>
             </span>
           )}
@@ -106,23 +106,25 @@ const ModalContent = ({ handleCloseModal }) => {
         Where do we get this value from?
       </div>
       <div className="modal__text">
-        The market price* of this company’s share is determined by a voluntary,
-        non-profit committee made up of current and ex-employees of that
-        company. The price is determined to the best of the committee’s
-        knowledge, and serves as an unofficial estimate of the market price.
-        <br />
-        <br />
-        For more information on the various companies&apos; committees, do check
-        out our{' '}
-        <a
-          className="modal__text--link"
-          href={`${LANDING_URL}/#team`}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Our Committees
-        </a>{' '}
-        page.
+        <p>
+          The market price* of this company’s share is determined by a
+          voluntary, non-profit committee made up of current and ex-employees of
+          that company. The price is determined to the best of the committee’s
+          knowledge, and serves as an unofficial estimate of the market price.
+        </p>
+        <p>
+          For more information on the various companies&apos; committees, do
+          check out our{' '}
+          <a
+            className="modal__text--link"
+            href={`${LANDING_URL}/#team`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Our Committees
+          </a>{' '}
+          page.
+        </p>
         <div className="modal__text--subtext">
           *If no value exists, that means that there is no current committee for
           that company.

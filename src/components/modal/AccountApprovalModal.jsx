@@ -23,14 +23,16 @@ const ModalContent = ({ handleClose }) => {
         Why does my account need to be approved?
       </div>
       <div className="modal__text">
-        Acquity places great emphasis on the trading experience - that means
-        little to no time spent on dealing with non-serious buyers and sellers.
-        Unfortunately, it also means checks need to be done.
-        <br />
-        <br />
-        Don’t worry, our teams are just confirming that you are a real person!
-        You will receive a notification once your account has been approved, and
-        any bids you have made will automatically go through.
+        <p>
+          Acquity places great emphasis on the trading experience - that means
+          little to no time spent on dealing with non-serious buyers and
+          sellers. Unfortunately, it also means checks need to be done.
+        </p>
+        <p>
+          Don’t worry, our teams are just confirming that you are a real person!
+          You will receive a notification once your account has been approved,
+          and any bids you have made will automatically go through.
+        </p>
       </div>
       <button
         onClick={handleClose}
