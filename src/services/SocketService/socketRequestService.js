@@ -7,10 +7,14 @@ import {
   EMIT_NEW_MESSAGE
 } from 'constants/socket';
 
-const getChatRooms = ({ socket }) => {
-  socket.emit(EMIT_CHAT_ROOMS, {
-    token: tokenUtils.getToken()
-  });
+const getChatRooms = ({ socket, userType }) => {
+  socket.emit(
+    EMIT_CHAT_ROOMS,
+    snakecaseKeys({
+      token: tokenUtils.getToken(),
+      userType
+    })
+  );
 };
 
 const getChatConversation = ({ chatRoomId, socket }) => {

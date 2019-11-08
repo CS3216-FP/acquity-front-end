@@ -28,6 +28,7 @@ import {
 } from 'constants/routes';
 import Admin from 'routes/admin/Admin';
 import { isCommittee } from 'utils/userUtils';
+import { useSelector } from 'react-redux';
 
 const redirectToRoot = () => <Redirect to={ROOT} />;
 const redirectToHome = () => <Redirect to={HOME} />;
@@ -43,9 +44,10 @@ const AuthenticatedApp = () => {
   };
 
   const socket = useSocket();
+  const userType = useSelector(state => state.misc.userType);
 
   useEffect(() => {
-    SocketRequestService.getChatRooms({ socket });
+    SocketRequestService.getChatRooms({ socket, userType });
   }, [socket]);
 
   return (
