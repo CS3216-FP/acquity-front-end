@@ -113,7 +113,7 @@ const addNewOffer = ({
  * Emit event to accept offer. // TODO: Does not change offer to accepted
  * Example:
  * {
- *  "token": "AQV6I_qG1FzpD0ECYG9WpVXaZYIpFSZHeqNWyqKfKRFuRR8AQbfSxDIi8ux2GzdpSX28q-AEpDF2XgtlPlZC9GpKU_ldKWrXP_hrN1zLHMyarFx9NpajK-2pSV-_DNHWiHXSGWSHf8o2u7I_AE3_FLWEQGFEs9jrGsLgndZURaqAvb3WZZQiDoQpgCw5uMOpVx6p_rf9yE8qrTzYtzsAxJ_gPGMweL3jJQLq0nTuAS9qV8TJCg-Otfkj5yA-sTR5GbsV0vSzUZ6xJqa5atdA_HaRTrkcvJ2Y1GePeGsY76b4m09OYSXY3BTqkglcPu4NcMii9GjILZpICA1tM1C_o4T_lWSEDw",
+ *  "token": "...",
  *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
  *  "user_type": "buyer",
  *  "offer_id": "fac16c9e-0928-4c53-b3df-d84ebf229ee0"
