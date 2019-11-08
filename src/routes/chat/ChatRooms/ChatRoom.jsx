@@ -38,12 +38,12 @@ const ChatRoom = ({ chat, basePath }) => {
       >
         <Avatar
           className="chatroom__item__avatar column is-narrow"
-          userName={chat.chatRoomId}
+          userName={chat.friendlyName}
           diameter="3rem"
         />
         <div className="column chatroom__item__details">
           <div className="detail__header">
-            <div className="detail__header--name">{chat.chatRoomId}</div>
+            <div className="detail__header--name">{chat.friendlyName}</div>
             <div className="detail__header--timeago">
               <TimeAgo date={chat.createdAt * 1000} formatter={formatter} />
             </div>
