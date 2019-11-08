@@ -48,7 +48,7 @@ const AuthenticatedApp = () => {
 
   useEffect(() => {
     SocketRequestService.getChatRooms({ socket, userType });
-  }, [socket]);
+  }, [socket, userType]);
 
   return (
     <Router>
