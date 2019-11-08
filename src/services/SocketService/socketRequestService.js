@@ -14,7 +14,6 @@ const getChatRooms = ({ socket }) => {
 };
 
 const getChatConversation = ({ chatRoomId, socket }) => {
-  console.log(chatRoomId);
   socket.emit(
     EMIT_CONVERSATION,
     snakecaseKeys({
