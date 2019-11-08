@@ -19,7 +19,6 @@ const chat = createSlice({
       state.chatRooms = _orderBy(payload, ['createdAt'], ['desc']);
     },
     setChatConversation: (state, { payload }) => {
-      console.log(payload);
       // eslint-disable-next-line no-param-reassign
       state.chatConversation = payload;
     },

@@ -23,7 +23,6 @@ export const setChatRoomsListener = socket => {
 
 export const setChatConversationListener = socket => {
   socket.on(RECEIVE_CONVERSATION, payload => {
-    console.log(payload);
     store.dispatch(
       setChatConversation({
         ...camelcaseKeys(payload, { deep: true })
