@@ -32,6 +32,15 @@ const chat = createSlice({
       state.chatRooms.splice(index, 1, payload);
       // eslint-disable-next-line no-param-reassign
       state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
+    },
+    addNewOffer: () => {
+      // TODO: add to new message in chatConversation.conversation
+    },
+    acceptOffer: () => {
+      // TODO: set offer message in chatConversation.conversation to ACCEPTED
+    },
+    declineOffer: () => {
+      // TODO: set offer message in chatConversation.conversation to REJECTED
     }
   }
 });
@@ -39,7 +48,10 @@ const chat = createSlice({
 export const {
   setChatRooms,
   setChatConversation,
-  addNewMessage
+  addNewMessage,
+  addNewOffer,
+  acceptOffer,
+  declineOffer
 } = chat.actions;
 
 export default chat.reducer;

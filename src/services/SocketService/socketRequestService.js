@@ -4,7 +4,10 @@ import tokenUtils from 'utils/tokenUtils';
 import {
   EMIT_CHAT_ROOMS,
   EMIT_CONVERSATION,
-  EMIT_NEW_MESSAGE
+  EMIT_NEW_MESSAGE,
+  EMIT_NEW_OFFER,
+  EMIT_ACCEPT_OFFER,
+  EMIT_DECLINE_OFFER
 } from 'constants/socket';
 
 const getChatRooms = ({ socket, userType }) => {
@@ -38,8 +41,54 @@ const addNewMessage = ({ chatRoomId, message, socket }) => {
   );
 };
 
+const addNewOffer = ({
+  chatRoomId,
+  price,
+  numberOfShares,
+  userType,
+  socket
+}) => {
+  socket.emit(
+    EMIT_NEW_OFFER,
+    snakecaseKeys({
+      token: tokenUtils.getToken(),
+      price,
+      numberOfShares,
+      userType,
+      chatRoomId
+    })
+  );
+};
+
+const acceptOffer = ({ chatRoomId, offerId, userType, socket }) => {
+  socket.emit(
+    EMIT_ACCEPT_OFFER,
+    snakecaseKeys({
+      token: tokenUtils.getToken(),
+      offerId,
+      userType,
+      chatRoomId
+    })
+  );
+};
+
+const declineOffer = ({ chatRoomId, offerId, userType, socket }) => {
+  socket.emit(
+    EMIT_DECLINE_OFFER,
+    snakecaseKeys({
+      token: tokenUtils.getToken(),
+      offerId,
+      userType,
+      chatRoomId
+    })
+  );
+};
+
 export default {
   getChatRooms,
   getChatConversation,
-  addNewMessage
+  addNewMessage,
+  addNewOffer,
+  acceptOffer,
+  declineOffer
 };
