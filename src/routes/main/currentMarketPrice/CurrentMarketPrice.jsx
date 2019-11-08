@@ -23,18 +23,23 @@ const CurrentMarketPrice = () => {
   });
 
   useEffect(() => {
+    let currentMarketPrice = null;
     if (userType === SELLER && currentSelectedSellSecurity) {
-      const currentMarketPrice = securities.find(
+      const selectedSecurity = securities.find(
         x => x.id === currentSelectedSellSecurity.id
-      ).marketPrice;
-      setState({ currentMarketPrice });
+      );
+      if (selectedSecurity) {
+        currentMarketPrice = selectedSecurity.marketPrice;
+      }
     } else if (userType === BUYER && currentSelectedBuySecurity) {
-      const currentMarketPrice = securities.find(
+      const selectedSecurity = securities.find(
         x => x.id === currentSelectedBuySecurity.id
-      ).marketPrice;
-
-      setState({ currentMarketPrice });
+      );
+      if (selectedSecurity) {
+        currentMarketPrice = selectedSecurity.marketPrice;
+      }
     }
+    setState({ currentMarketPrice });
   }, [
     currentSelectedBuySecurity,
     currentSelectedSellSecurity,
