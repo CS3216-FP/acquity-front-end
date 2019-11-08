@@ -80,7 +80,7 @@ const ChatMessages = () => {
 
   useEffect(() => {
     SocketRequestService.getChatConversation({ chatRoomId, socket });
-  });
+  }, [chatRoomId, socket]);
 
   return (
     <div ref={setChatMessagesRef} id="chatMessages" className="chatMessages">
