@@ -1,4 +1,8 @@
 import React from 'react';
+import { useSocket } from 'contexts/socketContext';
+import { useParams } from 'react-router-dom';
+
+import SocketRequestService from 'services/SocketService/socketRequestService';
 
 import './ChatInput.scss';
 
@@ -14,9 +18,17 @@ const ChatInput = () => {
     setMessage('');
   };
 
+  const { chatRoomId } = useParams();
+
+  const socket = useSocket();
   const handleKeyPress = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
+      SocketRequestService.addNewMessage({
+        chatRoomId,
+        message: event.target.value,
+        socket
+      });
       sendMessage();
     }
   };

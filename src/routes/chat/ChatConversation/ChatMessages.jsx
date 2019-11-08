@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import pluralize from 'pluralize';
 
+import SocketRequestService from 'services/SocketService/socketRequestService';
+import { useSocket } from 'contexts/socketContext';
 import ChatMessage from './ChatMessage';
 import './ChatMessages.scss';
 
@@ -14,7 +17,9 @@ const ChatMessages = () => {
   let chatMessagesRef = document.getElementById('messagesContainer');
   let newMessageDividerRef = document.getElementById('newMessageDivider');
 
-  const chatMessages = useSelector(state => state.chat.chatConversation);
+  const chatMessages = useSelector(
+    state => state.chat.chatConversation.conversation
+  );
 
   const handleScroll = useCallback(
     event => {
@@ -69,6 +74,13 @@ const ChatMessages = () => {
     prevMessageLength,
     handleScroll
   ]);
+
+  const { chatRoomId } = useParams();
+  const socket = useSocket();
+
+  useEffect(() => {
+    SocketRequestService.getChatConversation({ chatRoomId, socket });
+  });
 
   return (
     <div ref={setChatMessagesRef} id="chatMessages" className="chatMessages">

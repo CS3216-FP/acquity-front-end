@@ -5,7 +5,7 @@ import './ChatMessage.scss';
 
 const ChatMessage = ({ chat }) => {
   const user = useUser();
-  const timeString = new Date(chat.createdAt * 1000).toLocaleTimeString([], {
+  const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
     timeStyle: 'short'
   });
   return (

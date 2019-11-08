@@ -15,7 +15,7 @@ export const setChatRoomsListener = socket => {
   socket.on(RECEIVE_CHAT_ROOMS, payload => {
     store.dispatch(
       setChatRooms({
-        ...camelcaseKeys(payload)
+        ...camelcaseKeys(payload, { deep: true })
       })
     );
   });
@@ -23,9 +23,10 @@ export const setChatRoomsListener = socket => {
 
 export const setChatConversationListener = socket => {
   socket.on(RECEIVE_CONVERSATION, payload => {
+    console.log(payload);
     store.dispatch(
       setChatConversation({
-        ...camelcaseKeys(payload)
+        ...camelcaseKeys(payload, { deep: true })
       })
     );
   });
@@ -35,7 +36,7 @@ export const addNewMessageListener = socket => {
   socket.on(RECEIVE_NEW_MESSAGE, payload => {
     store.dispatch(
       addNewMessage({
-        ...camelcaseKeys(payload)
+        ...camelcaseKeys(payload, { deep: true })
       })
     );
   });

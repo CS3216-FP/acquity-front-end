@@ -4,7 +4,9 @@ import _findIndex from 'lodash/findIndex';
 
 export const initialState = {
   chatRooms: [],
-  chatConversation: [],
+  chatConversation: {
+    conversation: []
+  },
   chatRoomId: ''
 };
 
@@ -17,14 +19,16 @@ const chat = createSlice({
       state.chatRooms = _orderBy(payload, ['createdAt'], ['desc']);
     },
     setChatConversation: (state, { payload }) => {
+      console.log(payload);
       // eslint-disable-next-line no-param-reassign
       state.chatConversation = payload;
     },
     addNewMessage: (state, { payload }) => {
-      state.chatConversation.push({ ...payload });
+      const { newChat, chatRoomId } = payload;
+      state.chatConversation.conversation.push({ ...newChat });
       const index = _findIndex(
         state.chatRooms,
-        c => c.chatRoomId === payload.chatRoomId
+        c => c.chatRoomId === chatRoomId
       );
       state.chatRooms.splice(index, 1, payload);
       // eslint-disable-next-line no-param-reassign
