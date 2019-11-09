@@ -43,20 +43,6 @@ const Message = ({ chat }) => {
   );
 };
 
-/**
- * Emit event to accept offer. // TODO: Does not change offer to accepted
- * Example:
- * {
- *  "token": "...",
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- *  "user_type": "buyer",
- *  "offer_id": "fac16c9e-0928-4c53-b3df-d84ebf229ee0"
- * }
- * @param chatRoomId
- * @param offerId
- * @param userType
- * @param socket
- */
 const Offer = ({ chat }) => {
   const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
     timeStyle: 'short'
