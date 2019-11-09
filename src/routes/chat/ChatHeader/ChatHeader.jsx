@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import {
+  getUserPrice,
+  getUserNumberOfShares,
+  getOtherPartyUserType
+} from 'utils/userUtils';
+import { toSgdCurrency } from 'utils/moneyUtils';
 import { useSocket } from 'contexts/socketContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import './ChatHeader.scss';
@@ -87,7 +93,34 @@ const ChatCreateOffer = ({ setOffer }) => {
 
 const ChatHeader = () => {
   const [offer, setOffer] = useState(true);
-
+  const {
+    sellerPrice,
+    buyerPrice,
+    sellerNumberOfShares,
+    buyerNumberOfShares
+  } = useSelector(state => state.chat.chatConversation);
+  const userType = useSelector(state => state.misc.userType);
+  const otherPartyUserType = getOtherPartyUserType({ userType });
+  const userPrice = getUserPrice({
+    userType: otherPartyUserType,
+    sellerPrice,
+    buyerPrice
+  });
+  const userNumberOfShares = getUserNumberOfShares({
+    userType: otherPartyUserType,
+    buyerNumberOfShares,
+    sellerNumberOfShares
+  });
+  const otherPartyPrice = getUserPrice({
+    userType: otherPartyUserType,
+    sellerPrice,
+    buyerPrice
+  });
+  const otherPartyNumberOfShares = getUserNumberOfShares({
+    userType: otherPartyUserType,
+    buyerNumberOfShares,
+    sellerNumberOfShares
+  });
   const createOffer = () => {
     setOffer(true);
   };
@@ -95,11 +128,15 @@ const ChatHeader = () => {
     <div className="chat__header column is-paddingless">
       <div className="columns is-mobile is-marginless">
         <ChatOfferDetails
-          headerText="Seller Offer"
-          quantity="2000"
-          price="6.89"
+          headerText={`${userType === 'seller' ? 'Buyer' : 'Seller'} Offer`}
+          quantity={toSgdCurrency(otherPartyNumberOfShares)}
+          price={toSgdCurrency(otherPartyPrice)}
         />
-        <ChatOfferDetails headerText="Your Bid" quantity="3000" price="6.30" />
+        <ChatOfferDetails
+          headerText="Your Bid"
+          quantity={toSgdCurrency(userNumberOfShares)}
+          price={toSgdCurrency(userPrice)}
+        />
       </div>
       {offer ? (
         <ChatCreateOffer setOffer={setOffer} />

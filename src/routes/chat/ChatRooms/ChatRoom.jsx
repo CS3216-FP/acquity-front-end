@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
+import { useSelector } from 'react-redux';
 
 import Avatar from 'components/avatar';
+import {
+  getUserPrice,
+  getUserNumberOfShares,
+  getOtherPartyUserType
+} from 'utils/userUtils';
+import { toSgdCurrency } from 'utils/moneyUtils';
 import './ChatRoom.scss';
 
 const ChatRoom = ({ chat, basePath }) => {
@@ -48,14 +55,42 @@ const ChatRoom = ({ chat, basePath }) => {
               <TimeAgo date={chat.updatedAt} formatter={formatter} />
             </div>
           </div>
-          {/* TODO: Remove hardcode */}
-          <div className="detail__content">
-            <div>Selling Amt: 2000</div>
-            <div>Lowest Price: $6.10</div>
-          </div>
+          <OtherPartyOffer chat={chat} />
         </div>
       </Link>
     </li>
+  );
+};
+
+const OtherPartyOffer = ({ chat }) => {
+  const {
+    sellerPrice,
+    buyerPrice,
+    sellerNumberOfShares,
+    buyerNumberOfShares
+  } = chat;
+  const userType = useSelector(state => state.misc.userType);
+  const otherPartyUserType = getOtherPartyUserType({ userType });
+  const price = getUserPrice({
+    userType: otherPartyUserType,
+    sellerPrice,
+    buyerPrice
+  });
+  const numberOfShares = getUserNumberOfShares({
+    userType: otherPartyUserType,
+    buyerNumberOfShares,
+    sellerNumberOfShares
+  });
+  return (
+    <div className="detail__content">
+      <div>
+        {userType === 'seller' ? 'Selling' : 'Buying'} Amt: {numberOfShares}
+      </div>
+      <div>
+        {userType === 'seller' ? 'Highest' : 'Lowest'} Price:{' '}
+        {toSgdCurrency(price)}
+      </div>
+    </div>
   );
 };
 
