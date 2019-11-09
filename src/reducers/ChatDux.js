@@ -21,21 +21,24 @@ const chat = createSlice({
   initialState,
   reducers: {
     setChatRooms: (state, { payload }) => {
-      // eslint-disable-next-line no-param-reassign
+      /* eslint-disable no-param-reassign */
       state.chatRooms = _orderBy(payload, ['createdAt'], ['desc']);
+      /* eslint-enable no-param-reassign */
     },
     setChatConversation: (state, { payload }) => {
-      // eslint-disable-next-line no-param-reassign
+      /* eslint-disable no-param-reassign */
       state.chatConversation = payload;
+      /* eslint-enable no-param-reassign */
     },
     addNewMessage: (state, { payload }) => {
       const { newChat, chatRoomId, updatedAt } = payload;
       state.chatConversation.conversation.push({ ...newChat });
       const index = state.chatRooms.findIndex(c => c.chatRoomId === chatRoomId);
-      // eslint-disable-next-line no-param-reassign
+
+      /* eslint-disable no-param-reassign */
       state.chatRooms[index].createdAt = updatedAt;
-      // eslint-disable-next-line no-param-reassign
       state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
+      /* eslint-enable no-param-reassign */
     },
     acceptOffer: (state, { payload }) => {
       const { chatRoomId, newChat, updatedAt, isDealClosed } = payload;
@@ -46,19 +49,15 @@ const chat = createSlice({
         c => c.chatRoomId === chatRoomId
       );
 
+      /* eslint-disable no-param-reassign */
       // update chatConversation offer timestamp
-      // eslint-disable-next-line no-param-reassign
       state.chatConversation.conversation[messageIndex] = newChat;
-      // eslint-disable-next-line no-param-reassign
       state.chatConversation.isDealClosed = isDealClosed;
-
       // update chatRooms timestamp
-      // eslint-disable-next-line no-param-reassign
       state.chatRooms[chatRoomIndex].createdAt = updatedAt;
-      // eslint-disable-next-line no-param-reassign
       state.chatRooms[chatRoomIndex].isDealClosed = isDealClosed;
-      // eslint-disable-next-line no-param-reassign
       state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
+      /* eslint-enable no-param-reassign */
     },
     declineOffer: () => {
       // TODO: set offer message in chatConversation.conversation to REJECTED

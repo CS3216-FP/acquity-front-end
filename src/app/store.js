@@ -9,7 +9,7 @@ const MIGRATION_DEBUG = false;
 
 const persistConfig = {
   key: 'acquity',
-  version: 0,
+  version: 1,
   migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
   storage
 };
