@@ -47,10 +47,40 @@ const Offer = ({ chat }) => {
   const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
     timeStyle: 'short'
   });
-  const userType = useSelector(state => state.misc.userType);
+
+  return (
+    <p className="chatMessage__bubble__message">
+      <span className="chatMessage__bubble__message--message">
+        Price: {chat.price} Number Of Shares: {chat.numberOfShares}
+      </span>
+      <span className="chatMessage__bubble__message--timestamp">
+        {timeString}
+      </span>
+      <OfferStatus chat={chat} />
+    </p>
+  );
+};
+
+const OfferStatus = ({ chat }) => {
+  const { offerStatus } = chat;
   const isDealClose = useSelector(
     state => state.chat.chatConversation.isDealClosed
   );
+  if (isDealClose) {
+    if (offerStatus === 'ACCEPTED') {
+      return <AcceptedOffer />;
+    }
+    return <div />;
+  }
+  if (offerStatus === 'REJECTED') {
+    return <RejectedOffer />;
+  }
+
+  return <PendingOffer chat={chat} />;
+};
+
+const PendingOffer = ({ chat }) => {
+  const userType = useSelector(state => state.misc.userType);
   const socket = useSocket();
   const { chatRoomId } = useParams();
 
@@ -62,32 +92,31 @@ const Offer = ({ chat }) => {
       chatRoomId
     });
   };
+  if (userType === chat.userType) {
+    return <div>Pending...</div>;
+  }
   return (
-    <p className="chatMessage__bubble__message">
-      <span className="chatMessage__bubble__message--message">
-        Price: {chat.price} Number Of Shares: {chat.numberOfShares}
-      </span>
-      <span className="chatMessage__bubble__message--timestamp">
-        {timeString}
-      </span>
-      {isDealClose ? (
-        <div />
-      ) : (
-        <div className="columns is-gapless is-mobile">
-          <button
-            type="button"
-            className="column button is-success is-outlined"
-            onClick={acceptOffer}
-          >
-            Accept
-          </button>
-          <button type="button" className="column button is-danger is-outlined">
-            Reject
-          </button>
-        </div>
-      )}
-    </p>
+    <div className="columns is-gapless is-mobile">
+      <button
+        type="button"
+        className="column button is-success is-outlined"
+        onClick={acceptOffer}
+      >
+        Accept
+      </button>
+      <button type="button" className="column button is-danger is-outlined">
+        Reject
+      </button>
+    </div>
   );
+};
+
+const AcceptedOffer = () => {
+  return <div>This offer has been accepted!</div>;
+};
+
+const RejectedOffer = () => {
+  return <div>This offer has been rejected.</div>;
 };
 
 export default ChatMessage;
