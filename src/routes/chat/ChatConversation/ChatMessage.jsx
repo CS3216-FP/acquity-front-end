@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { useSocket } from 'contexts/socketContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 
 import './ChatMessage.scss';
-import { useSocket } from '../../../contexts/socketContext';
 
 const ChatMessage = ({ chat }) => {
   const userType = useSelector(state => state.misc.userType);
