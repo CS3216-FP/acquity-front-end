@@ -68,7 +68,6 @@ const getChatConversation = ({ chatRoomId, socket, userType }) => {
  * @param userType
  */
 const addNewMessage = ({ chatRoomId, message, socket, userType }) => {
-  console.log(userType);
   socket.emit(
     EMIT_NEW_MESSAGE,
     snakecaseKeys({
