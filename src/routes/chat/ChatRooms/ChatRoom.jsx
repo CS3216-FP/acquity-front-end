@@ -45,7 +45,7 @@ const ChatRoom = ({ chat, basePath }) => {
           <div className="detail__header">
             <div className="detail__header--name">{chat.friendlyName}</div>
             <div className="detail__header--timeago">
-              <TimeAgo date={chat.createdAt * 1000} formatter={formatter} />
+              <TimeAgo date={chat.createdAt} formatter={formatter} />
             </div>
           </div>
           {/* TODO: Remove hardcode */}

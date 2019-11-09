@@ -4,7 +4,6 @@ import {
   setChatRooms,
   setChatConversation,
   addNewMessage,
-  addNewOffer,
   acceptOffer,
   declineOffer
 } from 'reducers/ChatDux';
@@ -135,7 +134,7 @@ export const addNewMessageListener = socket => {
 export const addNewOfferListener = socket => {
   socket.on(RECEIVE_NEW_OFFER, payload => {
     store.dispatch(
-      addNewOffer({
+      addNewMessage({
         ...camelcaseKeys(payload, { deep: true })
       })
     );

@@ -1,6 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
 import _orderBy from 'lodash/orderBy';
-import _findIndex from 'lodash/findIndex';
 
 export const initialState = {
   chatRooms: [],
@@ -23,18 +22,13 @@ const chat = createSlice({
       state.chatConversation = payload;
     },
     addNewMessage: (state, { payload }) => {
-      const { newChat, chatRoomId } = payload;
+      const { newChat, chatRoomId, updatedAt } = payload;
       state.chatConversation.conversation.push({ ...newChat });
-      const index = _findIndex(
-        state.chatRooms,
-        c => c.chatRoomId === chatRoomId
-      );
-      state.chatRooms.splice(index, 1, payload);
+      const index = state.chatRooms.findIndex(c => c.chatRoomId === chatRoomId);
+      // eslint-disable-next-line no-param-reassign
+      state.chatRooms[index].createdAt = updatedAt;
       // eslint-disable-next-line no-param-reassign
       state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
-    },
-    addNewOffer: () => {
-      // TODO: add to new message in chatConversation.conversation
     },
     acceptOffer: () => {
       // TODO: set offer message in chatConversation.conversation to ACCEPTED
@@ -49,7 +43,6 @@ export const {
   setChatRooms,
   setChatConversation,
   addNewMessage,
-  addNewOffer,
   acceptOffer,
   declineOffer
 } = chat.actions;

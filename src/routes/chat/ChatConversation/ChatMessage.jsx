@@ -1,30 +1,57 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { useUser } from 'contexts/userContext';
 import './ChatMessage.scss';
 
 const ChatMessage = ({ chat }) => {
-  const user = useUser();
-  const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
-    timeStyle: 'short'
-  });
+  const userType = useSelector(state => state.misc.userType);
+
   return (
     <div className="chatMessage">
       <div
         className={`chatMessage__bubble chatMessage__bubble--${
-          user.id === chat.authorId ? 'right' : 'left'
+          userType === chat.userType ? 'right' : 'left'
         }`}
       >
-        <p className="chatMessage__bubble__message">
-          <span className="chatMessage__bubble__message--message">
-            {chat.message}
-          </span>
-          <span className="chatMessage__bubble__message--timestamp">
-            {timeString}
-          </span>
-        </p>
+        {chat.type === 'message' ? (
+          <Message chat={chat} />
+        ) : (
+          <Offer chat={chat} />
+        )}
       </div>
     </div>
+  );
+};
+
+const Message = ({ chat }) => {
+  const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
+    timeStyle: 'short'
+  });
+  return (
+    <p className="chatMessage__bubble__message">
+      <span className="chatMessage__bubble__message--message">
+        {chat.message}
+      </span>
+      <span className="chatMessage__bubble__message--timestamp">
+        {timeString}
+      </span>
+    </p>
+  );
+};
+
+const Offer = ({ chat }) => {
+  const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
+    timeStyle: 'short'
+  });
+  return (
+    <p className="chatMessage__bubble__message">
+      <span className="chatMessage__bubble__message--message">
+        Price: {chat.price} Number Of Shares: {chat.numberOfShares}
+      </span>
+      <span className="chatMessage__bubble__message--timestamp">
+        {timeString}
+      </span>
+    </p>
   );
 };
 
