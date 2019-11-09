@@ -4,6 +4,13 @@ import _orderBy from 'lodash/orderBy';
 export const initialState = {
   chatRooms: [],
   chatConversation: {
+    chatRoomId: '',
+    sellerPrice: null,
+    sellNumberOfShares: null,
+    buyerPrice: null,
+    buyerNumberOfShares: null,
+    updatedAt: null,
+    isDealClosed: true,
     conversation: []
   },
   chatRoomId: ''
@@ -30,8 +37,28 @@ const chat = createSlice({
       // eslint-disable-next-line no-param-reassign
       state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
     },
-    acceptOffer: () => {
-      // TODO: set offer message in chatConversation.conversation to ACCEPTED
+    acceptOffer: (state, { payload }) => {
+      const { chatRoomId, newChat, updatedAt, isDealClosed } = payload;
+      const messageIndex = state.chatConversation.conversation.findIndex(
+        c => c.id === newChat.id
+      );
+      const chatRoomIndex = state.chatRooms.findIndex(
+        c => c.chatRoomId === chatRoomId
+      );
+
+      // update chatConversation offer timestamp
+      // eslint-disable-next-line no-param-reassign
+      state.chatConversation.conversation[messageIndex] = newChat;
+      // eslint-disable-next-line no-param-reassign
+      state.chatConversation.isDealClosed = isDealClosed;
+
+      // update chatRooms timestamp
+      // eslint-disable-next-line no-param-reassign
+      state.chatRooms[chatRoomIndex].createdAt = updatedAt;
+      // eslint-disable-next-line no-param-reassign
+      state.chatRooms[chatRoomIndex].isDealClosed = isDealClosed;
+      // eslint-disable-next-line no-param-reassign
+      state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
     },
     declineOffer: () => {
       // TODO: set offer message in chatConversation.conversation to REJECTED
