@@ -18,19 +18,19 @@ export const isCommittee = user => {
   return user.isCommittee;
 };
 
-export const getUserPrice = ({ userType, sellerPrice, buyerPrice }) => {
+export const getUserPrice = (userType, sellerPrice, buyerPrice) => {
   return userType === 'seller' ? sellerPrice : buyerPrice;
 };
 
-export const getUserNumberOfShares = ({
+export const getUserNumberOfShares = (
   userType,
   sellerNumberOfShares,
   buyerNumberOfShares
-}) => {
+) => {
   return userType === 'seller' ? sellerNumberOfShares : buyerNumberOfShares;
 };
 
-export const getOtherPartyUserType = ({ userType }) => {
+export const getOtherPartyUserType = userType => {
   return userType === 'seller' ? 'buyer' : userType;
 };
 

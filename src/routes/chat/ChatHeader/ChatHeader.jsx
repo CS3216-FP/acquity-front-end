@@ -8,6 +8,7 @@ import {
   getOtherPartyUserType
 } from 'utils/userUtils';
 import { toSgdCurrency } from 'utils/moneyUtils';
+import { SELLER, BUYER } from 'constants/user';
 import { useSocket } from 'contexts/socketContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import './ChatHeader.scss';
@@ -92,7 +93,7 @@ const ChatCreateOffer = ({ setOffer }) => {
 };
 
 const ChatHeader = () => {
-  const [offer, setOffer] = useState(true);
+  const [isOffer, setIsOffer] = useState(true);
   const {
     sellerPrice,
     buyerPrice,
@@ -100,46 +101,42 @@ const ChatHeader = () => {
     buyerNumberOfShares
   } = useSelector(state => state.chat.chatConversation);
   const userType = useSelector(state => state.misc.userType);
-  const otherPartyUserType = getOtherPartyUserType({ userType });
-  const userPrice = getUserPrice({
-    userType: otherPartyUserType,
+  const otherPartyUserType = getOtherPartyUserType(userType);
+  const userPrice = getUserPrice(otherPartyUserType, sellerPrice, buyerPrice);
+  const userNumberOfShares = getUserNumberOfShares(
+    otherPartyUserType,
+    sellerNumberOfShares,
+    buyerNumberOfShares
+  );
+  const otherPartyPrice = getUserPrice(
+    otherPartyUserType,
     sellerPrice,
     buyerPrice
-  });
-  const userNumberOfShares = getUserNumberOfShares({
-    userType: otherPartyUserType,
-    buyerNumberOfShares,
-    sellerNumberOfShares
-  });
-  const otherPartyPrice = getUserPrice({
-    userType: otherPartyUserType,
-    sellerPrice,
-    buyerPrice
-  });
-  const otherPartyNumberOfShares = getUserNumberOfShares({
-    userType: otherPartyUserType,
-    buyerNumberOfShares,
-    sellerNumberOfShares
-  });
+  );
+  const otherPartyNumberOfShares = getUserNumberOfShares(
+    otherPartyUserType,
+    sellerNumberOfShares,
+    buyerNumberOfShares
+  );
   const createOffer = () => {
-    setOffer(true);
+    setIsOffer(true);
   };
   return (
     <div className="chat__header column is-paddingless">
       <div className="columns is-mobile is-marginless">
         <ChatOfferDetails
-          headerText={`${userType === 'seller' ? 'Buyer' : 'Seller'} Offer`}
-          quantity={toSgdCurrency(otherPartyNumberOfShares)}
+          headerText={`${userType === SELLER ? BUYER : SELLER} Offer`}
+          quantity={otherPartyNumberOfShares}
           price={toSgdCurrency(otherPartyPrice)}
         />
         <ChatOfferDetails
           headerText="Your Bid"
-          quantity={toSgdCurrency(userNumberOfShares)}
+          quantity={userNumberOfShares}
           price={toSgdCurrency(userPrice)}
         />
       </div>
-      {offer ? (
-        <ChatCreateOffer setOffer={setOffer} />
+      {isOffer ? (
+        <ChatCreateOffer setOffer={setIsOffer} />
       ) : (
         <div className="chat__header__actions columns is-gapless is-mobile">
           <button

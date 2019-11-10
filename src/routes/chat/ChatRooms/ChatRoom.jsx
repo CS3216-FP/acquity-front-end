@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 import { useSelector } from 'react-redux';
 
+import { SELLER } from 'constants/user';
 import Avatar from 'components/avatar';
 import {
   getUserPrice,
@@ -70,24 +71,20 @@ const OtherPartyOffer = ({ chat }) => {
     buyerNumberOfShares
   } = chat;
   const userType = useSelector(state => state.misc.userType);
-  const otherPartyUserType = getOtherPartyUserType({ userType });
-  const price = getUserPrice({
-    userType: otherPartyUserType,
-    sellerPrice,
-    buyerPrice
-  });
-  const numberOfShares = getUserNumberOfShares({
-    userType: otherPartyUserType,
-    buyerNumberOfShares,
-    sellerNumberOfShares
-  });
+  const otherPartyUserType = getOtherPartyUserType(userType);
+  const price = getUserPrice(otherPartyUserType, sellerPrice, buyerPrice);
+  const numberOfShares = getUserNumberOfShares(
+    otherPartyUserType,
+    sellerNumberOfShares,
+    buyerNumberOfShares
+  );
   return (
     <div className="detail__content">
       <div>
-        {userType === 'seller' ? 'Selling' : 'Buying'} Amt: {numberOfShares}
+        {userType === SELLER ? 'Selling' : 'Buying'} Amt: {numberOfShares}
       </div>
       <div>
-        {userType === 'seller' ? 'Highest' : 'Lowest'} Price:{' '}
+        {userType === SELLER ? 'Highest' : 'Lowest'} Price:{' '}
         {toSgdCurrency(price)}
       </div>
     </div>
