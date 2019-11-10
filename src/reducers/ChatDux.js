@@ -40,7 +40,7 @@ const chat = createSlice({
       state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
       /* eslint-enable no-param-reassign */
     },
-    acceptOffer: (state, { payload }) => {
+    setOfferStatus: (state, { payload }) => {
       const { chatRoomId, newChat, updatedAt, isDealClosed } = payload;
       const messageIndex = state.chatConversation.conversation.findIndex(
         c => c.id === newChat.id
@@ -58,9 +58,6 @@ const chat = createSlice({
       state.chatRooms[chatRoomIndex].isDealClosed = isDealClosed;
       state.chatRooms = _orderBy(state.chatRooms, ['createdAt'], ['desc']);
       /* eslint-enable no-param-reassign */
-    },
-    declineOffer: () => {
-      // TODO: set offer message in chatConversation.conversation to REJECTED
     }
   }
 });
@@ -69,8 +66,7 @@ export const {
   setChatRooms,
   setChatConversation,
   addNewMessage,
-  acceptOffer,
-  declineOffer
+  setOfferStatus
 } = chat.actions;
 
 export default chat.reducer;

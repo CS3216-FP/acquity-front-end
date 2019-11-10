@@ -92,6 +92,15 @@ const PendingOffer = ({ chat }) => {
       chatRoomId
     });
   };
+
+  const declineOffer = () => {
+    SocketRequestService.declineOffer({
+      offerId: chat.id,
+      userType,
+      socket,
+      chatRoomId
+    });
+  };
   if (userType === chat.userType) {
     return <div>Pending...</div>;
   }
@@ -104,7 +113,11 @@ const PendingOffer = ({ chat }) => {
       >
         Accept
       </button>
-      <button type="button" className="column button is-danger is-outlined">
+      <button
+        type="button"
+        className="column button is-danger is-outlined"
+        onClick={declineOffer}
+      >
         Reject
       </button>
     </div>
