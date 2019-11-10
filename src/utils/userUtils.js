@@ -33,7 +33,7 @@ export const getUserNumberOfShares = (
 };
 
 export const getOtherPartyUserType = userType => {
-  return userType === SELLER ? BUYER : userType;
+  return userType === SELLER ? BUYER : SELLER;
 };
 
 export default {
