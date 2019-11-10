@@ -36,17 +36,20 @@ const getChatRooms = ({ socket, userType }) => {
  * Example:
  * {
  *  "token": "...",
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394"
+ *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
+ *  "user_type": "seller"
  * }
  * @param chatRoomId
  * @param socket
+ * @param userType
  */
-const getChatConversation = ({ chatRoomId, socket }) => {
+const getChatConversation = ({ chatRoomId, socket, userType }) => {
   socket.emit(
     EMIT_CONVERSATION,
     snakecaseKeys({
       token: tokenUtils.getToken(),
-      chatRoomId
+      chatRoomId,
+      userType
     })
   );
 };
@@ -62,14 +65,16 @@ const getChatConversation = ({ chatRoomId, socket }) => {
  * @param chatRoomId
  * @param message
  * @param socket
+ * @param userType
  */
-const addNewMessage = ({ chatRoomId, message, socket }) => {
+const addNewMessage = ({ chatRoomId, message, socket, userType }) => {
   socket.emit(
     EMIT_NEW_MESSAGE,
     snakecaseKeys({
       token: tokenUtils.getToken(),
       message,
-      chatRoomId
+      chatRoomId,
+      userType
     })
   );
 };

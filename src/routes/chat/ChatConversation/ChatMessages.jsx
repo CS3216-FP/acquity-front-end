@@ -78,9 +78,10 @@ const ChatMessages = () => {
   const { chatRoomId } = useParams();
   const socket = useSocket();
 
+  const userType = useSelector(state => state.misc.userType);
   useEffect(() => {
-    SocketRequestService.getChatConversation({ chatRoomId, socket });
-  }, [chatRoomId, socket]);
+    SocketRequestService.getChatConversation({ chatRoomId, socket, userType });
+  }, [chatRoomId, socket, userType]);
 
   return (
     <div ref={setChatMessagesRef} id="chatMessages" className="chatMessages">

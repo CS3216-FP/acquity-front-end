@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSocket } from 'contexts/socketContext';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import SocketRequestService from 'services/SocketService/socketRequestService';
 
@@ -19,6 +20,7 @@ const ChatInput = () => {
   };
 
   const { chatRoomId } = useParams();
+  const userType = useSelector(state => state.misc.userType);
 
   const socket = useSocket();
   const handleKeyPress = event => {
@@ -27,6 +29,7 @@ const ChatInput = () => {
       SocketRequestService.addNewMessage({
         chatRoomId,
         message: event.target.value,
+        userType,
         socket
       });
       sendMessage();
