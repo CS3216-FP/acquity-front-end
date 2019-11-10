@@ -102,9 +102,9 @@ const ChatHeader = () => {
   } = useSelector(state => state.chat.chatConversation);
   const userType = useSelector(state => state.misc.userType);
   const otherPartyUserType = getOtherPartyUserType(userType);
-  const userPrice = getUserPrice(otherPartyUserType, sellerPrice, buyerPrice);
+  const userPrice = getUserPrice(userType, sellerPrice, buyerPrice);
   const userNumberOfShares = getUserNumberOfShares(
-    otherPartyUserType,
+    userType,
     sellerNumberOfShares,
     buyerNumberOfShares
   );
