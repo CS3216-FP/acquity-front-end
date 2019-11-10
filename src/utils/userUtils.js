@@ -1,3 +1,5 @@
+import { SELLER, BUYER } from '../constants/user';
+
 export const isUnapprovedBuyer = user => {
   return user.canBuy === 'UNAPPROVED';
 };
@@ -19,7 +21,7 @@ export const isCommittee = user => {
 };
 
 export const getUserPrice = (userType, sellerPrice, buyerPrice) => {
-  return userType === 'seller' ? sellerPrice : buyerPrice;
+  return userType === SELLER ? sellerPrice : buyerPrice;
 };
 
 export const getUserNumberOfShares = (
@@ -27,11 +29,11 @@ export const getUserNumberOfShares = (
   sellerNumberOfShares,
   buyerNumberOfShares
 ) => {
-  return userType === 'seller' ? sellerNumberOfShares : buyerNumberOfShares;
+  return userType === SELLER ? sellerNumberOfShares : buyerNumberOfShares;
 };
 
 export const getOtherPartyUserType = userType => {
-  return userType === 'seller' ? 'buyer' : userType;
+  return userType === SELLER ? BUYER : userType;
 };
 
 export default {
