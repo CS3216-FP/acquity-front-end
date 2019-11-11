@@ -6,6 +6,10 @@
   overflow-y: scroll;
   overflow-y: auto;
 
+  @media screen and (max-width: $tablet) {
+    border-right: none;
+  }
+
   &__status {
     float: right;
     height: 10px;

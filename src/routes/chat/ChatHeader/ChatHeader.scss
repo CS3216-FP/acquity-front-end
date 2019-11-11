@@ -3,6 +3,13 @@
 .chat__header {
   flex: 0 0 auto;
 
+  &__back {
+    margin-right: 1rem;
+    @media screen and (min-width: $tablet) {
+      display: none;
+    }
+  }
+
   .columns {
     flex-flow: wrap;
   }

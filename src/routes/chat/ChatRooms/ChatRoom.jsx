@@ -39,7 +39,7 @@ const ChatRoom = ({ chat, basePath }) => {
   return (
     <li role="row">
       <Link
-        className={`chatroom__item columns is-marginless ${
+        className={`chatroom__item columns is-mobile is-marginless ${
           chat.chatRoomId === chatRoomId ? 'chatroom__item--selected' : ''
         }`}
         to={`${basePath}/${chat.chatRoomId}`}

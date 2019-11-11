@@ -23,6 +23,11 @@
       align-items: center;
       justify-content: space-between;
 
+      @media screen and (max-width: $tablet) {
+        padding: 0 !important;
+        margin: 1rem;
+      }
+
       .view-archive {
         font-size: 1rem;
         font-family: $weight-light;
