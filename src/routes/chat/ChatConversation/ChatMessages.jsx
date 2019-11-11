@@ -5,6 +5,8 @@ import pluralize from 'pluralize';
 
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import { useSocket } from 'contexts/socketContext';
+
+import SuccessfulMatchContainer from './SuccessfulMatchContainer';
 import ChatMessage from './ChatMessage';
 import './ChatMessages.scss';
 
@@ -17,6 +19,7 @@ const ChatMessages = () => {
   let chatMessagesRef = document.getElementById('messagesContainer');
   let newMessageDividerRef = document.getElementById('newMessageDivider');
 
+  const { isDealClosed } = useSelector(state => state.chat.chatConversation);
   const chatMessages = useSelector(
     state => state.chat.chatConversation.conversation
   );
@@ -84,45 +87,49 @@ const ChatMessages = () => {
   }, [chatRoomId, socket, userType]);
 
   return (
-    <div ref={setChatMessagesRef} id="chatMessages" className="chatMessages">
-      {unreadCount > 0 && (
-        <button
-          type="button"
-          className="chatMessages__unread"
-          onClick={scrollToNewMessages}
-        >
-          <span className="chatMessages__unread--count">
-            {pluralize('New Message', unreadCount, true)}
-          </span>
-          <span>Scroll To Unread</span>
-        </button>
-      )}
-      {chatMessages.map((message, index) => {
-        return (
-          <div key={message.createdAt}>
-            {/* TODO: Next time when each message has properties like firstUnreadMessage, can use that to demarcate the new message boundary, and scroll to this instead of the bottom on first load */}
-            {index === prevMessageLength && (
-              <div
-                id="newMessageDivider"
-                ref={element => {
-                  newMessageDividerRef = element;
-                }}
-                className="is-divider"
-                data-content="NEW MESSAGES"
-              />
-            )}
-            <ChatMessage chat={message} />
-          </div>
-        );
-      })}
-      {/* For scrolling to bottom */}
-      <div
-        ref={element => {
-          chatMessagesBottomRef = element;
-        }}
-        id="chatMessages--bottom"
-      />
-    </div>
+    <>
+      <div ref={setChatMessagesRef} id="chatMessages" className="chatMessages">
+        {unreadCount > 0 && (
+          <button
+            type="button"
+            className="chatMessages__unread"
+            onClick={scrollToNewMessages}
+          >
+            <span className="chatMessages__unread--count">
+              {pluralize('New Message', unreadCount, true)}
+            </span>
+            <span>Scroll To Unread</span>
+          </button>
+        )}
+        {chatMessages.map((message, index) => {
+          return (
+            <div key={message.createdAt}>
+              {/* TODO: Next time when each message has properties like firstUnreadMessage, can use that to demarcate the new message boundary, and scroll to this instead of the bottom on first load */}
+              {index === prevMessageLength && (
+                <div
+                  id="newMessageDivider"
+                  ref={element => {
+                    newMessageDividerRef = element;
+                  }}
+                  className="is-divider"
+                  data-content="NEW MESSAGES"
+                />
+              )}
+              <ChatMessage chat={message} />
+            </div>
+          );
+        })}
+        {/* For scrolling to bottom */}
+        <div
+          ref={element => {
+            chatMessagesBottomRef = element;
+          }}
+          id="chatMessages--bottom"
+        />
+      </div>
+      {/* TODO: Add pending state where user has revealed and waiting on other */}
+      {isDealClosed && <SuccessfulMatchContainer />}
+    </>
   );
 };
 
