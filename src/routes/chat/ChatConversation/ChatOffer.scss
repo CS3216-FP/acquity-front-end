@@ -1,0 +1,98 @@
+@import 'assets/scss/variables';
+@import 'assets/scss/buttons';
+
+.offerMessage {
+  margin: 0.3rem 0.8rem;
+  &__header {
+    font-family: $weight-heavy;
+    color: $blue;
+    font-size: 0.9rem;
+    display: flex;
+    &--left {
+      justify-content: flex-start;
+    }
+
+    &--right {
+      justify-content: flex-end;
+    }
+  }
+
+  &__status {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    margin-right: 0.3rem;
+
+    &__pendingActions {
+      margin: 0.5rem 0;
+      display: flex;
+
+      &--accept,
+      &--reject {
+        color: white;
+        flex: 1;
+        border-radius: 0.8rem;
+        font-size: 0.8rem;
+        padding: 0.5rem 2rem;
+        cursor: pointer;
+      }
+
+      &--accept {
+        margin-right: 0.3rem;
+      }
+    }
+
+    &--accepted {
+      color: $green-dark;
+    }
+
+    &--rejected {
+      color: $red-dark;
+    }
+
+    &--pending {
+      color: $dark;
+      font-style: italic;
+    }
+  }
+
+  &__bubble {
+    &__message {
+      color: $blue;
+      font-size: 0.9rem;
+      border-radius: 10px;
+      border: 1px solid $blue;
+      background: white;
+      padding: 0.4rem 1rem 0.8rem 1rem;
+      transition: background-color 0.5s;
+
+      &--title {
+        font-size: 1rem;
+        font-family: $weight-heavy;
+      }
+
+      &--cost {
+        margin-bottom: 0.5rem;
+      }
+
+      &--timestamp {
+        margin: -4px -6px 0px 8px;
+        font-size: 0.6rem;
+        float: right;
+      }
+    }
+  }
+}
+
+.chatMessage__bubble {
+  &--right {
+    .offerMessage {
+      text-align: end;
+    }
+  }
+
+  &--left {
+    .offerMessage {
+      text-align: start;
+    }
+  }
+}

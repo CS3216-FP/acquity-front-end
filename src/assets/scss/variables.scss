@@ -13,6 +13,7 @@ $weight-heavy: 'Nexa Bold' !important;
 
 // Brand colors
 $green: #26cb6b;
+$green-dark: #299857;
 $blue: #1f4190;
 $blue-alt: #267ed0;
 $yellow: #ffdd57;
@@ -35,10 +36,34 @@ $action-button-bg: linear-gradient(
   rgba(38, 126, 208, 1) 0%,
   rgba(85, 96, 232, 1) 100%
 );
+$action-button-bg-reversed: linear-gradient(
+  45deg,
+  rgba(85, 96, 232, 1) 0%,
+  rgba(38, 126, 208, 1) 100%
+);
+
 $danger-button-bg: linear-gradient(
   45deg,
   rgba(185, 47, 76, 1) 0%,
   rgba(224, 42, 69, 1) 100%
+);
+
+$danger-button-bg-reversed: linear-gradient(
+  45deg,
+  rgba(224, 42, 69, 1) 0%,
+  rgba(185, 47, 76, 1) 100%
+);
+
+$success-button-bg: linear-gradient(
+  45deg,
+  rgba(41, 152, 87, 1) 0%,
+  rgba(44, 196, 108, 1) 100%
+);
+
+$success-button-bg-reversed: linear-gradient(
+  45deg,
+  rgba(44, 196, 108, 1) 0%,
+  rgba(41, 152, 87, 1) 100%
 );
 
 $body-bg: #f7f8fb;
