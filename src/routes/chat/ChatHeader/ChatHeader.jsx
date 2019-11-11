@@ -11,6 +11,7 @@ import { SELLER, BUYER } from 'constants/user';
 
 import ChatOfferSubheader from './ChatOfferSubheader';
 import './ChatHeader.scss';
+import RevealIdentitySubheader from './RevealIdentitySubheader';
 
 const ChatOfferDetails = ({ headerText, quantity, price }) => {
   return (
@@ -36,7 +37,9 @@ const ChatHeader = () => {
     sellerPrice,
     buyerPrice,
     sellerNumberOfShares,
-    buyerNumberOfShares
+    buyerNumberOfShares,
+    // TODO: Split this boolean into type of chat closure, it can be a cancelled match or a confirmed match.
+    isDealClosed
   } = useSelector(state => state.chat.chatConversation);
   const userType = useSelector(state => state.misc.userType);
   const otherPartyUserType = getOtherPartyUserType(userType);
@@ -64,6 +67,29 @@ const ChatHeader = () => {
     setIsShowOfferSubheader(false);
   };
 
+  const renderSubheader = () => {
+    if (isDealClosed) {
+      return <RevealIdentitySubheader />;
+    }
+    if (isShowOfferSubheader) {
+      return <ChatOfferSubheader handleClose={handleCloseOfferSubheader} />;
+    }
+    return (
+      <div className="chat__header__actions columns is-gapless is-mobile">
+        <button
+          type="button"
+          className="column button is-success is-outlined"
+          onClick={handleOpenOfferSubheader}
+        >
+          Make Offer
+        </button>
+        <button type="button" className="column button is-danger is-outlined">
+          Cancel Match
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div className="chat__header column is-paddingless">
       <div className="columns is-mobile is-marginless">
@@ -78,22 +104,7 @@ const ChatHeader = () => {
           price={toSgdCurrency(userPrice)}
         />
       </div>
-      {isShowOfferSubheader ? (
-        <ChatOfferSubheader handleClose={handleCloseOfferSubheader} />
-      ) : (
-        <div className="chat__header__actions columns is-gapless is-mobile">
-          <button
-            type="button"
-            className="column button is-success is-outlined"
-            onClick={handleOpenOfferSubheader}
-          >
-            Make Offer
-          </button>
-          <button type="button" className="column button is-danger is-outlined">
-            Cancel Match
-          </button>
-        </div>
-      )}
+      {renderSubheader()}
     </div>
   );
 };

@@ -1,0 +1,15 @@
+@import 'assets/scss/variables';
+
+.revealIdentitySubheader {
+  border-top: 1px solid $grey-lighter;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+
+  &__button {
+    font-family: $weight-light;
+    color: $blue;
+    cursor: pointer;
+  }
+}
