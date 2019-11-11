@@ -8,7 +8,7 @@ const PageContainer = ({ children, dark }) => {
       <div
         className={`is-container ${
           dark ? 'is-container--dark' : ''
-        } column is-four-fifths-desktop is-four-fifths-tablet is-four-fifths-mobile is-two-thirds-fullhd`}
+        } column is-four-fifths`}
       >
         <div className="content-container">{children}</div>
       </div>

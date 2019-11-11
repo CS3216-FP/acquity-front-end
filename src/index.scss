@@ -54,6 +54,10 @@ button {
     outline: none;
   }
 
+  &.no-shadow {
+    box-shadow: none;
+  }
+
   &.button[disabled] {
     background-image: none;
     background-color: $grey-lighter;

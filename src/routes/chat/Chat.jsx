@@ -12,7 +12,6 @@ const ChatNav = () => {
     <div className="chat__header columns">
       <div className="column chat__header__left is-two-fifths">
         <span>Matches</span>
-        <span className="view-archive">View archive</span>
       </div>
     </div>
   );

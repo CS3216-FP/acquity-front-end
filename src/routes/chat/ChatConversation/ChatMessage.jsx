@@ -7,6 +7,17 @@ import SocketRequestService from 'services/SocketService/socketRequestService';
 
 import './ChatMessage.scss';
 
+const renderMessage = chat => {
+  if (chat.type === 'message') {
+    return <Message chat={chat} />;
+  }
+  if (chat.type === 'offer') {
+    return <Offer chat={chat} />;
+  }
+
+  throw new Error(`Invalid chat type ${chat.type}`);
+};
+
 const ChatMessage = ({ chat }) => {
   const userType = useSelector(state => state.misc.userType);
 
@@ -17,11 +28,7 @@ const ChatMessage = ({ chat }) => {
           userType === chat.userType ? 'right' : 'left'
         }`}
       >
-        {chat.type === 'message' ? (
-          <Message chat={chat} />
-        ) : (
-          <Offer chat={chat} />
-        )}
+        {renderMessage(chat)}
       </div>
     </div>
   );
@@ -49,7 +56,7 @@ const Offer = ({ chat }) => {
   });
 
   return (
-    <p className="chatMessage__bubble__message">
+    <div className="chatMessage__bubble__message">
       <span className="chatMessage__bubble__message--message">
         Price: {chat.price} Number Of Shares: {chat.numberOfShares}
       </span>
@@ -57,16 +64,16 @@ const Offer = ({ chat }) => {
         {timeString}
       </span>
       <OfferStatus chat={chat} />
-    </p>
+    </div>
   );
 };
 
 const OfferStatus = ({ chat }) => {
   const { offerStatus } = chat;
-  const isDealClose = useSelector(
+  const isDealClosed = useSelector(
     state => state.chat.chatConversation.isDealClosed
   );
-  if (isDealClose) {
+  if (isDealClosed) {
     if (offerStatus === 'ACCEPTED') {
       return <AcceptedOffer />;
     }
