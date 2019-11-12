@@ -6,6 +6,22 @@
   overflow-y: scroll;
   overflow-y: auto;
 
+  @media screen and (max-width: $tablet) {
+    border-right: none;
+  }
+
+  &--empty {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &__text {
+      margin-top: 1rem;
+    }
+  }
+
   &__status {
     float: right;
     height: 10px;

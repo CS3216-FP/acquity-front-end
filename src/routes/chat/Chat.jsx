@@ -1,18 +1,31 @@
 import React from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+
 import PageContainer from 'components/pageContainer';
-import { useParams } from 'react-router-dom';
+
 import ChatRooms from './ChatRooms';
 import ChatMessages from './ChatConversation/ChatMessages';
 import ChatInput from './ChatInput/ChatInput';
 import ChatHeader from './ChatHeader';
 import './Chat.scss';
 
-const ChatNav = () => {
+const ChatNav = ({ isShowingChatRoom }) => {
+  const history = useHistory();
+
+  const handleBackClick = () => history.goBack();
   return (
     <div className="chat__header columns">
-      <div className="column chat__header__left is-two-fifths">
+      <div className="column chat__header__left">
+        {isShowingChatRoom && (
+          <button
+            onClick={handleBackClick}
+            className="chat__header__back button button--cta button--nav--circle"
+            type="button"
+          >
+            <i className="fas fa-arrow-left" />
+          </button>
+        )}
         <span>Matches</span>
-        <span className="view-archive">View archive</span>
       </div>
     </div>
   );
@@ -34,9 +47,9 @@ const Chat = () => {
   return (
     <PageContainer className="chat">
       {/* TODO: clean up redux model to not use arrays and make keys more meaningful */}
-      <ChatNav />
-      <div className="columns is-gapless">
-        <ChatRooms />
+      <ChatNav isShowingChatRoom={!!chatRoomId} />
+      <div className="columns is-mobile is-gapless">
+        <ChatRooms isShowingChatRoom={!!chatRoomId} />
         {chatRoomId && <ChatContent />}
       </div>
     </PageContainer>

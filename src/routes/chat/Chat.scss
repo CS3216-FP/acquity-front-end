@@ -7,6 +7,7 @@
     margin: 0 !important;
     color: $blue;
     border-bottom: 2px solid $grey-lighter;
+    position: relative;
 
     @media only screen and (max-width: $mobile) {
       margin: 1rem 0;
@@ -21,6 +22,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: space-between;
+
+      @media screen and (max-width: $tablet) {
+        padding: 0 !important;
+        margin: 1rem;
+      }
 
       .view-archive {
         font-size: 1rem;
