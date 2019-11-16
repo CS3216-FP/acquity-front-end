@@ -1,9 +1,6 @@
 @import 'assets/scss/variables';
 
 .chatMessages {
-  flex: 1 1 auto;
-  overflow-y: auto;
-
   &__unread {
     font-size: 0.8rem;
     cursor: pointer;
@@ -18,5 +15,23 @@
     margin: 0 0.5rem;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+  }
+
+  &__dateline {
+    font-family: $weight-heavy;
+    color: $grey-light;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 0.8rem;
+    position: sticky;
+    top: 0.5rem;
+    margin: 0.5rem 0;
+
+    &--value {
+      background: white;
+      padding: 0.2rem 1rem;
+      border-radius: 1rem;
+    }
   }
 }

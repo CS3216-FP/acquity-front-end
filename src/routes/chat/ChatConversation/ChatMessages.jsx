@@ -1,41 +1,24 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { isSameDay, fromUnixTime } from 'date-fns';
+import React, { useEffect, useState } from 'react';
+import ScrollableFeed from 'react-scrollable-feed';
+import groupBy from 'lodash/groupBy';
+
 import pluralize from 'pluralize';
+
+import { displayChatRelativeTime, getDate } from 'utils/dateUtils';
 
 import SuccessfulMatchContainer from './SuccessfulMatchContainer';
 import ChatMessage from './ChatMessage';
 import './ChatMessages.scss';
 
 const ChatMessages = ({ chat }) => {
-  const [unreadCount, setUnreadCount] = useState(0);
-  const [prevMessageLength, setPrevMessageLength] = useState(0);
-  const [isBottom, setIsBottom] = useState(false);
-  // ref to message container (for keeping scroll to bottom of chat)
-  let chatMessagesBottomRef = document.getElementById('chatMessages--bottom');
-  let chatMessagesRef = document.getElementById('messagesContainer');
+  const [groupedChats, setGroupedChats] = useState([]);
   let newMessageDividerRef = document.getElementById('newMessageDivider');
 
-  const { isDealClosed, chats } = chat;
+  const { isDealClosed, chats, lastReadMessageId, unreadCount } = chat;
 
-  const handleScroll = useCallback(
-    event => {
-      const node = event.target;
-      const bottom = node.scrollHeight - node.scrollTop === node.clientHeight;
-      setIsBottom(bottom);
-      if (bottom) {
-        setPrevMessageLength(chats.length);
-        setUnreadCount(0);
-      }
-    },
-    [chats.length]
-  );
-
-  const setChatMessagesRef = node => {
-    if (node) {
-      node.addEventListener('scroll', handleScroll);
-      chatMessagesRef = node;
-    }
-  };
+  useEffect(() => {
+    setGroupedChats(Object.entries(groupBy(chats, getDate)));
+  }, [chats]);
 
   const scrollToNewMessages = () => {
     if (newMessageDividerRef) {
@@ -46,91 +29,57 @@ const ChatMessages = ({ chat }) => {
     }
   };
 
-  // Scroll to bottom of container if at bottom of screen
-  useEffect(() => {
-    if (chatMessagesBottomRef && chatMessagesRef) {
-      if (isBottom || prevMessageLength === 0) {
-        chatMessagesBottomRef.scrollIntoView({
-          block: 'end'
-        });
-        setPrevMessageLength(chats.length);
-      } else {
-        setUnreadCount(chats.length - prevMessageLength);
-      }
-    }
-
-    return () => {
-      chatMessagesRef.removeEventListener('scroll', handleScroll);
-    };
-  }, [
-    chats,
-    chatMessagesBottomRef,
-    chatMessagesRef,
-    isBottom,
-    prevMessageLength,
-    handleScroll
-  ]);
-
-  const renderNewDateLine = (currentMessageTimestamp, prevMessageTimestamp) => {
-    const currentMessageDate = fromUnixTime(currentMessageTimestamp);
-    // Note we reverse the check, we only render if they are not the same day
-    const isRenderNewDateLine = !isSameDay(
-      currentMessageDate,
-      fromUnixTime(prevMessageTimestamp)
+  const renderNewDateLine = date => {
+    return (
+      <div className="chatMessages__dateline">
+        <span className="chatMessages__dateline--value">
+          {displayChatRelativeTime(date)}
+        </span>
+      </div>
     );
-
-    if (isRenderNewDateLine) {
-      return <div>{currentMessageDate.getDate()}</div>;
-    }
-    return null;
   };
 
   return (
     <>
-      <div ref={setChatMessagesRef} id="chatMessages" className="chatMessages">
-        {unreadCount > 0 && (
-          <button
-            type="button"
-            className="chatMessages__unread"
-            onClick={scrollToNewMessages}
-          >
-            <span className="chatMessages__unread--count">
-              {pluralize('New Message', unreadCount, true)}
-            </span>
-            <span>Scroll To Unread</span>
-          </button>
-        )}
-        {chats.map((message, index) => {
-          return (
-            <div key={message.createdAt}>
-              {/* TODO: Next time when each message has properties like firstUnreadMessage, can use that to demarcate the new message boundary, and scroll to this instead of the bottom on first load */}
-              {index === prevMessageLength && (
-                <div
-                  id="newMessageDivider"
-                  ref={element => {
-                    newMessageDividerRef = element;
-                  }}
-                  className="is-divider"
-                  data-content="NEW MESSAGES"
-                />
-              )}
-              {index !== 0 &&
-                renderNewDateLine(
-                  message.createdAt,
-                  chats[index - 1].createdAt
-                )}
-              <ChatMessage message={message} />
+      <ScrollableFeed>
+        <div id="chatMessages" className="chatMessages">
+          {unreadCount > 0 && (
+            <button
+              type="button"
+              className="chatMessages__unread"
+              onClick={scrollToNewMessages}
+            >
+              <span className="chatMessages__unread--count">
+                {pluralize('New Message', unreadCount, true)}
+              </span>
+              <span>Scroll To Unread</span>
+            </button>
+          )}
+          {groupedChats.map(groupChat => (
+            <div key={groupChat[0]}>
+              {renderNewDateLine(groupChat[0])}
+              {groupChat[1].map(message => {
+                return (
+                  <div key={message.createdAt}>
+                    {/* TODO: Next time when each message has properties like firstUnreadMessage, can use that to demarcate the new message boundary, and scroll to this instead of the bottom on first load */}
+                    {lastReadMessageId === message.id && (
+                      <div
+                        id="newMessageDivider"
+                        ref={element => {
+                          newMessageDividerRef = element;
+                        }}
+                        className="is-divider"
+                        data-content="NEW MESSAGES"
+                      />
+                    )}
+                    <ChatMessage message={message} />
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-        {/* For scrolling to bottom */}
-        <div
-          ref={element => {
-            chatMessagesBottomRef = element;
-          }}
-          id="chatMessages--bottom"
-        />
-      </div>
+          ))}
+        </div>
+      </ScrollableFeed>
       {/* TODO: Add pending state where user has revealed and waiting on other */}
       {isDealClosed && <SuccessfulMatchContainer />}
     </>
