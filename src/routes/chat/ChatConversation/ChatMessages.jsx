@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import ScrollableFeed from 'react-scrollable-feed';
 import groupBy from 'lodash/groupBy';
 
@@ -12,7 +12,9 @@ import './ChatMessages.scss';
 
 const ChatMessages = ({ chat }) => {
   const [groupedChats, setGroupedChats] = useState([]);
-  let newMessageDividerRef = document.getElementById('newMessageDivider');
+  const newMessageDividerRef = createRef();
+  // ref to message container (for keeping scroll to bottom of chat)
+  const chatMessagesBottomRef = createRef();
 
   const { isDealClosed, chats, lastReadMessageId, unreadCount } = chat;
 
@@ -20,9 +22,22 @@ const ChatMessages = ({ chat }) => {
     setGroupedChats(Object.entries(groupBy(chats, getDate)));
   }, [chats]);
 
+  // Scroll to new messages if it exist, else scroll to bottom of container
+  useEffect(() => {
+    if (newMessageDividerRef.current) {
+      newMessageDividerRef.current.scrollIntoView({
+        block: 'end'
+      });
+    } else if (chatMessagesBottomRef.current) {
+      chatMessagesBottomRef.current.scrollIntoView({
+        block: 'end'
+      });
+    }
+  }, [newMessageDividerRef, chatMessagesBottomRef]);
+
   const scrollToNewMessages = () => {
-    if (newMessageDividerRef) {
-      newMessageDividerRef.scrollIntoView({
+    if (newMessageDividerRef.current) {
+      newMessageDividerRef.current.scrollIntoView({
         block: 'center',
         behavior: 'smooth'
       });
@@ -65,9 +80,7 @@ const ChatMessages = ({ chat }) => {
                     {lastReadMessageId === message.id && (
                       <div
                         id="newMessageDivider"
-                        ref={element => {
-                          newMessageDividerRef = element;
-                        }}
+                        ref={newMessageDividerRef}
                         className="is-divider"
                         data-content="NEW MESSAGES"
                       />
@@ -79,6 +92,8 @@ const ChatMessages = ({ chat }) => {
             </div>
           ))}
         </div>
+        {/* For scrolling to bottom */}
+        <div ref={chatMessagesBottomRef} id="chatMessages--bottom" />
       </ScrollableFeed>
       {/* TODO: Add pending state where user has revealed and waiting on other */}
       {isDealClosed && <SuccessfulMatchContainer />}
