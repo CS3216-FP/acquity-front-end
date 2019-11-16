@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 import humps from 'humps';
 import tokenUtils from 'utils/tokenUtils';
 import { uuidRegex } from 'constants/regex';
@@ -16,7 +17,10 @@ const ApiService = axios.create({
   transformRequest: [
     data => humps.decamelizeKeys(data),
     ...axios.defaults.transformRequest
-  ]
+  ],
+  paramsSerializer: params => {
+    return qs.stringify(humps.decamelizeKeys(params));
+  }
 });
 
 ApiService.interceptors.request.use(
