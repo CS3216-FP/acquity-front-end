@@ -8,3 +8,4 @@ export const RECEIVE_NEW_MESSAGE = 'res_new_message';
 export const RECEIVE_NEW_OFFER = 'res_new_offer';
 export const RECEIVE_ACCEPT_OFFER = 'res_accept_offer';
 export const RECEIVE_DECLINE_OFFER = 'res_decline_offer';
+export const RECEIVE_ERROR = 'error';

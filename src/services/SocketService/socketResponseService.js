@@ -1,7 +1,11 @@
 import humps from 'humps';
 import store from 'app/store';
 import { addNewMessage } from 'reducers/ChatDux';
-import { RECEIVE_NEW_MESSAGE, RECEIVE_NEW_OFFER } from 'constants/socket';
+import {
+  RECEIVE_NEW_MESSAGE,
+  RECEIVE_NEW_OFFER,
+  RECEIVE_ERROR
+} from 'constants/socket';
 
 /**
  * Receives new message.
@@ -49,6 +53,11 @@ const addNewOfferListener = socket => {
   socket.on(RECEIVE_NEW_OFFER, payload => {
     store.dispatch(addNewMessage(humps.camelizeKeys(payload)));
   });
+};
+
+const errorListener = socket => {
+  // eslint-disable-next-line no-console
+  socket.on(RECEIVE_ERROR, payload => console.error(payload));
 };
 
 // /**
@@ -113,6 +122,7 @@ const addNewOfferListener = socket => {
 const initialize = socket => {
   addNewMessageListener(socket);
   addNewOfferListener(socket);
+  errorListener(socket);
 };
 
 export default {
