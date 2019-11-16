@@ -1,16 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
+import { getTimeFromTimestamp } from 'utils';
 import { useSocket } from 'contexts/socketContext';
+import { useUser } from 'contexts/userContext';
+import { BUYER, SELLER } from 'constants/user';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import { toSgdCurrency } from 'utils/moneyUtils';
 
 import './ChatMessage.scss';
 import './ChatOffer.scss';
 
-const renderOfferStatus = ({ chat, isSentByUser, userType }) => {
-  const { offerStatus } = chat;
+const renderOfferStatus = ({ offer, isSentByUser, userType }) => {
+  const { offerStatus } = offer;
 
   if (offerStatus === 'ACCEPTED') {
     return <AcceptedOffer isSentByUser={isSentByUser} />;
@@ -20,17 +21,21 @@ const renderOfferStatus = ({ chat, isSentByUser, userType }) => {
   }
 
   return (
-    <PendingOffer chat={chat} isSentByUser={isSentByUser} userType={userType} />
+    <PendingOffer
+      offer={offer}
+      isSentByUser={isSentByUser}
+      userType={userType}
+    />
   );
 };
 
-const PendingOffer = ({ chat, isSentByUser, userType }) => {
+const PendingOffer = ({ offer, isSentByUser, userType }) => {
   const socket = useSocket();
-  const { chatRoomId } = useParams();
+  const { id, chatRoomId } = offer;
 
   const acceptOffer = () => {
     SocketRequestService.acceptOffer({
-      offerId: chat.id,
+      offerId: id,
       userType,
       socket,
       chatRoomId
@@ -39,7 +44,7 @@ const PendingOffer = ({ chat, isSentByUser, userType }) => {
 
   const declineOffer = () => {
     SocketRequestService.declineOffer({
-      offerId: chat.id,
+      offerId: id,
       userType,
       socket,
       chatRoomId
@@ -93,23 +98,23 @@ const RejectedOffer = ({ isSentByUser }) => {
   );
 };
 
-const ChatOffer = ({ chat }) => {
-  const userType = useSelector(state => state.misc.userType);
-  const isSentByUser = userType === chat.userType;
-  const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
-    timeStyle: 'short'
-  });
+const ChatOffer = ({ offer }) => {
+  const user = useUser();
+  const isSentByUser = offer.authorId === user.id;
+  const userType = offer.buyerId === user.id ? BUYER : SELLER;
+  const timeString = getTimeFromTimestamp(offer.createdAt);
+
   return (
     <div className="chatMessage">
       <div
         className={`chatMessage__bubble chatMessage__bubble--${
-          userType === chat.userType ? 'right' : 'left'
+          isSentByUser ? 'right' : 'left'
         }`}
       >
         <div className="offerMessage">
           <div
             className={`offerMessage__header offerMessage__header--${
-              userType === chat.userType ? 'right' : 'left'
+              isSentByUser ? 'right' : 'left'
             }`}
           >
             Made an offer:
@@ -117,19 +122,19 @@ const ChatOffer = ({ chat }) => {
           <div className="offerMessage__bubble__message">
             <div className="offerMessage__bubble__message--title">Offer</div>
             <div className="offerMessage__bubble__message--quantity">
-              Qty: {chat.numberOfShares}
+              Qty: {offer.numberOfShares}
             </div>
             <div className="offerMessage__bubble__message--price">
-              Price: {toSgdCurrency(chat.price)}
+              Price: {toSgdCurrency(offer.price)}
             </div>
             <div className="offerMessage__bubble__message--cost">
-              Est. Total: {toSgdCurrency(chat.price * chat.numberOfShares)}
+              Est. Total: {toSgdCurrency(offer.price * offer.numberOfShares)}
             </div>
             <span className="offerMessage__bubble__message--timestamp">
               {timeString}
             </span>
           </div>
-          {renderOfferStatus({ chat, isSentByUser, userType })}
+          {renderOfferStatus({ offer, isSentByUser, userType })}
         </div>
       </div>
     </div>

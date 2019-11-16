@@ -9,7 +9,11 @@ import ChatRoom from './ChatRoom';
 import './ChatRooms.scss';
 
 const ChatRooms = ({ isShowingChatRoom }) => {
-  const chatRooms = useSelector(state => state.chat.chatRooms);
+  const chatRooms = useSelector(state => {
+    return Object.values(state.chat.unarchived).sort(
+      (a, b) => b.updatedAt - a.updatedAt
+    );
+  });
   const { url } = useRouteMatch();
   const basePath = getCurrentPathWithoutParam(url);
 
@@ -35,7 +39,7 @@ const ChatRooms = ({ isShowingChatRoom }) => {
       } is-two-fifths-tablet`}
     >
       {chatRooms.map(chat => (
-        <ChatRoom key={chat.chatRoomId} chat={chat} basePath={basePath} />
+        <ChatRoom key={chat.id} chat={chat} basePath={basePath} />
       ))}
     </ul>
   );

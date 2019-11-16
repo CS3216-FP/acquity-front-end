@@ -1,9 +1,8 @@
-import snakecaseKeys from 'snakecase-keys';
+import humps from 'humps';
 
 import tokenUtils from 'utils/tokenUtils';
 import {
-  EMIT_CHAT_ROOMS,
-  EMIT_CONVERSATION,
+  EMIT_REQUEST_AUTHENTICATE,
   EMIT_NEW_MESSAGE,
   EMIT_NEW_OFFER,
   EMIT_ACCEPT_OFFER,
@@ -11,47 +10,12 @@ import {
 } from 'constants/socket';
 
 /**
- * Emit event to get a list of chat rooms.
- * Example:
- * {
- *  "token": "...",
- *  "user_type": "buyer",
- *  "is_archived": false
- * }
- * @param socket
- * @param userType
+ * Emit event to authenticate user with the backend.
+ * Must be done before any other emit calls to be able to receive messages on
+ * the response channels in SocketResponseService
  */
-const getChatRooms = ({ socket, userType }) => {
-  socket.emit(
-    EMIT_CHAT_ROOMS,
-    snakecaseKeys({
-      token: tokenUtils.getToken(),
-      userType
-    })
-  );
-};
-
-/**
- * Emit event to get conversation for a chat room.
- * Example:
- * {
- *  "token": "...",
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- *  "user_type": "seller"
- * }
- * @param chatRoomId
- * @param socket
- * @param userType
- */
-const getChatConversation = ({ chatRoomId, socket, userType }) => {
-  socket.emit(
-    EMIT_CONVERSATION,
-    snakecaseKeys({
-      token: tokenUtils.getToken(),
-      chatRoomId,
-      userType
-    })
-  );
+const authenticate = ({ socket }) => {
+  socket.emit(EMIT_REQUEST_AUTHENTICATE, { token: tokenUtils.getToken() });
 };
 
 /**
@@ -70,7 +34,7 @@ const getChatConversation = ({ chatRoomId, socket, userType }) => {
 const addNewMessage = ({ chatRoomId, message, socket, userType }) => {
   socket.emit(
     EMIT_NEW_MESSAGE,
-    snakecaseKeys({
+    humps.decamelizeKeys({
       token: tokenUtils.getToken(),
       message,
       chatRoomId,
@@ -104,7 +68,7 @@ const addNewOffer = ({
 }) => {
   socket.emit(
     EMIT_NEW_OFFER,
-    snakecaseKeys({
+    humps.decamelizeKeys({
       token: tokenUtils.getToken(),
       price,
       numberOfShares,
@@ -131,7 +95,7 @@ const addNewOffer = ({
 const acceptOffer = ({ chatRoomId, offerId, userType, socket }) => {
   socket.emit(
     EMIT_ACCEPT_OFFER,
-    snakecaseKeys({
+    humps.decamelizeKeys({
       token: tokenUtils.getToken(),
       offerId,
       userType,
@@ -157,7 +121,7 @@ const acceptOffer = ({ chatRoomId, offerId, userType, socket }) => {
 const declineOffer = ({ chatRoomId, offerId, userType, socket }) => {
   socket.emit(
     EMIT_DECLINE_OFFER,
-    snakecaseKeys({
+    humps.decamelizeKeys({
       token: tokenUtils.getToken(),
       offerId,
       userType,
@@ -166,9 +130,12 @@ const declineOffer = ({ chatRoomId, offerId, userType, socket }) => {
   );
 };
 
+const initialize = socket => {
+  authenticate({ socket });
+};
+
 export default {
-  getChatRooms,
-  getChatConversation,
+  initialize,
   addNewMessage,
   addNewOffer,
   acceptOffer,

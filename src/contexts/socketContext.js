@@ -1,18 +1,30 @@
 import React, { useEffect } from 'react';
-import io from 'socket.io-client';
+import { useDispatch } from 'react-redux';
+import socketIOClient from 'socket.io-client';
 
+import SocketRequestService from 'services/SocketService/socketRequestService';
 import SocketResponseService from 'services/SocketService/socketResponseService';
+import ApiService from 'services/apiService';
+import { setChats } from 'reducers/ChatDux';
 
 const SocketContext = React.createContext();
 
 const SocketProvider = props => {
-  const socket = io(`${process.env.REACT_APP_BACKEND_API}chat`);
+  const dispatch = useDispatch();
+  const socket = socketIOClient(`${process.env.REACT_APP_BACKEND_API}chat`);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await ApiService.get('chats');
+      dispatch(setChats(response.data));
+    };
+
+    fetchData();
+    SocketRequestService.initialize(socket);
     SocketResponseService.initialize(socket);
 
     return () => socket.disconnect();
-  }, [socket]);
+  }, [socket, dispatch]);
 
   return (
     <SocketContext.Provider

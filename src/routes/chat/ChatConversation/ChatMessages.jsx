@@ -1,16 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { isSameDay, fromUnixTime } from 'date-fns';
 import pluralize from 'pluralize';
-
-import SocketRequestService from 'services/SocketService/socketRequestService';
-import { useSocket } from 'contexts/socketContext';
 
 import SuccessfulMatchContainer from './SuccessfulMatchContainer';
 import ChatMessage from './ChatMessage';
 import './ChatMessages.scss';
 
-const ChatMessages = () => {
+const ChatMessages = ({ chat }) => {
   const [unreadCount, setUnreadCount] = useState(0);
   const [prevMessageLength, setPrevMessageLength] = useState(0);
   const [isBottom, setIsBottom] = useState(false);
@@ -19,10 +15,7 @@ const ChatMessages = () => {
   let chatMessagesRef = document.getElementById('messagesContainer');
   let newMessageDividerRef = document.getElementById('newMessageDivider');
 
-  const { isDealClosed } = useSelector(state => state.chat.chatConversation);
-  const chatMessages = useSelector(
-    state => state.chat.chatConversation.conversation
-  );
+  const { isDealClosed, chats } = chat;
 
   const handleScroll = useCallback(
     event => {
@@ -30,11 +23,11 @@ const ChatMessages = () => {
       const bottom = node.scrollHeight - node.scrollTop === node.clientHeight;
       setIsBottom(bottom);
       if (bottom) {
-        setPrevMessageLength(chatMessages.length);
+        setPrevMessageLength(chats.length);
         setUnreadCount(0);
       }
     },
-    [chatMessages.length]
+    [chats.length]
   );
 
   const setChatMessagesRef = node => {
@@ -60,9 +53,9 @@ const ChatMessages = () => {
         chatMessagesBottomRef.scrollIntoView({
           block: 'end'
         });
-        setPrevMessageLength(chatMessages.length);
+        setPrevMessageLength(chats.length);
       } else {
-        setUnreadCount(chatMessages.length - prevMessageLength);
+        setUnreadCount(chats.length - prevMessageLength);
       }
     }
 
@@ -70,7 +63,7 @@ const ChatMessages = () => {
       chatMessagesRef.removeEventListener('scroll', handleScroll);
     };
   }, [
-    chatMessages,
+    chats,
     chatMessagesBottomRef,
     chatMessagesRef,
     isBottom,
@@ -78,13 +71,19 @@ const ChatMessages = () => {
     handleScroll
   ]);
 
-  const { chatRoomId } = useParams();
-  const socket = useSocket();
+  const renderNewDateLine = (currentMessageTimestamp, prevMessageTimestamp) => {
+    const currentMessageDate = fromUnixTime(currentMessageTimestamp);
+    // Note we reverse the check, we only render if they are not the same day
+    const isRenderNewDateLine = !isSameDay(
+      currentMessageDate,
+      fromUnixTime(prevMessageTimestamp)
+    );
 
-  const userType = useSelector(state => state.misc.userType);
-  useEffect(() => {
-    SocketRequestService.getChatConversation({ chatRoomId, socket, userType });
-  }, [chatRoomId, socket, userType]);
+    if (isRenderNewDateLine) {
+      return <div>{currentMessageDate.getDate()}</div>;
+    }
+    return null;
+  };
 
   return (
     <>
@@ -101,7 +100,7 @@ const ChatMessages = () => {
             <span>Scroll To Unread</span>
           </button>
         )}
-        {chatMessages.map((message, index) => {
+        {chats.map((message, index) => {
           return (
             <div key={message.createdAt}>
               {/* TODO: Next time when each message has properties like firstUnreadMessage, can use that to demarcate the new message boundary, and scroll to this instead of the bottom on first load */}
@@ -115,7 +114,12 @@ const ChatMessages = () => {
                   data-content="NEW MESSAGES"
                 />
               )}
-              <ChatMessage chat={message} />
+              {index !== 0 &&
+                renderNewDateLine(
+                  message.createdAt,
+                  chats[index - 1].createdAt
+                )}
+              <ChatMessage message={message} />
             </div>
           );
         })}

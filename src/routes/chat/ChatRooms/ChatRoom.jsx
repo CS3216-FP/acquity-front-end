@@ -40,9 +40,9 @@ const ChatRoom = ({ chat, basePath }) => {
     <li role="row">
       <Link
         className={`chatroom__item columns is-mobile is-marginless ${
-          chat.chatRoomId === chatRoomId ? 'chatroom__item--selected' : ''
+          chat.id === chatRoomId ? 'chatroom__item--selected' : ''
         }`}
-        to={`${basePath}/${chat.chatRoomId}`}
+        to={`${basePath}/${chat.id}`}
       >
         <Avatar
           className="chatroom__item__avatar column is-narrow"
@@ -53,7 +53,7 @@ const ChatRoom = ({ chat, basePath }) => {
           <div className="detail__header">
             <div className="detail__header--name">{chat.friendlyName}</div>
             <div className="detail__header--timeago">
-              <TimeAgo date={chat.updatedAt} formatter={formatter} />
+              <TimeAgo date={chat.updatedAt * 1000} formatter={formatter} />
             </div>
           </div>
           <OtherPartyOffer chat={chat} />

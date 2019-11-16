@@ -5,6 +5,7 @@ import useForm from 'react-hook-form';
 
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import { useSocket } from 'contexts/socketContext';
+import { integerRegex } from 'constants/regex';
 import { validateMoneyString } from 'utils/moneyUtils';
 
 import './ChatOfferSubheader.scss';
@@ -67,7 +68,6 @@ const MakeOfferForm = ({ handleClose }) => {
                 ref={register({
                   required: 'This field is required',
                   validate: value => {
-                    const integerRegex = /^\d+$/;
                     if (!value.match(integerRegex)) {
                       return 'Number of shares is invalid or should be a whole number';
                     }

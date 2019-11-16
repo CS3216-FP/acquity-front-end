@@ -1,7 +1,9 @@
 import React from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, Link, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import PageContainer from 'components/pageContainer';
+import { CHAT } from 'constants/routes';
 
 import ChatRooms from './ChatRooms';
 import ChatMessages from './ChatConversation/ChatMessages';
@@ -10,20 +12,17 @@ import ChatHeader from './ChatHeader';
 import './Chat.scss';
 
 const ChatNav = ({ isShowingChatRoom }) => {
-  const history = useHistory();
-
-  const handleBackClick = () => history.goBack();
   return (
     <div className="chat__header columns">
       <div className="column chat__header__left">
         {isShowingChatRoom && (
-          <button
-            onClick={handleBackClick}
+          <Link
+            to={CHAT}
             className="chat__header__back button button--cta button--nav--circle"
             type="button"
           >
             <i className="fas fa-arrow-left" />
-          </button>
+          </Link>
         )}
         <span>Matches</span>
       </div>
@@ -31,26 +30,30 @@ const ChatNav = ({ isShowingChatRoom }) => {
   );
 };
 
-const ChatContent = () => {
+const ChatContent = ({ chat }) => {
   return (
     <div className="column chat__content">
-      <ChatHeader />
-      <ChatMessages />
-      <ChatInput />
+      <ChatHeader chat={chat} />
+      <ChatMessages chat={chat} />
+      <ChatInput chat={chat} />
     </div>
   );
 };
 
 const Chat = () => {
   const { chatRoomId } = useParams();
+  const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
+
+  if (chatRoomId && !chat) {
+    return <Redirect to={CHAT} />;
+  }
 
   return (
     <PageContainer className="chat">
-      {/* TODO: clean up redux model to not use arrays and make keys more meaningful */}
       <ChatNav isShowingChatRoom={!!chatRoomId} />
       <div className="columns is-mobile is-gapless">
         <ChatRooms isShowingChatRoom={!!chatRoomId} />
-        {chatRoomId && <ChatContent />}
+        {chatRoomId && <ChatContent chat={chat} />}
       </div>
     </PageContainer>
   );

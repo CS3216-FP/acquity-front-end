@@ -8,30 +8,29 @@ import SocketRequestService from 'services/SocketService/socketRequestService';
 import './ChatInput.scss';
 
 const ChatInput = () => {
-  const [value, setMessage] = React.useState('');
+  const [message, setMessage] = React.useState('');
+  const { chatRoomId } = useParams();
+  const userType = useSelector(state => state.misc.userType);
+  const socket = useSocket();
 
   const handleChange = event => {
     setMessage(event.target.value);
   };
 
   const sendMessage = () => {
-    if (!value) return;
+    if (!message) return;
+    SocketRequestService.addNewMessage({
+      chatRoomId,
+      message,
+      userType,
+      socket
+    });
     setMessage('');
   };
 
-  const { chatRoomId } = useParams();
-  const userType = useSelector(state => state.misc.userType);
-
-  const socket = useSocket();
   const handleKeyPress = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      SocketRequestService.addNewMessage({
-        chatRoomId,
-        message: event.target.value,
-        userType,
-        socket
-      });
       sendMessage();
     }
   };
@@ -46,7 +45,7 @@ const ChatInput = () => {
                 className="input is-info"
                 type="text"
                 placeholder="Write a message..."
-                value={value}
+                value={message}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
               />

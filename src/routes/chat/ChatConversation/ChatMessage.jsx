@@ -1,44 +1,45 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+
+import { useUser } from 'contexts/userContext';
+import { getTimeFromTimestamp } from 'utils';
 
 import ChatOffer from './ChatOffer';
 import './ChatMessage.scss';
 
-const renderMessage = chat => {
-  if (chat.type === 'message') {
-    return <Message chat={chat} />;
+const renderMessage = message => {
+  if (message.type === 'chat') {
+    return <Message message={message} />;
   }
-  if (chat.type === 'offer') {
-    return <ChatOffer chat={chat} />;
+  if (message.type === 'offer') {
+    return <ChatOffer offer={message} />;
   }
 
-  throw new Error(`Invalid chat type ${chat.type}`);
+  throw new Error(`Invalid chat type ${message.type}`);
 };
 
-const ChatMessage = ({ chat }) => {
-  const userType = useSelector(state => state.misc.userType);
+const ChatMessage = ({ message }) => {
+  const user = useUser();
 
   return (
     <div className="chatMessage">
       <div
         className={`chatMessage__bubble chatMessage__bubble--${
-          userType === chat.userType ? 'right' : 'left'
+          message.authorId === user.id ? 'right' : 'left'
         }`}
       >
-        {renderMessage(chat)}
+        {renderMessage(message)}
       </div>
     </div>
   );
 };
 
-const Message = ({ chat }) => {
-  const timeString = new Date(chat.createdAt).toLocaleTimeString([], {
-    timeStyle: 'short'
-  });
+const Message = ({ message }) => {
+  const timeString = getTimeFromTimestamp(message.createdAt);
+
   return (
     <p className="chatMessage__bubble__message">
       <span className="chatMessage__bubble__message--message">
-        {chat.message}
+        {message.message}
       </span>
       <span className="chatMessage__bubble__message--timestamp">
         {timeString}

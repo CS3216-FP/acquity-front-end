@@ -1,13 +1,23 @@
 import axios from 'axios';
-import applyConverters from 'axios-case-converter';
+import humps from 'humps';
 import tokenUtils from 'utils/tokenUtils';
+import { uuidRegex } from 'constants/regex';
 
-const ApiService = applyConverters(
-  axios.create({
-    baseURL: process.env.REACT_APP_BACKEND_API,
-    headers: { 'Content-Type': 'application/json' }
-  })
-);
+const ApiService = axios.create({
+  baseURL: process.env.REACT_APP_BACKEND_API,
+  headers: { 'Content-Type': 'application/json' },
+  transformResponse: [
+    ...axios.defaults.transformResponse,
+    data =>
+      humps.camelizeKeys(data, (key, convert) => {
+        return uuidRegex.test(key) ? key : convert(key);
+      })
+  ],
+  transformRequest: [
+    data => humps.decamelizeKeys(data),
+    ...axios.defaults.transformRequest
+  ]
+});
 
 ApiService.interceptors.request.use(
   config => {

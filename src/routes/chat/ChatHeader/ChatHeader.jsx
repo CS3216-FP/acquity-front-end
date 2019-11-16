@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
-import {
-  getUserPrice,
-  getUserNumberOfShares,
-  getOtherPartyUserType
-} from 'utils/userUtils';
 import { toSgdCurrency } from 'utils/moneyUtils';
 import { SELLER, BUYER } from 'constants/user';
+import { useUser } from 'contexts/userContext';
 
 import ChatOfferSubheader from './ChatOfferSubheader';
-import './ChatHeader.scss';
 import RevealIdentitySubheader from './RevealIdentitySubheader';
+import './ChatHeader.scss';
 
 const ChatOfferDetails = ({ headerText, quantity, price }) => {
   return (
@@ -31,34 +26,11 @@ const ChatOfferDetails = ({ headerText, quantity, price }) => {
   );
 };
 
-const ChatHeader = () => {
+const ChatHeader = ({ chat }) => {
+  const user = useUser();
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
-  const {
-    sellerPrice,
-    buyerPrice,
-    sellerNumberOfShares,
-    buyerNumberOfShares,
-    // TODO: Split this boolean into type of chat closure, it can be a cancelled match or a confirmed match.
-    isDealClosed
-  } = useSelector(state => state.chat.chatConversation);
-  const userType = useSelector(state => state.misc.userType);
-  const otherPartyUserType = getOtherPartyUserType(userType);
-  const userPrice = getUserPrice(userType, sellerPrice, buyerPrice);
-  const userNumberOfShares = getUserNumberOfShares(
-    userType,
-    sellerNumberOfShares,
-    buyerNumberOfShares
-  );
-  const otherPartyPrice = getUserPrice(
-    otherPartyUserType,
-    sellerPrice,
-    buyerPrice
-  );
-  const otherPartyNumberOfShares = getUserNumberOfShares(
-    otherPartyUserType,
-    sellerNumberOfShares,
-    buyerNumberOfShares
-  );
+  const { isDealClosed, buyerId } = chat;
+
   const handleOpenOfferSubheader = () => {
     setIsShowOfferSubheader(true);
   };
@@ -94,14 +66,14 @@ const ChatHeader = () => {
     <div className="chat__header column is-paddingless">
       <div className="columns is-mobile is-marginless">
         <ChatOfferDetails
-          headerText={`${userType === SELLER ? BUYER : SELLER} Offer`}
-          quantity={otherPartyNumberOfShares}
-          price={toSgdCurrency(otherPartyPrice)}
+          headerText={`${user.id === buyerId ? BUYER : SELLER} Offer`}
+          quantity={0}
+          price={toSgdCurrency(0)}
         />
         <ChatOfferDetails
           headerText="Your Bid"
-          quantity={userNumberOfShares}
-          price={toSgdCurrency(userPrice)}
+          quantity={0}
+          price={toSgdCurrency(0)}
         />
       </div>
       {renderSubheader()}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import useForm from 'react-hook-form';
 
 import { validateMoneyString } from 'utils/moneyUtils';
+import { integerRegex } from 'constants/regex';
 import InputDropdownSelect from 'components/inputDropdownSelect';
 import OrderDisclaimer from '../orderDisclaimer';
 
@@ -104,7 +105,6 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
             ref={register({
               required: 'This field is required',
               validate: value => {
-                const integerRegex = /^\d+$/;
                 if (!value.match(integerRegex)) {
                   return 'Number of shares is invalid or should be a whole number';
                 }
