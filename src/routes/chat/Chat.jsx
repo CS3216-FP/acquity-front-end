@@ -11,10 +11,10 @@ import ChatInput from './ChatInput/ChatInput';
 import ChatHeader from './ChatHeader';
 import './Chat.scss';
 
-const ChatNav = ({ isShowingChatRoom }) => {
+const ChatNav = ({ isShowingChatRoom, headerText }) => {
   return (
     <div className="chat__header columns">
-      <div className="column chat__header__left">
+      <div className="column is-full-mobile is-two-fifths-tablet chat__header__left">
         {isShowingChatRoom && (
           <Link
             to={CHAT}
@@ -25,6 +25,9 @@ const ChatNav = ({ isShowingChatRoom }) => {
           </Link>
         )}
         <span>Matches</span>
+      </div>
+      <div className="column is-hidden-mobile chat__header__right">
+        <span className="chat__header__right--text">{headerText}</span>
       </div>
     </div>
   );
@@ -50,7 +53,10 @@ const Chat = () => {
 
   return (
     <PageContainer className="chat">
-      <ChatNav isShowingChatRoom={!!chatRoomId} />
+      <ChatNav
+        isShowingChatRoom={!!chatRoomId}
+        headerText={chat.friendlyName}
+      />
       <div className="columns is-mobile is-gapless">
         <ChatRooms isShowingChatRoom={!!chatRoomId} />
         {chatRoomId && <ChatContent chat={chat} />}

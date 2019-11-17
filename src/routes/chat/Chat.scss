@@ -17,15 +17,20 @@
       margin: 1rem;
     }
 
-    &__left {
-      padding: 1.5rem 1rem 1.5rem 2rem !important;
+    &__right {
+      padding: 1.5rem;
       display: inline-flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+    }
+
+    &__left {
+      padding: 1.5rem 1rem 1.5rem 2rem;
+      display: inline-flex;
+      align-items: center;
 
       @media screen and (max-width: $tablet) {
-        padding: 0 !important;
-        margin: 1rem;
+        padding: 1rem;
       }
 
       .view-archive {
