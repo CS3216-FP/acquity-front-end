@@ -6,11 +6,11 @@ import {
   addNewOffer
 } from 'reducers/ChatDux';
 import {
-  RECEIVE_NEW_MESSAGE,
+  RECEIVE_NEW_EVENT,
   RECEIVE_ERROR,
-  RECEIVE_UPDATE_OFFER,
   CHAT_TYPE,
-  OFFER_TYPE
+  OFFER_TYPE,
+  OFFER_RESPONSE_TYPE
 } from 'constants/socket';
 
 /**
@@ -29,19 +29,23 @@ import {
     offerStatus?: "PENDING" | "ACCEPTED" | "REJECTED",
   }
  */
-const addNewMessageListener = socket => {
-  socket.on(RECEIVE_NEW_MESSAGE, payload => {
+const receiveNewMessageListener = socket => {
+  socket.on(RECEIVE_NEW_EVENT, payload => {
     const { type } = payload;
+    const data = humps.camelizeKeys(payload);
     switch (type) {
       case CHAT_TYPE:
-        store.dispatch(addNewMessage(humps.camelizeKeys(payload)));
+        store.dispatch(addNewMessage(data));
         break;
       case OFFER_TYPE:
-        store.dispatch(addNewOffer(humps.camelizeKeys(payload)));
+        store.dispatch(addNewOffer(data));
+        break;
+      case OFFER_RESPONSE_TYPE:
+        store.dispatch(updateOfferStatus(data));
         break;
       default:
         throw new Error(
-          `Invalid message type received from ${RECEIVE_NEW_MESSAGE} listener`
+          `Invalid message type received from ${RECEIVE_NEW_EVENT} listener`
         );
     }
   });
@@ -52,30 +56,8 @@ const errorListener = socket => {
   socket.on(RECEIVE_ERROR, payload => console.error(payload));
 };
 
-/**
- * Listener for updating of offers
- * payload: {
-    oldOfferMessageId: string,
-    type: OFFER_TYPE,
-    id: string,
-    createdAt: timestamp,
-    updatedAt: timestamp,
-    chatRoomId: string,
-    authorId: string,
-    price: number,
-    numberOfShares: number,
-    offerStatus: "ACCEPTED" | "REJECTED",
-  }
- */
-export const updateOfferListener = socket => {
-  socket.on(RECEIVE_UPDATE_OFFER, payload => {
-    store.dispatch(updateOfferStatus(humps.camelizeKeys(payload)));
-  });
-};
-
 const initialize = socket => {
-  addNewMessageListener(socket);
-  updateOfferListener(socket);
+  receiveNewMessageListener(socket);
   errorListener(socket);
 };
 
