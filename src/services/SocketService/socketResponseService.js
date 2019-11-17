@@ -1,57 +1,49 @@
 import humps from 'humps';
 import store from 'app/store';
-import { addNewMessage } from 'reducers/ChatDux';
+import {
+  addNewMessage,
+  updateOfferStatus,
+  addNewOffer
+} from 'reducers/ChatDux';
 import {
   RECEIVE_NEW_MESSAGE,
-  RECEIVE_NEW_OFFER,
-  RECEIVE_ERROR
+  RECEIVE_ERROR,
+  RECEIVE_UPDATE_OFFER,
+  CHAT_TYPE,
+  OFFER_TYPE
 } from 'constants/socket';
 
 /**
- * Receives new message.
- * Example:
- * {
- * "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- * "updated_at": 1573228653301.362,
- * "new_chat": {
- *   "id": "5fa9142b-db46-49d2-91ff-03488b1e9337",
- *   "message": "hello world",
- *   "created_at": 1573228653301.362,
- *   "user_type": "buyer",
- *   "type": "message"
- *  }
- * }
- * @param socket
+ * Listener for new messages
+ * payload: {
+    type: CHAT_TYPE | OFFER_TYPE,
+    id: string,
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    chatRoomId: string,
+    authorId: string,
+    message?: string, // Only for type=CHAT_TYPE
+    // Below only if type=OFFER_TYPE
+    price?: number,
+    numberOfShares?: number,
+    offerStatus?: "PENDING" | "ACCEPTED" | "REJECTED",
+  }
  */
 const addNewMessageListener = socket => {
   socket.on(RECEIVE_NEW_MESSAGE, payload => {
-    store.dispatch(addNewMessage(humps.camelizeKeys(payload)));
-  });
-};
-
-/**
- * Receives new offer.
- * Example:
- * {
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- *  "updated_at": 1573228223507.107,
- *  "new_chat": {
- *   "id": "9b4638c4-e2a2-48ce-aafe-995a158f4fbf",
- *   "price": 5,
- *   "number_of_shares": 100,
- *   "offer_status": "PENDING",
- *   "created_at": 1573228223507.107,
- *   "user_type": "buyer",
- *   "type": "offer"
- *  },
- *  "is_deal_closed": false
- * }
- *
- * @param socket
- */
-const addNewOfferListener = socket => {
-  socket.on(RECEIVE_NEW_OFFER, payload => {
-    store.dispatch(addNewMessage(humps.camelizeKeys(payload)));
+    const { type } = payload;
+    switch (type) {
+      case CHAT_TYPE:
+        store.dispatch(addNewMessage(humps.camelizeKeys(payload)));
+        break;
+      case OFFER_TYPE:
+        store.dispatch(addNewOffer(humps.camelizeKeys(payload)));
+        break;
+      default:
+        throw new Error(
+          `Invalid message type received from ${RECEIVE_NEW_MESSAGE} listener`
+        );
+    }
   });
 };
 
@@ -60,68 +52,30 @@ const errorListener = socket => {
   socket.on(RECEIVE_ERROR, payload => console.error(payload));
 };
 
-// /**
-//  * Receives offer accepted.
-//  * Example:
-//  * {
-//  *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
-//  *  "updated_at": 1573229085411.719,
-//  *  "new_chat": {
-//  *    "id": "fac16c9e-0928-4c53-b3df-d84ebf229ee0",
-//  *    "price": 5,
-//  *    "number_of_shares": 2000,
-//  *    "offer_status": "PENDING",
-//  *    "created_at": 1573229085411.719,
-//  *    "user_type": "buyer",
-//  *    "type": "offer"
-//  *  },
-//  *  "is_deal_closed": false
-//  * }
-//  *
-//  * @param socket
-//  */
-// export const acceptOfferListener = socket => {
-//   socket.on(RECEIVE_ACCEPT_OFFER, payload => {
-//     store.dispatch(
-//       setOfferStatus({
-//         ...camelcaseKeys(payload, { deep: true })
-//       })
-//     );
-//   });
-// };
-
-// /**
-//  * Receives declined offer.
-//  * Example:
-//  * {
-//  *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
-//  *  "updated_at": 1573228223507.107,
-//  *  "new_chat": {
-//  *   "id": "9b4638c4-e2a2-48ce-aafe-995a158f4fbf",
-//  *   "price": 5,
-//  *   "number_of_shares": 100,
-//  *   "offer_status": "REJECTED",
-//  *   "created_at": 1573228223507.107,
-//  *   "user_type": "buyer",
-//  *   "type": "offer"
-//  *  },
-//  *  "is_deal_closed": false
-//  * }
-//  * @param socket
-//  */
-// export const declineOfferListener = socket => {
-//   socket.on(RECEIVE_DECLINE_OFFER, payload => {
-//     store.dispatch(
-//       setOfferStatus({
-//         ...camelcaseKeys(payload, { deep: true })
-//       })
-//     );
-//   });
-// };
+/**
+ * Listener for updating of offers
+ * payload: {
+    oldOfferMessageId: string,
+    type: OFFER_TYPE,
+    id: string,
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    chatRoomId: string,
+    authorId: string,
+    price: number,
+    numberOfShares: number,
+    offerStatus: "ACCEPTED" | "REJECTED",
+  }
+ */
+export const updateOfferListener = socket => {
+  socket.on(RECEIVE_UPDATE_OFFER, payload => {
+    store.dispatch(updateOfferStatus(humps.camelizeKeys(payload)));
+  });
+};
 
 const initialize = socket => {
   addNewMessageListener(socket);
-  addNewOfferListener(socket);
+  updateOfferListener(socket);
   errorListener(socket);
 };
 

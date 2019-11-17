@@ -16,17 +16,48 @@ const chat = createSlice({
       state.unarchived = unarchived;
     },
     addNewMessage: (state, { payload }) => {
-      const { newChat, chatRoomId, updatedAt } = payload;
+      const { chatRoomId, updatedAt } = payload;
       const chatRoom = state.unarchived[chatRoomId];
       if (!chatRoom) return;
 
-      chatRoom.chats.push({ ...newChat });
+      chatRoom.chats.push(payload);
+      chatRoom.updatedAt = updatedAt;
+    },
+    addNewOffer: (state, { payload }) => {
+      const { chatRoomId, updatedAt } = payload;
+      const chatRoom = state.unarchived[chatRoomId];
+      if (!chatRoom) return;
+
+      // Add offer as message
+      chatRoom.chats.push(payload);
+      // Update the latest offer
+      chatRoom.latestOffer = payload;
+      chatRoom.updatedAt = updatedAt;
+    },
+    updateOfferStatus: (state, { payload }) => {
+      const { chatRoomId, updatedAt, oldMessageId, offerStatus } = payload;
+      const chatRoom = state.unarchived[chatRoomId];
+      if (!chatRoom) return;
+
+      // Update prior offer that got updated
+      const priorOffer = chatRoom.chats.find(msg => msg.id === oldMessageId);
+      priorOffer.offerStatus = offerStatus;
+
+      // Add this updated offer as new message
+      chatRoom.chats.push(payload);
+      // Update the latest offer
+      chatRoom.latestOffer = payload;
       chatRoom.updatedAt = updatedAt;
     }
   }
 });
 /* eslint-enable no-param-reassign */
 
-export const { setChats, addNewMessage } = chat.actions;
+export const {
+  setChats,
+  addNewMessage,
+  addNewOffer,
+  updateOfferStatus
+} = chat.actions;
 
 export default chat.reducer;
