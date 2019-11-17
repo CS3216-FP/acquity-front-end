@@ -39,10 +39,10 @@ const ChatInput = () => {
     <div className="chatInput">
       <div className="columns is-marginless is-mobile is-gapless">
         <div className="column">
-          <div className="form__field field">
-            <div className="control">
+          <div className="form__field field has-addons">
+            <div className="control is-expanded">
               <input
-                className="input is-info"
+                className="input"
                 type="text"
                 placeholder="Type a message..."
                 value={message}
@@ -50,16 +50,18 @@ const ChatInput = () => {
                 onKeyPress={handleKeyPress}
               />
             </div>
+            {message && (
+              <div className="control chatInput__sendButton">
+                <button
+                  className="button button--cta no-shadow"
+                  onClick={sendMessage}
+                  type="submit"
+                >
+                  Send
+                </button>
+              </div>
+            )}
           </div>
-        </div>
-        <div className="chatInput__button--enter column is-narrow">
-          <button
-            onClick={sendMessage}
-            type="submit"
-            className="icon is-medium"
-          >
-            <i className="fa fa-level-down-alt fa-rotate-90 fa-2x" />
-          </button>
         </div>
       </div>
     </div>

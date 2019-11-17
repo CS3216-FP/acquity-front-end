@@ -6,8 +6,8 @@ export const displayChatRelativeTime = date => {
   return moment(date, 'DD-MM-YYYY').calendar(null, {
     sameDay: '[Today]',
     lastDay: '[Yesterday]',
-    lastWeek: 'MMM D',
-    sameElse: 'MMM D'
+    lastWeek: 'D MMM YYYY',
+    sameElse: 'D MMM YYYY'
   });
 };
 

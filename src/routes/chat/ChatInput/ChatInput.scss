@@ -1,15 +1,15 @@
 @import 'assets/scss/variables';
 
 .chatInput {
-  padding: 1rem 2rem;
+  padding: 1rem;
 
-  &__button--enter {
-    display: flex;
-    align-items: center;
-    margin-left: 0.8rem !important;
-
+  &__sendButton {
     button {
-      color: $blue;
+      padding: 0 1.5rem;
+
+      @media screen and (max-width: $tablet) {
+        padding: 0 1rem;
+      }
     }
   }
 }
