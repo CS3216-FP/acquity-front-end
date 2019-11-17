@@ -1,9 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { getTimeFromTimestamp } from 'utils';
 import { useSocket } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
-import { BUYER, SELLER } from 'constants/user';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import { toSgdCurrency } from 'utils/moneyUtils';
 
@@ -100,8 +100,8 @@ const RejectedOffer = ({ isSentByUser }) => {
 
 const ChatOffer = ({ offer }) => {
   const user = useUser();
+  const { userType } = useSelector(state => state.misc);
   const isSentByUser = offer.authorId === user.id;
-  const userType = offer.buyerId === user.id ? BUYER : SELLER;
   const timeString = getTimeFromTimestamp(offer.createdAt);
 
   return (
