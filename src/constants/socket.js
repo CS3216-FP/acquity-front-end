@@ -9,4 +9,4 @@ export const RECEIVE_ERROR = 'error';
 
 export const CHAT_TYPE = 'chat';
 export const OFFER_TYPE = 'offer';
-export const OFFER_RESPONSE_TYPE = 'offerResponse';
+export const OFFER_RESPONSE_TYPE = 'offer_response';

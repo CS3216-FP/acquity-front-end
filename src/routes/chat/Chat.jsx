@@ -38,7 +38,7 @@ const ChatContent = ({ chat }) => {
     <div className="column chat__content">
       <ChatHeader chat={chat} />
       <ChatMessages chat={chat} />
-      {!chat.isDealClosed && <ChatInput chat={chat} />}
+      <ChatInput chat={chat} />
     </div>
   );
 };

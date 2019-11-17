@@ -35,12 +35,13 @@ const chat = createSlice({
       chatRoom.updatedAt = updatedAt;
     },
     updateOfferStatus: (state, { payload }) => {
-      const { chatRoomId, updatedAt, oldMessageId, offerStatus } = payload;
+      const { chatRoomId, updatedAt, offerStatus } = payload;
       const chatRoom = state.unarchived[chatRoomId];
       if (!chatRoom) return;
 
       // Update prior offer that got updated
-      const priorOffer = chatRoom.chats.find(msg => msg.id === oldMessageId);
+      const oldOfferId = chatRoom.latestOffer.id;
+      const priorOffer = chatRoom.chats.find(msg => msg.id === oldOfferId);
       priorOffer.offerStatus = offerStatus;
 
       // Add this updated offer as new message

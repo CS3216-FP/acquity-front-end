@@ -1,16 +1,17 @@
 import React from 'react';
 
 import { useUser } from 'contexts/userContext';
+import { OFFER_RESPONSE_TYPE, OFFER_TYPE, CHAT_TYPE } from 'constants/socket';
 import { getTimeFromTimestamp } from 'utils';
 
 import ChatOffer from './ChatOffer';
 import './ChatMessage.scss';
 
 const renderMessage = message => {
-  if (message.type === 'chat') {
+  if (message.type === CHAT_TYPE) {
     return <Message message={message} />;
   }
-  if (message.type === 'offer') {
+  if (message.type === OFFER_TYPE || message.type === OFFER_RESPONSE_TYPE) {
     return <ChatOffer offer={message} />;
   }
 
