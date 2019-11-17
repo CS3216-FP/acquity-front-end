@@ -29,7 +29,8 @@ const ChatOfferDetails = ({ headerText, quantity, price }) => {
 const ChatHeader = ({ chat }) => {
   const user = useUser();
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
-  const { isDealClosed, buyerId } = chat;
+  const { isDealClosed, buyOrder, sellOrder } = chat;
+  const isUserBuyer = chat.buyerId === user.id;
 
   const handleOpenOfferSubheader = () => {
     setIsShowOfferSubheader(true);
@@ -62,20 +63,34 @@ const ChatHeader = ({ chat }) => {
     );
   };
 
-  return (
-    <div className="chat__header column is-paddingless">
+  const renderChatOfferDetails = () => {
+    const userOrderDetails = isUserBuyer ? buyOrder : sellOrder;
+    const otherOrderDetails = isUserBuyer ? sellOrder : buyOrder;
+    const userOrderDetailsHeaderText = isUserBuyer ? 'Your Bid' : 'Your Ask';
+    const otherOrderDetailsHeaderText = isUserBuyer
+      ? `${SELLER} Offer`
+      : `${BUYER} Offer`;
+
+    return (
       <div className="columns is-mobile is-marginless">
         <ChatOfferDetails
-          headerText={`${user.id === buyerId ? BUYER : SELLER} Offer`}
-          quantity={0}
-          price={toSgdCurrency(0)}
+          headerText={otherOrderDetailsHeaderText}
+          quantity={otherOrderDetails.numberOfShares}
+          price={toSgdCurrency(otherOrderDetails.price)}
         />
         <ChatOfferDetails
-          headerText="Your Bid"
-          quantity={0}
-          price={toSgdCurrency(0)}
+          headerText={userOrderDetailsHeaderText}
+          quantity={userOrderDetails.numberOfShares}
+          price={toSgdCurrency(userOrderDetails.price)}
         />
       </div>
+    );
+  };
+
+  return (
+    <div className="chat__header column is-paddingless">
+      <div className="chat__header__details--mobile">{chat.friendlyName}</div>
+      {renderChatOfferDetails()}
       {renderSubheader()}
     </div>
   );

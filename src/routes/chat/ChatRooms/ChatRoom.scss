@@ -50,12 +50,26 @@ $chat-active-bg: #267ed0;
           padding-left: 1rem !important;
           font-size: 0.9rem;
         }
+
+        &--security {
+          font-size: 0.9rem;
+        }
       }
 
       &__content {
         padding-top: 0.2rem;
         font-family: $weight-light;
         font-size: 0.9rem;
+
+        &__success {
+          color: $green;
+          font-family: $weight-heavy;
+          font-size: 0.8rem;
+
+          &--text {
+            margin: 0 0.5rem;
+          }
+        }
       }
     }
   }

@@ -52,5 +52,13 @@
     height: calc(100vh - 11.9rem);
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: $tablet) {
+      height: calc(100vh - 10.9rem);
+    }
+
+    @media screen and (max-width: $mobile) {
+      height: calc(100vh - 8.4rem);
+    }
   }
 }

@@ -1,15 +1,8 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
-import { useSelector } from 'react-redux';
 
-import { SELLER } from 'constants/user';
 import Avatar from 'components/avatar';
-import {
-  getUserPrice,
-  getUserNumberOfShares,
-  getOtherPartyUserType
-} from 'utils/userUtils';
 import { toSgdCurrency } from 'utils/moneyUtils';
 import './ChatRoom.scss';
 
@@ -56,37 +49,38 @@ const ChatRoom = ({ chat, basePath }) => {
               <TimeAgo date={chat.updatedAt * 1000} formatter={formatter} />
             </div>
           </div>
-          <OtherPartyOffer chat={chat} />
+          <div className="detail__header--security">Grab match</div>
+          <LatestOffer offer={chat.latestOffer} />
         </div>
       </Link>
     </li>
   );
 };
 
-const OtherPartyOffer = ({ chat }) => {
-  const {
-    sellerPrice,
-    buyerPrice,
-    sellerNumberOfShares,
-    buyerNumberOfShares
-  } = chat;
-  const userType = useSelector(state => state.misc.userType);
-  const otherPartyUserType = getOtherPartyUserType(userType);
-  const price = getUserPrice(otherPartyUserType, sellerPrice, buyerPrice);
-  const numberOfShares = getUserNumberOfShares(
-    otherPartyUserType,
-    sellerNumberOfShares,
-    buyerNumberOfShares
-  );
+const LatestOffer = ({ offer }) => {
+  if (!offer) {
+    return <div className="detail__content">No pending offers</div>;
+  }
+
+  const { price, numberOfShares } = offer;
+
   return (
     <div className="detail__content">
-      <div>
-        {userType === SELLER ? 'Selling' : 'Buying'} Amt: {numberOfShares}
-      </div>
-      <div>
-        {userType === SELLER ? 'Highest' : 'Lowest'} Price:{' '}
-        {toSgdCurrency(price)}
-      </div>
+      {offer.offerStatus === 'ACCEPTED' && (
+        <div className="detail__content__success">
+          <span role="img" aria-label="Party popper emoji">
+            🎉🎉
+          </span>
+          <span className="detail__content__success--text">
+            Successful match
+          </span>
+          <span role="img" aria-label="Party popper emoji">
+            🎉🎉
+          </span>
+        </div>
+      )}
+      <div>Offered Quantity: {numberOfShares}</div>
+      <div>Offered Price: {toSgdCurrency(price)}</div>
     </div>
   );
 };

@@ -46,7 +46,7 @@ const MakeOfferForm = ({ handleClose }) => {
       noValidate
       onSubmit={handleSubmit(onClickSubmit)}
     >
-      <div className="columns is-marginless">
+      <div className="columns is-marginless is-mobile">
         <div className="column chatOfferSubheader__form__input">
           <label htmlFor="numberOfShares" className="label">
             Quantity:
@@ -132,7 +132,7 @@ const MakeOfferForm = ({ handleClose }) => {
             </div>
           </div>
         </div>
-        <div className="column is-narrow chatOfferSubheader__form__actions">
+        <div className="column chatOfferSubheader__form__actions">
           <div className="actions is-grouped field">
             <div className="control">
               <button type="submit" className="button--cta button no-shadow">

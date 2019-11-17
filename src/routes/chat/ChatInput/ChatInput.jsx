@@ -44,7 +44,7 @@ const ChatInput = () => {
               <input
                 className="input is-info"
                 type="text"
-                placeholder="Write a message..."
+                placeholder="Type a message..."
                 value={message}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}

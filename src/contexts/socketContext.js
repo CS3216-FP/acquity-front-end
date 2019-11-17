@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import socketIOClient from 'socket.io-client';
 
 import SocketRequestService from 'services/SocketService/socketRequestService';
@@ -12,10 +12,13 @@ const SocketContext = React.createContext();
 const SocketProvider = props => {
   const dispatch = useDispatch();
   const socket = socketIOClient(`${process.env.REACT_APP_BACKEND_API}chat`);
+  const userType = useSelector(rootState => rootState.misc.userType);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await ApiService.get('chats');
+      const response = await ApiService.get('chats', {
+        params: { type: userType }
+      });
       dispatch(setChats(response.data));
     };
 
@@ -24,7 +27,7 @@ const SocketProvider = props => {
     SocketResponseService.initialize(socket);
 
     return () => socket.disconnect();
-  }, [socket, dispatch]);
+  }, [socket, dispatch, userType]);
 
   return (
     <SocketContext.Provider

@@ -16,6 +16,17 @@
 
   &__details {
     text-align: center;
+
+    &--mobile {
+      display: none;
+      font-size: 1rem;
+      text-align: center;
+      padding-top: 0.75rem;
+
+      @media screen and (max-width: $mobile) {
+        display: block;
+      }
+    }
     &__header {
       font-size: 0.8rem;
       font-family: $weight-heavy;
@@ -26,6 +37,10 @@
       .details {
         font-size: 1.1rem;
         font-family: $weight-light;
+
+        @media screen and (max-width: $mobile) {
+          font-size: 0.8rem;
+        }
         &__label {
           padding-right: 0.2rem;
         }
@@ -44,6 +59,10 @@
       border-radius: 0;
       border: none !important;
       outline: 1px solid $grey-lighter !important;
+
+      @media screen and (max-width: $mobile) {
+        font-size: 0.8rem;
+      }
     }
   }
 }

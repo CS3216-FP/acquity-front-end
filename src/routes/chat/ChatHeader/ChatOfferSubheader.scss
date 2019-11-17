@@ -2,12 +2,11 @@
 
 .chatOfferSubheader {
   background: white;
-  padding: 0rem 1rem 1.5rem 1rem;
+  padding: 0rem 1rem;
   border-top: 1px solid $grey-lighter;
 
   &__header {
-    padding-top: 1rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
     font-size: 0.8rem;
     font-family: $weight-heavy;
     text-transform: uppercase;
@@ -23,27 +22,36 @@
     }
 
     &__input {
-      display: inline-flex;
-      align-items: center;
-      padding: 0 0.5rem;
-
+      padding: 0.5rem;
       input {
         min-width: 6rem;
-      }
-
-      p.help {
-        position: absolute;
       }
     }
 
     &__actions {
-      padding: 0 0.5rem;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .actions {
+        height: 100%;
+        padding-top: 1.5rem;
+        align-items: flex-start;
+
+        .control {
+          height: 2.75rem;
+          display: inline-flex;
+          align-items: center;
+        }
+      }
     }
 
     &__button {
       &--cancel {
         color: $red;
         font-family: $weight-light;
+        font-size: 1.1rem;
 
         &:active,
         &:focus,
