@@ -75,7 +75,7 @@ const ChatMessages = ({ chat }) => {
               {renderNewDateLine(groupChat[0])}
               {groupChat[1].map(message => {
                 return (
-                  <div key={message.createdAt}>
+                  <div key={message.id}>
                     {/* TODO: Next time when each message has properties like firstUnreadMessage, can use that to demarcate the new message boundary, and scroll to this instead of the bottom on first load */}
                     {lastReadMessageId === message.id && (
                       <div
