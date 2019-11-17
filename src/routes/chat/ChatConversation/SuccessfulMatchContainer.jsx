@@ -1,11 +1,30 @@
 import React from 'react';
 
-import './SuccessfulMatchContainer.scss';
+import { toSgdCurrency } from 'utils/moneyUtils';
 import RevealIdentityDisclaimer from './RevealIdentityDisclaimer';
+import './SuccessfulMatchContainer.scss';
 
-const SuccessfulMatchContainer = () => {
+const SuccessfulMatchContainer = ({ matchDetails }) => {
+  const { price, numberOfShares } = matchDetails;
   return (
     <div className="successfulMatch">
+      <div className="successfulMatch__details">
+        <div className="successfulMatch__details--text">Final details</div>
+        <div className="successfulMatch__details__details columns is-mobile is-marginless">
+          <div className="column">
+            Quantity:
+            <span className="successfulMatch__details__details--value">
+              {numberOfShares}
+            </span>
+          </div>
+          <div className="column">
+            Price:
+            <span className="successfulMatch__details__details--value">
+              {toSgdCurrency(price)}
+            </span>
+          </div>
+        </div>
+      </div>
       <div className="successfulMatch__header">
         Congratulations on the successful match!
       </div>

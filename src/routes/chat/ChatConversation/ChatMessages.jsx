@@ -96,7 +96,9 @@ const ChatMessages = ({ chat }) => {
         <div ref={chatMessagesBottomRef} id="chatMessages--bottom" />
       </ScrollableFeed>
       {/* TODO: Add pending state where user has revealed and waiting on other */}
-      {isDealClosed && <SuccessfulMatchContainer />}
+      {isDealClosed && (
+        <SuccessfulMatchContainer matchDetails={chat.latestOffer} />
+      )}
     </>
   );
 };

@@ -46,6 +46,7 @@ const ChatContent = ({ chat }) => {
 const Chat = () => {
   const { chatRoomId } = useParams();
   const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
+  const chatNavHeaderText = chat ? chat.friendlyName : '';
 
   if (chatRoomId && !chat) {
     return <Redirect to={CHAT} />;
@@ -55,7 +56,7 @@ const Chat = () => {
     <PageContainer className="chat">
       <ChatNav
         isShowingChatRoom={!!chatRoomId}
-        headerText={chat.friendlyName}
+        headerText={chatNavHeaderText}
       />
       <div className="columns is-mobile is-gapless">
         <ChatRooms isShowingChatRoom={!!chatRoomId} />

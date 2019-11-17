@@ -7,9 +7,17 @@
   align-items: center;
   padding: 0.5rem;
 
+  @media screen and (max-width: $tablet) {
+    padding: 0.2rem;
+  }
+
   &__button {
     font-family: $weight-light;
     color: $blue;
     cursor: pointer;
+
+    @media screen and (max-width: $tablet) {
+      font-size: 0.9rem;
+    }
   }
 }
