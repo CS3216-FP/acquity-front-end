@@ -28,6 +28,17 @@ const ChatMessages = ({ groupedChats, lastReadId, unreadCount }) => {
     );
   };
 
+  const UnreadMessageDivider = () => {
+    return (
+      <div
+        id="newMessageDivider"
+        className="is-divider"
+        data-content="Unread messages"
+        ref={newMessageDividerRef}
+      />
+    );
+  };
+
   return (
     <>
       {unreadCount > 0 && (
@@ -42,6 +53,7 @@ const ChatMessages = ({ groupedChats, lastReadId, unreadCount }) => {
           <span>Scroll To Unread</span>
         </button>
       )}
+      {!lastReadId && <UnreadMessageDivider />}
       {groupedChats.map(groupChat => (
         <div className="chatMessages__group" key={groupChat[0]}>
           {renderNewDateLine(groupChat[0])}
@@ -49,14 +61,7 @@ const ChatMessages = ({ groupedChats, lastReadId, unreadCount }) => {
             return (
               <div key={message.id}>
                 <Message message={message} />
-                {lastReadId === message.id && (
-                  <div
-                    id="newMessageDivider"
-                    ref={newMessageDividerRef}
-                    className="is-divider"
-                    data-content="NEW MESSAGES"
-                  />
-                )}
+                {lastReadId === message.id && <UnreadMessageDivider />}
               </div>
             );
           })}
