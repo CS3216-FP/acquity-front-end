@@ -71,6 +71,12 @@ $chat-active-bg: #267ed0;
         font-family: $weight-light;
         font-size: 0.9rem;
 
+        &__danger {
+          color: $red-dark;
+          font-family: $weight-heavy;
+          font-size: 0.8rem;
+        }
+
         &__success {
           color: $green;
           font-family: $weight-heavy;

@@ -8,6 +8,14 @@ import './ChatListItem.scss';
 
 const ChatListItem = ({ chat, basePath }) => {
   const { chatRoomId } = useParams();
+  const {
+    id,
+    friendlyName,
+    updatedAt,
+    latestOffer,
+    isDisbanded,
+    unreadCount
+  } = chat;
 
   const formatter = (value, unit, _suffix) => {
     let shortenedUnit;
@@ -33,28 +41,29 @@ const ChatListItem = ({ chat, basePath }) => {
     <li role="row">
       <Link
         className={`chatroom__item columns is-mobile is-marginless ${
-          chat.id === chatRoomId ? 'chatroom__item--selected' : ''
+          id === chatRoomId ? 'chatroom__item--selected' : ''
         }`}
-        to={`${basePath}/${chat.id}`}
+        to={`${basePath}/${id}`}
       >
         <Avatar
           className="chatroom__item__avatar column is-narrow"
-          userName={chat.friendlyName}
+          userName={friendlyName}
           diameter="3rem"
         />
         <div className="column chatroom__item__details">
           <div className="detail__header">
-            <div className="detail__header--name">{chat.friendlyName}</div>
+            <div className="detail__header--name">{friendlyName}</div>
             <div className="detail__header--timeago">
-              <TimeAgo date={chat.updatedAt * 1000} formatter={formatter} />
+              <TimeAgo date={updatedAt * 1000} formatter={formatter} />
             </div>
           </div>
           <div className="columns">
             <div className="column">
               <div className="detail__header--security">Grab match</div>
-              <LatestOffer offer={chat.latestOffer} />
+              {isDisbanded && <CancelledMatch />}
+              <LatestOffer offer={latestOffer} />
             </div>
-            {!!chat.unreadCount && (
+            {!!unreadCount && (
               <div className="column is-narrow chatroom__item__details--unread">
                 <i className="fas fa-circle" />
               </div>
@@ -63,6 +72,16 @@ const ChatListItem = ({ chat, basePath }) => {
         </div>
       </Link>
     </li>
+  );
+};
+
+const CancelledMatch = () => {
+  return (
+    <div className="detail__content">
+      <div className="detail__content__danger">
+        <span className="detail__content__danger--text">Match cancelled</span>
+      </div>
+    </div>
   );
 };
 

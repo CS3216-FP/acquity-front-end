@@ -7,7 +7,7 @@ import SocketRequestService from 'services/SocketService/socketRequestService';
 
 import './ChatInput.scss';
 
-const ChatInput = () => {
+const ChatInput = ({ isDisbanded }) => {
   const [message, setMessage] = React.useState('');
   const { chatRoomId } = useParams();
   const userType = useSelector(state => state.misc.userType);
@@ -42,9 +42,12 @@ const ChatInput = () => {
           <div className="form__field field has-addons">
             <div className="control is-expanded">
               <input
+                disabled={isDisbanded}
                 className="input"
                 type="text"
-                placeholder="Type a message..."
+                placeholder={`${
+                  isDisbanded ? 'Chat has been disbanded' : 'Type a message...'
+                }`}
                 value={message}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}

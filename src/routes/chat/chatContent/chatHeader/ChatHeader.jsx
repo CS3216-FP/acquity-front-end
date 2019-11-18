@@ -7,6 +7,7 @@ import { useUser } from 'contexts/userContext';
 import ChatOfferSubheader from './ChatOfferSubheader';
 import RevealIdentitySubheader from './RevealIdentitySubheader';
 import './ChatHeader.scss';
+import DisbandedSubheader from './DisbandedSubheader';
 
 const ChatOfferDetails = ({ headerText, quantity, price }) => {
   return (
@@ -30,7 +31,7 @@ const ChatHeader = ({ chatRoomId }) => {
   const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
   const user = useUser();
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
-  const { isDealClosed, buyOrder, sellOrder } = chat;
+  const { isDealClosed, buyOrder, sellOrder, isDisbanded } = chat;
   const isUserBuyer = chat.buyerId === user.id;
 
   const handleOpenOfferSubheader = () => {
@@ -42,6 +43,9 @@ const ChatHeader = ({ chatRoomId }) => {
   };
 
   const renderSubheader = () => {
+    if (isDisbanded) {
+      return <DisbandedSubheader />;
+    }
     if (isDealClosed) {
       return <RevealIdentitySubheader />;
     }
