@@ -23,8 +23,10 @@ const SocketProvider = props => {
     };
 
     fetchData();
-    SocketRequestService.initialize(socket);
-    SocketResponseService.initialize(socket);
+    socket.on('connect', () => {
+      SocketRequestService.initialize(socket);
+      SocketResponseService.initialize(socket);
+    });
 
     return () => socket.disconnect();
   }, [socket, dispatch, userType]);

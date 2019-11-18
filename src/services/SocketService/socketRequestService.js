@@ -7,7 +7,8 @@ import {
   EMIT_NEW_OFFER,
   EMIT_ACCEPT_OFFER,
   EMIT_DECLINE_OFFER,
-  EMIT_UPDATE_LAST_READ
+  EMIT_UPDATE_LAST_READ,
+  EMIT_REVEAL_IDENTITY
 } from 'constants/socket';
 
 /**
@@ -139,6 +140,15 @@ const updateUnreadMessage = ({ chatRoomId, lastReadId, socket }) => {
   socket.emit(EMIT_UPDATE_LAST_READ, payload);
 };
 
+const revealIdentity = ({ chatRoomId, socket }) => {
+  const payload = humps.decamelizeKeys({
+    token: tokenUtils.getToken(),
+    chatRoomId
+  });
+
+  socket.emit(EMIT_REVEAL_IDENTITY, payload);
+};
+
 const initialize = socket => {
   authenticate({ socket });
 };
@@ -149,5 +159,6 @@ export default {
   addNewOffer,
   acceptOffer,
   declineOffer,
-  updateUnreadMessage
+  updateUnreadMessage,
+  revealIdentity
 };

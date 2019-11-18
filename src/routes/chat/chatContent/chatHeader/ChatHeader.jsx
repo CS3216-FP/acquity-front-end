@@ -47,7 +47,7 @@ const ChatHeader = ({ chatRoomId }) => {
       return <DisbandedSubheader />;
     }
     if (isDealClosed) {
-      return <RevealIdentitySubheader />;
+      return <RevealIdentitySubheader chatRoomId={chatRoomId} />;
     }
     if (isShowOfferSubheader) {
       return <ChatOfferSubheader handleClose={handleCloseOfferSubheader} />;

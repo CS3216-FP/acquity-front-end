@@ -2,13 +2,23 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { toSgdCurrency } from 'utils/moneyUtils';
+import { useSocket } from 'contexts/socketContext';
+import SocketRequestService from 'services/SocketService/socketRequestService';
+
 import RevealIdentityDisclaimer from './RevealIdentityDisclaimer';
+
 import './SuccessfulMatchContainer.scss';
 
 const SuccessfulMatchContainer = ({ chatRoomId }) => {
+  const socket = useSocket();
   const { price, numberOfShares } = useSelector(
     state => state.chat.unarchived[chatRoomId].latestOffer
   );
+
+  const handleRevealIdentity = () => {
+    SocketRequestService.revealIdentity({ chatRoomId, socket });
+  };
+
   return (
     <div className="successfulMatch">
       <div className="successfulMatch__details">
@@ -35,7 +45,11 @@ const SuccessfulMatchContainer = ({ chatRoomId }) => {
         <div className="successfulMatch__content--text">
           To continue this transaction offline, you will need to:
         </div>
-        <button className="successfulMatch__button" type="button">
+        <button
+          onClick={handleRevealIdentity}
+          className="successfulMatch__button"
+          type="button"
+        >
           Reveal My Identity
         </button>
         <RevealIdentityDisclaimer />
