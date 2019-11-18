@@ -1,9 +1,12 @@
 import humps from 'humps';
+import { batch } from 'react-redux';
+
 import store from 'app/store';
 import {
   addNewMessage,
   updateOfferStatus,
-  addNewOffer
+  addNewOffer,
+  incrementUnreadCount
 } from 'reducers/ChatDux';
 import {
   RECEIVE_NEW_EVENT,
@@ -31,11 +34,21 @@ import {
  */
 const receiveNewMessageListener = socket => {
   socket.on(RECEIVE_NEW_EVENT, payload => {
-    const { type } = payload;
+    const state = store.getState();
     const data = humps.camelizeKeys(payload);
+    const { type, authorId, chatRoomId, id } = data;
     switch (type) {
       case CHAT_TYPE:
-        store.dispatch(addNewMessage(data));
+        if (authorId === state.misc.user.id) {
+          batch(() => {
+            store.dispatch(addNewMessage(data));
+            store.dispatch(
+              incrementUnreadCount({ chatRoomId, lastReadId: id })
+            );
+          });
+        } else {
+          store.dispatch(addNewMessage(data));
+        }
         break;
       case OFFER_TYPE:
         store.dispatch(addNewOffer(data));

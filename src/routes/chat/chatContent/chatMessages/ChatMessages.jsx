@@ -5,7 +5,7 @@ import pluralize from 'pluralize';
 import { useDispatch } from 'react-redux';
 
 import { useSocket } from 'contexts/socketContext';
-import { updateUnreadCount } from 'reducers/ChatDux';
+import { clearUnreadCount } from 'reducers/ChatDux';
 import { displayChatRelativeTime } from 'utils/dateUtils';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 
@@ -45,13 +45,7 @@ const ChatMessages = ({
   };
 
   const handleUpdateUnreadMessage = useCallback(() => {
-    dispatch(
-      updateUnreadCount({
-        chatRoomId,
-        newUnreadCount: 0,
-        lastReadId: lastReadChatId.current
-      })
-    );
+    dispatch(clearUnreadCount({ chatRoomId }));
     SocketRequestService.updateUnreadMessage({
       chatRoomId,
       lastReadId: lastReadChatId.current,
@@ -62,12 +56,7 @@ const ChatMessages = ({
   useEffect(() => {
     if (isSticky) {
       lastReadChatId.current = lastChatId;
-      dispatch(
-        updateUnreadCount({
-          chatRoomId,
-          newUnreadCount: 0
-        })
-      );
+      dispatch(clearUnreadCount({ chatRoomId }));
     }
   }, [isSticky, lastChatId, lastReadChatId, dispatch, chatRoomId]);
 
@@ -110,10 +99,10 @@ const ChatMessages = ({
           {groupChat[1].map(message => {
             return (
               <div key={message.id}>
-                <Message message={message} />
                 {lastReadId === message.id && lastChatId !== message.id && (
                   <UnreadMessageDivider />
                 )}
+                <Message message={message} />
               </div>
             );
           })}
