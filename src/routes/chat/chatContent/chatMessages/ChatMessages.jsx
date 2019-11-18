@@ -60,7 +60,7 @@ const ChatMessages = ({
         });
       }
     },
-    [lastChatId, dispatch, updateUnreadCount]
+    [lastChatId, dispatch]
   );
 
   useEffect(() => {

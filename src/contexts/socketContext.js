@@ -11,7 +11,15 @@ const SocketContext = React.createContext();
 
 const SocketProvider = props => {
   const dispatch = useDispatch();
-  const socket = socketIOClient(`${process.env.REACT_APP_BACKEND_API}chat`);
+  const socket = socketIOClient.connect(
+    `${process.env.REACT_APP_BACKEND_API}chat`,
+    {
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: Infinity
+    }
+  );
   const userType = useSelector(rootState => rootState.misc.userType);
 
   useEffect(() => {
