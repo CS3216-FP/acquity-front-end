@@ -46,6 +46,8 @@ const chat = createSlice({
 
       // Add this updated offer as new message
       chatRoom.chats.push(payload);
+      // Update chat room's status
+      chatRoom.isDealClosed = payload.isDealClosed;
       // Update the latest offer
       chatRoom.latestOffer = payload;
       chatRoom.updatedAt = updatedAt;
