@@ -42,4 +42,21 @@
       border-radius: 1rem;
     }
   }
+
+  &__scrollButton {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+
+    &:after {
+      content: '\f078';
+      font-weight: 900 !important;
+      font-family: $fontawesome;
+      color: white;
+      padding-top: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
