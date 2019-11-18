@@ -14,10 +14,11 @@ const ChatRooms = ({ isShowingChatRoom }) => {
       (a, b) => b.updatedAt - a.updatedAt
     );
   });
+
   const { url } = useRouteMatch();
   const basePath = getCurrentPathWithoutParam(url);
 
-  if (!chatRooms) {
+  if (chatRooms.length === 0) {
     return (
       <ul
         className={`chatrooms column ${
