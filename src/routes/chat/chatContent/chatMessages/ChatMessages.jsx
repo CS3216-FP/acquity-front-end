@@ -1,4 +1,5 @@
-import React, { createRef, useEffect, useRef, useCallback } from 'react';
+import React, { createRef, useEffect, useCallback, useRef } from 'react';
+import { pure } from 'recompose';
 import { useSticky } from 'react-scroll-to-bottom';
 import pluralize from 'pluralize';
 import { useDispatch } from 'react-redux';
@@ -19,7 +20,7 @@ const ChatMessages = ({
   chatRoomId
 }) => {
   const newMessageDividerRef = createRef();
-  const firstUpdate = useRef(true);
+  const lastReadChatId = useRef(lastReadId);
   const dispatch = useDispatch();
   const [isSticky] = useSticky();
   const socket = useSocket();
@@ -43,36 +44,39 @@ const ChatMessages = ({
     );
   };
 
-  const handleUpdateUnreadMessage = useCallback(
-    isUnmount => {
-      if (isSticky && lastChatId) {
-        if (isUnmount) {
-          dispatch(
-            updateUnreadCount({ chatRoomId, newUnreadCount: 0, lastChatId })
-          );
-        } else {
-          dispatch(updateUnreadCount({ chatRoomId, newUnreadCount: 0 }));
-        }
-        SocketRequestService.updateUnreadMessage({
-          chatRoomId,
-          lastReadId: lastChatId,
-          socket
-        });
-      }
-    },
-    [lastChatId, dispatch]
-  );
+  const handleUpdateUnreadMessage = useCallback(() => {
+    dispatch(
+      updateUnreadCount({
+        chatRoomId,
+        newUnreadCount: 0,
+        lastReadId: lastReadChatId.current
+      })
+    );
+    SocketRequestService.updateUnreadMessage({
+      chatRoomId,
+      lastReadId: lastReadChatId.current,
+      socket
+    });
+  }, [chatRoomId, socket, dispatch]);
 
   useEffect(() => {
-    // To emulate componentDidUpdate instead of componentDidMount
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-    } else {
-      handleUpdateUnreadMessage();
+    if (isSticky) {
+      lastReadChatId.current = lastChatId;
+      dispatch(
+        updateUnreadCount({
+          chatRoomId,
+          newUnreadCount: 0
+        })
+      );
     }
+  }, [isSticky, lastChatId, lastReadChatId, dispatch, chatRoomId]);
+
+  useEffect(() => {
     // On dismount, we just update regardless
-    return () => handleUpdateUnreadMessage(true);
-  }, [handleUpdateUnreadMessage]);
+    return () => {
+      handleUpdateUnreadMessage();
+    };
+  }, []);
 
   const UnreadMessageDivider = () => {
     return (
@@ -86,7 +90,7 @@ const ChatMessages = ({
   };
 
   return (
-    <>
+    <div>
       {unreadCount > 0 && (
         <button
           type="button"
@@ -115,8 +119,10 @@ const ChatMessages = ({
           })}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
-export default ChatMessages;
+ChatMessages.whyDidYouRender = true;
+
+export default pure(ChatMessages);

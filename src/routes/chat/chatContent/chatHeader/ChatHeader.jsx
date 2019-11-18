@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { toSgdCurrency } from 'utils/moneyUtils';
 import { SELLER, BUYER } from 'constants/user';
 import { useUser } from 'contexts/userContext';
@@ -27,11 +26,10 @@ const ChatOfferDetails = ({ headerText, quantity, price }) => {
   );
 };
 
-const ChatHeader = ({ chatRoomId }) => {
-  const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
+const ChatHeader = ({ chat }) => {
   const user = useUser();
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
-  const { isDealClosed, buyOrder, sellOrder, isDisbanded } = chat;
+  const { isDealClosed, buyOrder, sellOrder, isDisbanded, id } = chat;
   const isUserBuyer = chat.buyerId === user.id;
 
   const handleOpenOfferSubheader = () => {
@@ -47,7 +45,7 @@ const ChatHeader = ({ chatRoomId }) => {
       return <DisbandedSubheader />;
     }
     if (isDealClosed) {
-      return <RevealIdentitySubheader chatRoomId={chatRoomId} />;
+      return <RevealIdentitySubheader chatRoomId={id} />;
     }
     if (isShowOfferSubheader) {
       return <ChatOfferSubheader handleClose={handleCloseOfferSubheader} />;

@@ -27,7 +27,7 @@ const Chat = () => {
       />
       <div className="columns is-mobile is-gapless">
         <ChatList isShowingChatRoom={!!chatRoomId} />
-        {chatRoomId && <ChatContent chatRoomId={chatRoomId} />}
+        {chatRoomId && <ChatContent />}
       </div>
     </PageContainer>
   );

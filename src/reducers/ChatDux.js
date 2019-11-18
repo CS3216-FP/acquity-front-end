@@ -54,13 +54,13 @@ const chat = createSlice({
       chatRoom.updatedAt = updatedAt;
     },
     updateUnreadCount: (state, { payload }) => {
-      const { chatRoomId, newUnreadCount, lastChatId } = payload;
+      const { chatRoomId, newUnreadCount, lastReadId } = payload;
       const chatRoom = state.unarchived[chatRoomId];
       if (!chatRoom) return;
 
       chatRoom.unreadCount = newUnreadCount;
-      if (lastChatId) {
-        chatRoom.lastReadId = lastChatId;
+      if (lastReadId) {
+        chatRoom.lastReadId = lastReadId;
       }
     }
   }

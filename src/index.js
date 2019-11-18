@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import whyDidYouRender from '@welldone-software/why-did-you-render';
 import { PersistGate } from 'redux-persist/integration/react';
 import Modal from 'react-modal';
 import { BrowserRouter } from 'react-router-dom';
@@ -38,6 +39,7 @@ render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./app/App', render);
+  whyDidYouRender(React);
 }
 
 // If you want your app to work offline and load faster, you can change

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import { toSgdCurrency } from 'utils/moneyUtils';
 import { useSocket } from 'contexts/socketContext';
@@ -9,14 +8,12 @@ import RevealIdentityDisclaimer from './RevealIdentityDisclaimer';
 
 import './SuccessfulMatchContainer.scss';
 
-const SuccessfulMatchContainer = ({ chatRoomId }) => {
+const SuccessfulMatchContainer = ({ chat }) => {
   const socket = useSocket();
-  const { price, numberOfShares } = useSelector(
-    state => state.chat.unarchived[chatRoomId].latestOffer
-  );
+  const { price, numberOfShares } = chat.latestOffer;
 
   const handleRevealIdentity = () => {
-    SocketRequestService.revealIdentity({ chatRoomId, socket });
+    SocketRequestService.revealIdentity({ chatRoomId: chat.id, socket });
   };
 
   return (

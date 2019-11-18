@@ -1,5 +1,7 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { pure } from 'recompose';
 
 import { useSocket } from 'contexts/socketContext';
 
@@ -9,11 +11,11 @@ import ChatHeader from './chatHeader';
 import ChatInput from './chatInput';
 import SuccessfulMatch from './successfulMatch';
 
-const ChatContent = ({ chatRoomId }) => {
+const ChatContent = () => {
   const socket = useSocket();
-  const { isDealClosed, isRevealed, isDisbanded } = useSelector(
-    state => state.chat.unarchived[chatRoomId]
-  );
+  const { chatRoomId } = useParams();
+  const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
+  const { isDealClosed, isRevealed, isDisbanded } = chat;
   const showSuccessfulMatch = isDealClosed && !isRevealed;
 
   if (!socket.connected) {
@@ -22,12 +24,14 @@ const ChatContent = ({ chatRoomId }) => {
 
   return (
     <div className="column chat__content">
-      <ChatHeader chatRoomId={chatRoomId} />
-      <ChatMessages chatRoomId={chatRoomId} />
-      {showSuccessfulMatch && <SuccessfulMatch chatRoomId={chatRoomId} />}
+      <ChatHeader chat={chat} />
+      <ChatMessages chat={chat} />
+      {showSuccessfulMatch && <SuccessfulMatch chat={chat} />}
       <ChatInput isDisbanded={isDisbanded} />
     </div>
   );
 };
 
-export default ChatContent;
+ChatContent.whyDidYouRender = true;
+
+export default pure(ChatContent);
