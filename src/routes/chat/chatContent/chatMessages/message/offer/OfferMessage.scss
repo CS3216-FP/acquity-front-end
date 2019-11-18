@@ -6,7 +6,7 @@
   color: $blue;
 
   &__header {
-    font-family: $weight-heavy;
+    font-weight: bold;
     font-size: 0.9rem;
     display: flex;
     &--left {
@@ -67,7 +67,7 @@
 
       &--title {
         font-size: 1rem;
-        font-family: $weight-heavy;
+        font-weight: bold;
       }
 
       &--cost {

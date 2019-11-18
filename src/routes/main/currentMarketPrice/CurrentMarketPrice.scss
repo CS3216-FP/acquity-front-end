@@ -3,7 +3,7 @@
 .currentMarketPrice {
   margin-right: 2rem;
   &__price {
-    font-family: $weight-heavy;
+    font-weight: bold;
     font-size: 1.3rem;
 
     &__value {

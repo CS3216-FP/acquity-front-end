@@ -12,7 +12,7 @@
   .adjustMarketPriceForm {
     .card {
       padding: 1rem;
-      font-family: $weight-heavy;
+      font-weight: bold;
       border-radius: 5px;
     }
     &__security {
@@ -23,7 +23,7 @@
 
       &__currentPrice {
         &--label {
-          font-family: $weight-light;
+          font-weight: normal;
           font-size: 1.2rem;
 
           @media screen and (max-width: $tablet) {

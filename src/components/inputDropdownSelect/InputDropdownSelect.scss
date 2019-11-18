@@ -36,11 +36,11 @@
   }
 
   &__display {
-    font-family: $weight-heavy;
+    font-weight: bold;
     font-size: 1.2rem;
     line-height: 1.2rem;
     &--none {
-      font-family: $weight-light;
+      font-weight: normal;
       opacity: 0.6;
     }
   }
@@ -69,7 +69,7 @@
       }
 
       &--selected {
-        font-family: $weight-heavy;
+        font-weight: bold;
       }
 
       &__label {

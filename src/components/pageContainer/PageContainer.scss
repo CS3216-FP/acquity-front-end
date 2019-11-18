@@ -2,7 +2,7 @@
 
 .page {
   &__header {
-    font-family: $weight-heavy;
+    font-weight: bold;
     font-size: 1.5rem;
     margin: 3rem 2rem;
     color: $blue;
@@ -36,18 +36,18 @@
 
   .form {
     label.label {
-      font-family: $weight-heavy;
+      font-weight: bold;
     }
     &__field {
       input {
         height: 2.75rem;
-        font-family: $weight-light;
+        font-weight: normal;
         font-size: 1.2rem;
       }
 
       .control {
         .button {
-          font-family: $weight-heavy;
+          font-weight: bold;
           font-size: 1.2rem;
           height: 2.75rem;
           line-height: 1.2rem;

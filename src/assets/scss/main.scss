@@ -12,10 +12,10 @@ body {
 }
 
 a {
-  font-family: $weight-heavy;
+  font-weight: bold;
 
   &.font-light {
-    font-family: $weight-light;
+    font-weight: normal;
   }
 }
 
@@ -24,7 +24,7 @@ a {
     .action-button {
       padding: 0.5rem 1rem;
       font-size: 0.9rem;
-      font-family: $weight-heavy;
+      font-weight: bold;
       border-radius: 20px;
       cursor: pointer;
       outline: none;
@@ -49,7 +49,7 @@ a {
 }
 
 .message {
-  font-family: $weight-heavy;
+  font-weight: bold;
 }
 
 .columns {

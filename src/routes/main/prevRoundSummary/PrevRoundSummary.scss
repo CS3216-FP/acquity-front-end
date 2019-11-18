@@ -10,12 +10,12 @@
     &--label {
       white-space: nowrap;
       line-height: 1.8rem;
-      font-family: $weight-light;
+      font-weight: normal;
       font-size: 0.9rem;
     }
 
     &--value {
-      font-family: $weight-heavy;
+      font-weight: bold;
       font-size: 2rem;
       white-space: nowrap;
 

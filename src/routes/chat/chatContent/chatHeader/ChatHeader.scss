@@ -29,14 +29,14 @@
     }
     &__header {
       font-size: 0.8rem;
-      font-family: $weight-heavy;
+      font-weight: bold;
       text-transform: uppercase;
     }
 
     &__details {
       .details {
         font-size: 1.1rem;
-        font-family: $weight-light;
+        font-weight: normal;
 
         @media screen and (max-width: $mobile) {
           font-size: 0.8rem;
@@ -46,7 +46,7 @@
         }
 
         &__value {
-          font-family: $weight-heavy;
+          font-weight: bold;
         }
       }
     }
@@ -54,7 +54,7 @@
 
   &__actions {
     button {
-      font-family: $weight-light;
+      font-weight: normal;
       font-size: 1rem;
       border-radius: 0;
       border: none !important;

@@ -11,7 +11,7 @@
   padding: 0.3rem 0.5rem;
 
   &-title {
-    font-family: $weight-heavy;
+    font-weight: bold;
     background: none !important;
     border: none !important;
     color: #bfc4ce;
@@ -21,7 +21,7 @@
     display: none;
   }
   &-text {
-    font-family: $weight-heavy;
+    font-weight: bold;
     font-size: 1rem !important;
     margin-bottom: -1rem;
   }
@@ -30,5 +30,5 @@
 .apexcharts-xaxis-label,
 .apexcharts-yaxis-label {
   fill: #bfc4ce;
-  font-family: $weight-heavy;
+  font-weight: bold;
 }

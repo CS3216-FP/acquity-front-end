@@ -2,7 +2,7 @@
 @import 'bulma/sass/components/navbar';
 
 .profile-dropdown {
-  font-family: $weight-light;
+  font-weight: normal;
   &__pending {
     color: $yellow-dark;
   }

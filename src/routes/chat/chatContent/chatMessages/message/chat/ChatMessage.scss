@@ -7,13 +7,14 @@
     clear: both;
 
     &__message {
+      text-align: left;
       font-size: 0.9rem;
       border-radius: 10px;
       padding: 0.5rem 1rem;
       margin: 0.3rem 0.8rem;
       max-width: 80%; /* this will make it not exceed 80% and then wrap */
       transition: background-color 0.5s;
-      font-family: $weight-light;
+      font-weight: normal;
 
       &--timestamp {
         font-size: 0.6rem;
@@ -25,15 +26,15 @@
     &--left {
       justify-content: flex-start;
       .chatMessage__bubble__message {
-        background: $blue-alt;
-        color: white;
+        background: $grey;
+        color: $dark;
       }
     }
     &--right {
       justify-content: flex-end;
       .chatMessage__bubble__message {
-        background: $grey;
-        color: $dark;
+        background: $blue-alt;
+        color: white;
       }
     }
   }

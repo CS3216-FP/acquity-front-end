@@ -11,7 +11,7 @@
   &__disclaimer {
     margin-top: 0.5rem;
     font-size: 0.8rem;
-    font-family: $weight-light;
+    font-weight: normal;
   }
 
   &__orders {
@@ -25,7 +25,7 @@
   &__emptyText {
     width: 100%;
     color: $blue;
-    font-family: $weight-heavy;
+    font-weight: bold;
     font-size: 1.6rem;
     margin-bottom: 2rem;
   }

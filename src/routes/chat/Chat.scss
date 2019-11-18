@@ -2,7 +2,7 @@
 
 .chat {
   &__header {
-    font-family: $weight-heavy;
+    font-weight: bold;
     font-size: 1.5rem;
     margin: 0 !important;
     color: $blue;
@@ -35,7 +35,7 @@
 
       .view-archive {
         font-size: 1rem;
-        font-family: $weight-light;
+        font-weight: normal;
         color: $dark;
       }
     }

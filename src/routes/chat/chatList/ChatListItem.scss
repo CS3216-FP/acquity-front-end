@@ -56,7 +56,7 @@ $chat-active-bg: #267ed0;
         }
 
         &--timeago {
-          font-family: $weight-light;
+          font-weight: normal;
           padding-left: 1rem !important;
           font-size: 0.9rem;
         }
@@ -68,18 +68,18 @@ $chat-active-bg: #267ed0;
 
       &__content {
         padding-top: 0.2rem;
-        font-family: $weight-light;
+        font-weight: normal;
         font-size: 0.9rem;
 
         &__danger {
           color: $red-dark;
-          font-family: $weight-heavy;
+          font-weight: bold;
           font-size: 0.8rem;
         }
 
         &__success {
           color: $green;
-          font-family: $weight-heavy;
+          font-weight: bold;
           font-size: 0.8rem;
 
           &--text {

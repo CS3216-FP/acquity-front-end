@@ -19,7 +19,7 @@
 
     &--text {
       font-size: 0.8rem;
-      font-family: $weight-heavy;
+      font-weight: bold;
       text-transform: uppercase;
     }
 
@@ -30,7 +30,7 @@
         padding: 0 0.5rem;
       }
       &--value {
-        font-family: $weight-heavy;
+        font-weight: bold;
         padding-left: 0.5rem;
       }
     }
@@ -38,7 +38,7 @@
 
   &__header {
     font-size: 1.1rem;
-    font-family: $weight-heavy;
+    font-weight: bold;
     padding: 0 1rem;
 
     @media screen and (max-width: $mobile) {
@@ -63,7 +63,7 @@
     border-radius: 20px;
     background: $grey;
     padding: 0.5rem 2rem;
-    font-family: $weight-heavy;
+    font-weight: bold;
     color: $blue;
     cursor: pointer;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);

@@ -1,7 +1,7 @@
 @import 'assets/scss/variables';
 
 .incomingUsers {
-  font-family: $weight-heavy;
+  font-weight: bold;
   display: flex;
   padding: 0.5rem;
 
@@ -29,7 +29,7 @@
         }
       }
       &--email {
-        font-family: $weight-light;
+        font-weight: normal;
         word-break: break-all;
       }
     }

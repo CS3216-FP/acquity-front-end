@@ -54,7 +54,7 @@
   }
 
   &__text {
-    font-family: $weight-light;
+    font-weight: normal;
     line-height: 2rem;
 
     &--subtext {
@@ -62,7 +62,7 @@
     }
 
     &--link {
-      font-family: $weight-light;
+      font-weight: normal;
       text-decoration: underline;
       color: $dark;
     }
@@ -78,7 +78,7 @@
     display: inline-flex;
     align-items: center;
     line-height: 1.2rem;
-    font-family: $weight-light;
+    font-weight: normal;
     color: $blue;
 
     .icon {

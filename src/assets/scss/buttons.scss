@@ -4,21 +4,21 @@
   border-radius: 10px;
   &--cta {
     font-size: 1.1rem;
-    font-family: $weight-heavy;
+    font-weight: bold;
     background-image: $action-button-bg;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   }
 
   &--danger {
     font-size: 1.1rem;
-    font-family: $weight-heavy;
+    font-weight: bold;
     background-image: $danger-button-bg;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   }
 
   &--success {
     font-size: 1.1rem;
-    font-family: $weight-heavy;
+    font-weight: bold;
     background-image: $success-button-bg;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   }
