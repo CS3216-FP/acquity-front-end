@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createRef } from 'react';
-import ScrollableFeed from 'react-scrollable-feed';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import groupBy from 'lodash/groupBy';
 
 import pluralize from 'pluralize';
@@ -13,27 +13,12 @@ import './ChatMessages.scss';
 const ChatMessages = ({ chat }) => {
   const [groupedChats, setGroupedChats] = useState([]);
   const newMessageDividerRef = createRef();
-  // ref to message container (for keeping scroll to bottom of chat)
-  const chatMessagesBottomRef = createRef();
 
-  const { isDealClosed, chats, lastReadMessageId, unreadCount } = chat;
+  const { isDealClosed, chats, lastReadId, unreadCount } = chat;
 
   useEffect(() => {
     setGroupedChats(Object.entries(groupBy(chats, getDate)));
   }, [chats]);
-
-  // Scroll to new messages if it exist, else scroll to bottom of container
-  useEffect(() => {
-    if (newMessageDividerRef.current) {
-      newMessageDividerRef.current.scrollIntoView({
-        block: 'end'
-      });
-    } else if (chatMessagesBottomRef.current) {
-      chatMessagesBottomRef.current.scrollIntoView({
-        block: 'end'
-      });
-    }
-  }, [newMessageDividerRef, chatMessagesBottomRef]);
 
   const scrollToNewMessages = () => {
     if (newMessageDividerRef.current) {
@@ -56,45 +41,43 @@ const ChatMessages = ({ chat }) => {
 
   return (
     <>
-      <ScrollableFeed>
-        <div id="chatMessages" className="chatMessages">
-          {unreadCount > 0 && (
-            <button
-              type="button"
-              className="chatMessages__unread"
-              onClick={scrollToNewMessages}
-            >
-              <span className="chatMessages__unread--count">
-                {pluralize('New Message', unreadCount, true)}
-              </span>
-              <span>Scroll To Unread</span>
-            </button>
-          )}
-          {groupedChats.map(groupChat => (
-            <div key={groupChat[0]}>
-              {renderNewDateLine(groupChat[0])}
-              {groupChat[1].map(message => {
-                return (
-                  <div key={message.id}>
-                    {/* TODO: Next time when each message has properties like firstUnreadMessage, can use that to demarcate the new message boundary, and scroll to this instead of the bottom on first load */}
-                    {lastReadMessageId === message.id && (
-                      <div
-                        id="newMessageDivider"
-                        ref={newMessageDividerRef}
-                        className="is-divider"
-                        data-content="NEW MESSAGES"
-                      />
-                    )}
-                    <ChatMessage message={message} />
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-        {/* For scrolling to bottom */}
-        <div ref={chatMessagesBottomRef} id="chatMessages--bottom" />
-      </ScrollableFeed>
+      <ScrollToBottom
+        className="chatMessages"
+        followButtonClassName="chatMessages__scrollButton"
+      >
+        {unreadCount > 0 && (
+          <button
+            type="button"
+            className="chatMessages__unread"
+            onClick={scrollToNewMessages}
+          >
+            <span className="chatMessages__unread--count">
+              {pluralize('New Message', unreadCount, true)}
+            </span>
+            <span>Scroll To Unread</span>
+          </button>
+        )}
+        {groupedChats.map(groupChat => (
+          <div key={groupChat[0]}>
+            {renderNewDateLine(groupChat[0])}
+            {groupChat[1].map(message => {
+              return (
+                <div key={message.id}>
+                  <ChatMessage message={message} />
+                  {lastReadId === message.id && (
+                    <div
+                      id="newMessageDivider"
+                      ref={newMessageDividerRef}
+                      className="is-divider"
+                      data-content="NEW MESSAGES"
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </ScrollToBottom>
       {/* TODO: Add pending state where user has revealed and waiting on other */}
       {isDealClosed && (
         <SuccessfulMatchContainer matchDetails={chat.latestOffer} />
