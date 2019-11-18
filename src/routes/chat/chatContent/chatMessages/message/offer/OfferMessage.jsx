@@ -2,6 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { getTimeFromTimestamp } from 'utils';
+import {
+  ACCEPT_OFFER_TYPE,
+  REJECT_OFFER_TYPE,
+  PENDING_OFFER_TYPE
+} from 'constants/socket';
 import { useSocket } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
@@ -9,32 +14,17 @@ import { toSgdCurrency } from 'utils/moneyUtils';
 
 import './OfferMessage.scss';
 
-const renderOfferStatus = ({ offer, isSentByUser, userType }) => {
-  const { offerStatus } = offer;
-
-  if (offerStatus === 'ACCEPTED') {
-    return <AcceptedOffer isSentByUser={isSentByUser} />;
-  }
-  if (offerStatus === 'REJECTED') {
-    return <RejectedOffer isSentByUser={isSentByUser} />;
-  }
-
-  return (
-    <PendingOffer
-      offer={offer}
-      isSentByUser={isSentByUser}
-      userType={userType}
-    />
-  );
-};
-
-const PendingOffer = ({ offer, isSentByUser, userType }) => {
+const OfferMessage = ({ offer }) => {
+  const user = useUser();
   const socket = useSocket();
-  const { id, chatRoomId } = offer;
+  const isSentByUser = offer.authorId === user.id;
+  const { offerStatus, id: offerId, chatRoomId } = offer;
+  const { userType } = useSelector(state => state.misc);
+  const timeString = getTimeFromTimestamp(offer.createdAt);
 
   const acceptOffer = () => {
     SocketRequestService.acceptOffer({
-      offerId: id,
+      offerId,
       userType,
       socket,
       chatRoomId
@@ -43,65 +33,73 @@ const PendingOffer = ({ offer, isSentByUser, userType }) => {
 
   const declineOffer = () => {
     SocketRequestService.declineOffer({
-      offerId: id,
+      offerId,
       userType,
       socket,
       chatRoomId
     });
   };
 
-  if (isSentByUser) {
+  const renderOfferStatus = () => {
+    switch (offerStatus) {
+      case ACCEPT_OFFER_TYPE:
+        return <AcceptedOfferStatus />;
+      case REJECT_OFFER_TYPE:
+        return <RejectedOfferStatus />;
+      case PENDING_OFFER_TYPE:
+        return <PendingOfferStatus />;
+      default:
+        throw new Error(`Invalid offer status ${offerStatus}`);
+    }
+  };
+
+  const PendingOfferStatus = () => {
+    if (isSentByUser) {
+      return (
+        <div className="offerMessage__status offerMessage__status--pending">
+          Offer pending
+        </div>
+      );
+    }
     return (
-      <div className="offerMessage__status offerMessage__status--pending">
-        Offer pending
+      <div className="offerMessage__status__pendingActions">
+        <button
+          type="button"
+          className="button--success offerMessage__status__pendingActions--accept no-shadow hvr-grow"
+          onClick={acceptOffer}
+        >
+          Accept
+        </button>
+        <button
+          type="button"
+          className="button--danger offerMessage__status__pendingActions--reject no-shadow hvr-grow"
+          onClick={declineOffer}
+        >
+          Reject
+        </button>
       </div>
     );
-  }
-  return (
-    <div className="offerMessage__status__pendingActions">
-      <button
-        type="button"
-        className="button--success offerMessage__status__pendingActions--accept no-shadow hvr-grow"
-        onClick={acceptOffer}
-      >
-        Accept
-      </button>
-      <button
-        type="button"
-        className="button--danger offerMessage__status__pendingActions--reject no-shadow hvr-grow"
-        onClick={declineOffer}
-      >
-        Reject
-      </button>
-    </div>
-  );
-};
+  };
 
-const AcceptedOffer = ({ isSentByUser }) => {
-  return (
-    <div className="offerMessage__status offerMessage__status--accepted">
-      {isSentByUser
-        ? 'This offer has been accepted'
-        : 'You accepted this offer'}
-    </div>
-  );
-};
+  const AcceptedOfferStatus = () => {
+    return (
+      <div className="offerMessage__status offerMessage__status--accepted">
+        {isSentByUser
+          ? 'This offer has been accepted'
+          : 'You accepted this offer'}
+      </div>
+    );
+  };
 
-const RejectedOffer = ({ isSentByUser }) => {
-  return (
-    <div className="offerMessage__status offerMessage__status--rejected">
-      {isSentByUser
-        ? 'This offer has been rejected'
-        : 'You rejected this offer'}
-    </div>
-  );
-};
-
-const OfferMessage = ({ offer }) => {
-  const user = useUser();
-  const { userType } = useSelector(state => state.misc);
-  const isSentByUser = offer.authorId === user.id;
-  const timeString = getTimeFromTimestamp(offer.createdAt);
+  const RejectedOfferStatus = () => {
+    return (
+      <div className="offerMessage__status offerMessage__status--rejected">
+        {isSentByUser
+          ? 'This offer has been rejected'
+          : 'You rejected this offer'}
+      </div>
+    );
+  };
 
   return (
     <div className="chatMessage">

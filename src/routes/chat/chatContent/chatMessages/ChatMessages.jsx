@@ -43,7 +43,7 @@ const ChatMessages = ({ groupedChats, lastReadId, unreadCount }) => {
         </button>
       )}
       {groupedChats.map(groupChat => (
-        <div key={groupChat[0]}>
+        <div className="chatMessages__group" key={groupChat[0]}>
           {renderNewDateLine(groupChat[0])}
           {groupChat[1].map(message => {
             return (

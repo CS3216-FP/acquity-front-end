@@ -3,6 +3,11 @@
 .chatMessages {
   flex: 1 1 auto;
   overflow-y: auto;
+
+  &__group {
+    text-align: center;
+  }
+
   &__unread {
     font-size: 0.8rem;
     cursor: pointer;
@@ -13,7 +18,7 @@
     position: sticky;
     top: 0;
     background: $grey-lighter;
-    padding: 0.5rem;
+    padding: 0.8rem 0.5rem;
     margin: 0 0.5rem;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -22,7 +27,7 @@
   &__dateline {
     font-family: $weight-heavy;
     color: $grey-light;
-    display: flex;
+    display: inline-flex;
     align-items: flex-start;
     justify-content: center;
     font-size: 0.8rem;

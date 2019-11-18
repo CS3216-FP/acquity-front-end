@@ -10,3 +10,7 @@ export const RECEIVE_ERROR = 'error';
 export const CHAT_TYPE = 'chat';
 export const OFFER_TYPE = 'offer';
 export const OFFER_RESPONSE_TYPE = 'offer_response';
+
+export const ACCEPT_OFFER_TYPE = 'ACCEPTED';
+export const REJECT_OFFER_TYPE = 'REJECTED';
+export const PENDING_OFFER_TYPE = 'PENDING';
