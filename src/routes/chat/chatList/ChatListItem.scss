@@ -29,6 +29,16 @@ $chat-active-bg: #267ed0;
   }
 
   &__details {
+    position: relative;
+    &--unread {
+      font-size: 0.5rem;
+      color: $red;
+      position: absolute;
+      right: 0.5rem;
+      transform: translateY(-50%);
+      top: 50%;
+    }
+
     .detail {
       &__header {
         display: inline-flex;

@@ -56,7 +56,7 @@ const ChatListItem = ({ chat, basePath }) => {
             </div>
             {!!chat.unreadCount && (
               <div className="column is-narrow chatroom__item__details--unread">
-                o
+                <i className="fas fa-circle" />
               </div>
             )}
           </div>
