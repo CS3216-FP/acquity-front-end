@@ -4,9 +4,9 @@ import TimeAgo from 'react-timeago';
 
 import Avatar from 'components/avatar';
 import { toSgdCurrency } from 'utils/moneyUtils';
-import './ChatRoom.scss';
+import './ChatListItem.scss';
 
-const ChatRoom = ({ chat, basePath }) => {
+const ChatListItem = ({ chat, basePath }) => {
   const { chatRoomId } = useParams();
 
   const formatter = (value, unit, _suffix) => {
@@ -85,4 +85,4 @@ const LatestOffer = ({ offer }) => {
   );
 };
 
-export default ChatRoom;
+export default ChatListItem;

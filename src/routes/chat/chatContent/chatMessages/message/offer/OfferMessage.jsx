@@ -7,8 +7,7 @@ import { useUser } from 'contexts/userContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import { toSgdCurrency } from 'utils/moneyUtils';
 
-import './ChatMessage.scss';
-import './ChatOffer.scss';
+import './OfferMessage.scss';
 
 const renderOfferStatus = ({ offer, isSentByUser, userType }) => {
   const { offerStatus } = offer;
@@ -98,7 +97,7 @@ const RejectedOffer = ({ isSentByUser }) => {
   );
 };
 
-const ChatOffer = ({ offer }) => {
+const OfferMessage = ({ offer }) => {
   const user = useUser();
   const { userType } = useSelector(state => state.misc);
   const isSentByUser = offer.authorId === user.id;
@@ -141,4 +140,4 @@ const ChatOffer = ({ offer }) => {
   );
 };
 
-export default ChatOffer;
+export default OfferMessage;
