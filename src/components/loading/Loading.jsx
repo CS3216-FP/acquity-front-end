@@ -15,11 +15,11 @@ const defaultOptions = {
   }
 };
 
-const Loading = () => {
+const Loading = ({ className = '' }) => {
   return (
     <FadeIn>
-      <div className="loading">
-        <Lottie options={defaultOptions} width="40rem" />
+      <div className={`loading ${className}`}>
+        <Lottie options={defaultOptions} width="auto" />
       </div>
     </FadeIn>
   );
