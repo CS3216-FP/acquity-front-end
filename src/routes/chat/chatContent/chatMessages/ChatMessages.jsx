@@ -99,7 +99,7 @@ const ChatMessages = ({
           <span>Scroll To Unread</span>
         </button>
       )}
-      {!lastReadId && <UnreadMessageDivider />}
+      {!lastReadId && !groupedChats && <UnreadMessageDivider />}
       {groupedChats.map(groupChat => (
         <div className="chatMessages__group" key={groupChat[0]}>
           {renderNewDateLine(groupChat[0])}

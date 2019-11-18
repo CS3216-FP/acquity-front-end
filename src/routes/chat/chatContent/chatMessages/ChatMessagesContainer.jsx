@@ -15,7 +15,8 @@ const ChatMessagesContainer = ({ chatRoomId }) => {
     state => state.chat.unarchived[chatRoomId]
   );
   const [groupedChats, setGroupedChats] = useState([]);
-  const lastChatId = chats ? chats[chats.length - 1].id : null;
+  const lastChatId =
+    chats && chats.length > 0 ? chats[chats.length - 1].id : null;
 
   useEffect(() => {
     setGroupedChats(Object.entries(groupBy(chats, getDate)));
