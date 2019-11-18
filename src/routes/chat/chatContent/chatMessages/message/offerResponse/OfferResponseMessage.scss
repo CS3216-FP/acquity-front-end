@@ -1,0 +1,11 @@
+@import 'assets/scss/variables';
+
+.offerResponseMessage {
+  &--ACCEPTED {
+    color: $green-dark;
+  }
+
+  &--REJECTED {
+    color: $red-dark;
+  }
+}
