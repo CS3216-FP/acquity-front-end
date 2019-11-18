@@ -6,7 +6,8 @@ import {
   EMIT_NEW_MESSAGE,
   EMIT_NEW_OFFER,
   EMIT_ACCEPT_OFFER,
-  EMIT_DECLINE_OFFER
+  EMIT_DECLINE_OFFER,
+  EMIT_UPDATE_LAST_READ
 } from 'constants/socket';
 
 /**
@@ -119,15 +120,23 @@ const acceptOffer = ({ chatRoomId, offerId, userType, socket }) => {
  * @param socket
  */
 const declineOffer = ({ chatRoomId, offerId, userType, socket }) => {
-  socket.emit(
-    EMIT_DECLINE_OFFER,
-    humps.decamelizeKeys({
-      token: tokenUtils.getToken(),
-      offerId,
-      userType,
-      chatRoomId
-    })
-  );
+  const payload = humps.decamelizeKeys({
+    token: tokenUtils.getToken(),
+    offerId,
+    userType,
+    chatRoomId
+  });
+
+  socket.emit(EMIT_DECLINE_OFFER, payload);
+};
+
+const updateUnreadMessage = ({ chatRoomId, lastReadId, socket }) => {
+  const payload = humps.decamelizeKeys({
+    token: tokenUtils.getToken(),
+    chatRoomId,
+    lastReadId
+  });
+  socket.emit(EMIT_UPDATE_LAST_READ, payload);
 };
 
 const initialize = socket => {
@@ -139,5 +148,6 @@ export default {
   addNewMessage,
   addNewOffer,
   acceptOffer,
-  declineOffer
+  declineOffer,
+  updateUnreadMessage
 };

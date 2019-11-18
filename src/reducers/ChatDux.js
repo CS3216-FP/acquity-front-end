@@ -20,6 +20,7 @@ const chat = createSlice({
       const chatRoom = state.unarchived[chatRoomId];
       if (!chatRoom) return;
 
+      chatRoom.unreadCount += 1;
       chatRoom.chats.push(payload);
       chatRoom.updatedAt = updatedAt;
     },
@@ -51,6 +52,16 @@ const chat = createSlice({
       // Update the latest offer
       chatRoom.latestOffer = payload;
       chatRoom.updatedAt = updatedAt;
+    },
+    updateUnreadCount: (state, { payload }) => {
+      const { chatRoomId, newUnreadCount, lastChatId } = payload;
+      const chatRoom = state.unarchived[chatRoomId];
+      if (!chatRoom) return;
+
+      chatRoom.unreadCount = newUnreadCount;
+      if (lastChatId) {
+        chatRoom.lastReadId = lastChatId;
+      }
     }
   }
 });
@@ -60,7 +71,8 @@ export const {
   setChats,
   addNewMessage,
   addNewOffer,
-  updateOfferStatus
+  updateOfferStatus,
+  updateUnreadCount
 } = chat.actions;
 
 export default chat.reducer;

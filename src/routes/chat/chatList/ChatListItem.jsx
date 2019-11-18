@@ -49,8 +49,17 @@ const ChatListItem = ({ chat, basePath }) => {
               <TimeAgo date={chat.updatedAt * 1000} formatter={formatter} />
             </div>
           </div>
-          <div className="detail__header--security">Grab match</div>
-          <LatestOffer offer={chat.latestOffer} />
+          <div className="columns">
+            <div className="column">
+              <div className="detail__header--security">Grab match</div>
+              <LatestOffer offer={chat.latestOffer} />
+            </div>
+            {!!chat.unreadCount && (
+              <div className="column is-narrow chatroom__item__details--unread">
+                o
+              </div>
+            )}
+          </div>
         </div>
       </Link>
     </li>

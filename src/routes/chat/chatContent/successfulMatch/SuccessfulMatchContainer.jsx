@@ -1,11 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { toSgdCurrency } from 'utils/moneyUtils';
 import RevealIdentityDisclaimer from './RevealIdentityDisclaimer';
 import './SuccessfulMatchContainer.scss';
 
-const SuccessfulMatchContainer = ({ matchDetails }) => {
-  const { price, numberOfShares } = matchDetails;
+const SuccessfulMatchContainer = ({ chatRoomId }) => {
+  const { price, numberOfShares } = useSelector(
+    state => state.chat.unarchived[chatRoomId].latestOffer
+  );
   return (
     <div className="successfulMatch">
       <div className="successfulMatch__details">

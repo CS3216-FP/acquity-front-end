@@ -1,13 +1,28 @@
-import React, { createRef } from 'react';
+import React, { createRef, useEffect, useRef, useCallback } from 'react';
+import { useSticky } from 'react-scroll-to-bottom';
 import pluralize from 'pluralize';
+import { useDispatch } from 'react-redux';
 
+import { useSocket } from 'contexts/socketContext';
+import { updateUnreadCount } from 'reducers/ChatDux';
 import { displayChatRelativeTime } from 'utils/dateUtils';
+import SocketRequestService from 'services/SocketService/socketRequestService';
 
 import Message from './message';
 import './ChatMessages.scss';
 
-const ChatMessages = ({ groupedChats, lastReadId, unreadCount }) => {
+const ChatMessages = ({
+  groupedChats,
+  lastReadId,
+  unreadCount,
+  lastChatId,
+  chatRoomId
+}) => {
   const newMessageDividerRef = createRef();
+  const firstUpdate = useRef(true);
+  const dispatch = useDispatch();
+  const [isSticky] = useSticky();
+  const socket = useSocket();
 
   const scrollToNewMessages = () => {
     if (newMessageDividerRef.current) {
@@ -27,6 +42,37 @@ const ChatMessages = ({ groupedChats, lastReadId, unreadCount }) => {
       </div>
     );
   };
+
+  const handleUpdateUnreadMessage = useCallback(
+    isUnmount => {
+      if (isSticky && lastChatId) {
+        if (isUnmount) {
+          dispatch(
+            updateUnreadCount({ chatRoomId, newUnreadCount: 0, lastChatId })
+          );
+        } else {
+          dispatch(updateUnreadCount({ chatRoomId, newUnreadCount: 0 }));
+        }
+        SocketRequestService.updateUnreadMessage({
+          chatRoomId,
+          lastReadId: lastChatId,
+          socket
+        });
+      }
+    },
+    [lastChatId, dispatch, updateUnreadCount]
+  );
+
+  useEffect(() => {
+    // To emulate componentDidUpdate instead of componentDidMount
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else {
+      handleUpdateUnreadMessage();
+    }
+    // On dismount, we just update regardless
+    return () => handleUpdateUnreadMessage(true);
+  }, [handleUpdateUnreadMessage]);
 
   const UnreadMessageDivider = () => {
     return (
@@ -61,7 +107,9 @@ const ChatMessages = ({ groupedChats, lastReadId, unreadCount }) => {
             return (
               <div key={message.id}>
                 <Message message={message} />
-                {lastReadId === message.id && <UnreadMessageDivider />}
+                {lastReadId === message.id && lastChatId !== message.id && (
+                  <UnreadMessageDivider />
+                )}
               </div>
             );
           })}

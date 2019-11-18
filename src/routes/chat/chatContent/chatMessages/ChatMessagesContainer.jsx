@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import groupBy from 'lodash/groupBy';
 
@@ -9,9 +10,12 @@ import ChatMessages from './ChatMessages';
 
 // This container is required since we want to use ScrollToBottom hooks inside
 // ChatMessages
-const ChatMessagesContainer = ({ chat }) => {
+const ChatMessagesContainer = ({ chatRoomId }) => {
+  const { chats, lastReadId, unreadCount, id } = useSelector(
+    state => state.chat.unarchived[chatRoomId]
+  );
   const [groupedChats, setGroupedChats] = useState([]);
-  const { chats, lastReadId, unreadCount } = chat;
+  const lastChatId = chats ? chats[chats.length - 1].id : null;
 
   useEffect(() => {
     setGroupedChats(Object.entries(groupBy(chats, getDate)));
@@ -26,6 +30,8 @@ const ChatMessagesContainer = ({ chat }) => {
         groupedChats={groupedChats}
         lastReadId={lastReadId}
         unreadCount={unreadCount}
+        lastChatId={lastChatId}
+        chatRoomId={id}
       />
     </ScrollToBottom>
   );

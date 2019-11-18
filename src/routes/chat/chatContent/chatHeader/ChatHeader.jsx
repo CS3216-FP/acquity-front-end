@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import { toSgdCurrency } from 'utils/moneyUtils';
 import { SELLER, BUYER } from 'constants/user';
 import { useUser } from 'contexts/userContext';
@@ -26,7 +26,8 @@ const ChatOfferDetails = ({ headerText, quantity, price }) => {
   );
 };
 
-const ChatHeader = ({ chat }) => {
+const ChatHeader = ({ chatRoomId }) => {
+  const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
   const user = useUser();
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
   const { isDealClosed, buyOrder, sellOrder } = chat;
