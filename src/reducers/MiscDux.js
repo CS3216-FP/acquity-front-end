@@ -7,7 +7,8 @@ const misc = createSlice({
   name: 'misc',
   initialState: {
     userType: BUYER,
-    user: null
+    user: null,
+    isBannerHidden: false
   },
   reducers: {
     setUserType: (state, { payload }) => {
@@ -16,12 +17,15 @@ const misc = createSlice({
     setUser: (state, { payload }) => {
       state.user = payload;
     },
+    hideBanner: state => {
+      state.isBannerHidden = true;
+    },
     clearUser: state => {
       state.user = null;
     }
   }
 });
 
-export const { setUserType, setUser, clearUser } = misc.actions;
+export const { setUserType, setUser, clearUser, hideBanner } = misc.actions;
 
 export default misc.reducer;

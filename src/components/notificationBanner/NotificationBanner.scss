@@ -1,0 +1,49 @@
+@import 'assets/scss/variables';
+
+.notificationBanner {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  background: #a7d9bc;
+  color: #195733;
+
+  &__container {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  &__header {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  &__button {
+    border-color: #195733;
+    color: #195733;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background: white;
+      border-color: white;
+      color: #195733;
+    }
+  }
+
+  a {
+    text-align: center;
+    padding-bottom: 0.5rem;
+    font-weight: 300;
+    color: #195733;
+    text-decoration: underline;
+    font-size: 0.8rem;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: #082213;
+    }
+  }
+}
