@@ -2,6 +2,7 @@
 
 .successfulMatch {
   padding: 1rem;
+  padding-bottom: 0;
   text-align: center;
   color: $blue;
   display: flex;
@@ -10,7 +11,7 @@
   align-items: center;
 
   @media screen and (max-width: $mobile) {
-    padding: 0rem;
+    padding: 0 1rem;
   }
 
   &__details {
@@ -78,5 +79,68 @@
     @media screen and (max-width: $mobile) {
       font-size: 0.9rem;
     }
+  }
+}
+
+.successfulMatchIdentities {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 0.5rem;
+
+  @media screen and (max-width: $tablet) {
+    padding-top: 0;
+  }
+
+  &__bubble {
+    font-size: 0.9rem;
+    border-radius: 10px;
+    border: 1px solid;
+    background: white;
+    padding: 0.4rem 1rem 0.8rem 1rem;
+    transition: background-color 0.5s;
+    min-width: 14rem;
+    max-width: 14rem;
+    height: 100%;
+
+    @media screen and (max-width: $tablet) {
+      min-width: 12rem;
+      max-width: 12rem;
+    }
+
+    @media screen and (max-width: $mobile) {
+      min-width: 10rem;
+      max-width: 10rem;
+    }
+  }
+
+  &__container {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    &__right {
+      padding-left: 0.5rem;
+      text-align: right;
+      margin-left: auto;
+    }
+
+    &__left {
+      padding-right: 0.5rem;
+      text-align: left;
+      margin-right: auto;
+    }
+  }
+
+  &--name {
+    font-weight: bold;
+    font-size: 1.1rem;
+
+    @media screen and (max-width: $tablet) {
+      font-size: 1rem;
+    }
+  }
+
+  &--email {
+    font-weight: normal;
+    overflow-wrap: break-word;
   }
 }

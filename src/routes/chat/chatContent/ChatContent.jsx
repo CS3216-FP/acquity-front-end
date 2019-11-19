@@ -15,8 +15,7 @@ const ChatContent = () => {
   const socket = useSocket();
   const { chatRoomId } = useParams();
   const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
-  const { isDealClosed, isRevealed, isDisbanded } = chat;
-  const showSuccessfulMatch = isDealClosed && !isRevealed;
+  const { isDealClosed, isDisbanded } = chat;
 
   if (!socket.connected) {
     return <ChatContentGhost />;
@@ -26,7 +25,7 @@ const ChatContent = () => {
     <div className="column chat__content">
       <ChatHeader chat={chat} />
       <ChatMessages chat={chat} />
-      {showSuccessfulMatch && <SuccessfulMatch chat={chat} />}
+      {isDealClosed && <SuccessfulMatch chat={chat} />}
       <ChatInput isDisbanded={isDisbanded} />
     </div>
   );

@@ -29,7 +29,14 @@ const ChatOfferDetails = ({ headerText, quantity, price }) => {
 const ChatHeader = ({ chat }) => {
   const user = useUser();
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
-  const { isDealClosed, buyOrder, sellOrder, isDisbanded, id } = chat;
+  const {
+    isDealClosed,
+    buyOrder,
+    sellOrder,
+    isDisbanded,
+    id,
+    isRevealed
+  } = chat;
   const isUserBuyer = chat.buyerId === user.id;
 
   const handleOpenOfferSubheader = () => {
@@ -45,7 +52,9 @@ const ChatHeader = ({ chat }) => {
       return <DisbandedSubheader />;
     }
     if (isDealClosed) {
-      return <RevealIdentitySubheader chatRoomId={id} />;
+      return (
+        <RevealIdentitySubheader chatRoomId={id} isRevealed={isRevealed} />
+      );
     }
     if (isShowOfferSubheader) {
       return <ChatOfferSubheader handleClose={handleCloseOfferSubheader} />;

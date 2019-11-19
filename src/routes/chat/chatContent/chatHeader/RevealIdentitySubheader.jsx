@@ -5,7 +5,7 @@ import SocketRequestService from 'services/SocketService/socketRequestService';
 
 import './RevealIdentitySubheader.scss';
 
-const RevealIdentitySubheader = ({ chatRoomId }) => {
+const RevealIdentitySubheader = ({ chatRoomId, isRevealed }) => {
   const socket = useSocket();
 
   const handleRevealIdentity = () => {
@@ -14,13 +14,19 @@ const RevealIdentitySubheader = ({ chatRoomId }) => {
 
   return (
     <div className="revealIdentitySubheader">
-      <button
-        onClick={handleRevealIdentity}
-        className="revealIdentitySubheader__button"
-        type="button"
-      >
-        Reveal My Identity
-      </button>
+      {isRevealed ? (
+        <div className="revealIdentitySubheader--revealed">
+          Identities have been revealed!
+        </div>
+      ) : (
+        <button
+          onClick={handleRevealIdentity}
+          className="revealIdentitySubheader__button"
+          type="button"
+        >
+          Reveal My Identity
+        </button>
+      )}
     </div>
   );
 };
