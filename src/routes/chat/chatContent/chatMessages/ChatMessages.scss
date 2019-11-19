@@ -3,6 +3,7 @@
 .chatMessages {
   flex: 1 1 auto;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   &__group {
     text-align: center;
