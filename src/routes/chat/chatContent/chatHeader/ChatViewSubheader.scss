@@ -1,0 +1,43 @@
+.chatViewSubheader {
+  background: white;
+  padding: 0rem 1rem;
+  border-top: 1px solid #dddfe7;
+  &__header {
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #bfc4ce;
+  }
+
+  &__details {
+    &__details {
+      label {
+        margin-bottom: 0 !important;
+      }
+      &--value {
+        font-size: 1.2rem;
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+  }
+
+  &__actions {
+    padding: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--action {
+      display: flex;
+
+      button {
+        margin-right: 0.5rem;
+      }
+    }
+    &--cancel {
+      text-align: end;
+    }
+  }
+}

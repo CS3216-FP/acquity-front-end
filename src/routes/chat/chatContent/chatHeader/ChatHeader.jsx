@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { toSgdCurrency } from 'utils/moneyUtils';
 import { SELLER, BUYER } from 'constants/user';
+import { PENDING_OFFER_TYPE } from 'constants/socket';
 import { useUser } from 'contexts/userContext';
 
 import ChatOfferSubheader from './ChatOfferSubheader';
 import RevealIdentitySubheader from './RevealIdentitySubheader';
 import './ChatHeader.scss';
 import DisbandedSubheader from './DisbandedSubheader';
+import ChatViewSubheader from './ChatViewSubheader';
 
 const ChatOfferDetails = ({ headerText, quantity, price }) => {
   return (
@@ -27,24 +29,51 @@ const ChatOfferDetails = ({ headerText, quantity, price }) => {
 };
 
 const ChatHeader = ({ chat }) => {
-  const user = useUser();
-  const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
   const {
     isDealClosed,
     buyOrder,
     sellOrder,
     isDisbanded,
     id,
-    isRevealed
+    isRevealed,
+    latestOffer
   } = chat;
+  const user = useUser();
+  const [isShowEditOfferSubheader, setIsShowEditOfferSubheader] = useState(
+    false
+  );
+  const [isShowViewOfferSubheader, setIsShowViewOfferSubheader] = useState(
+    false
+  );
+
+  const hasPendingOffer =
+    latestOffer && latestOffer.offerStatus === PENDING_OFFER_TYPE;
+  const isUserPendingOffer =
+    hasPendingOffer && latestOffer.authorId === user.id;
   const isUserBuyer = chat.buyerId === user.id;
 
   const handleOpenOfferSubheader = () => {
-    setIsShowOfferSubheader(true);
+    if (hasPendingOffer && !isUserPendingOffer) {
+      setIsShowViewOfferSubheader(true);
+    } else {
+      setIsShowEditOfferSubheader(true);
+    }
   };
 
   const handleCloseOfferSubheader = () => {
-    setIsShowOfferSubheader(false);
+    if (hasPendingOffer && !isUserPendingOffer) {
+      setIsShowViewOfferSubheader(false);
+    } else {
+      setIsShowEditOfferSubheader(false);
+    }
+  };
+
+  const renderOfferButtonText = () => {
+    if (hasPendingOffer) {
+      if (isUserPendingOffer) return 'Edit Offer';
+      return 'View Offer';
+    }
+    return 'Make Offer';
   };
 
   const renderSubheader = () => {
@@ -56,8 +85,16 @@ const ChatHeader = ({ chat }) => {
         <RevealIdentitySubheader chatRoomId={id} isRevealed={isRevealed} />
       );
     }
-    if (isShowOfferSubheader) {
+    if (isShowEditOfferSubheader) {
       return <ChatOfferSubheader handleClose={handleCloseOfferSubheader} />;
+    }
+    if (isShowViewOfferSubheader) {
+      return (
+        <ChatViewSubheader
+          handleClose={handleCloseOfferSubheader}
+          latestOffer={latestOffer}
+        />
+      );
     }
     return (
       <div className="chat__header__actions columns is-gapless is-mobile">
@@ -66,7 +103,7 @@ const ChatHeader = ({ chat }) => {
           className="column button is-success is-outlined"
           onClick={handleOpenOfferSubheader}
         >
-          Make Offer
+          {renderOfferButtonText()}
         </button>
         <button type="button" className="column button is-danger is-outlined">
           Cancel Match

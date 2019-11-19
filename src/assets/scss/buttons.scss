@@ -2,22 +2,24 @@
 
 .button {
   border-radius: 10px;
+  font-size: 1.1rem;
+
+  @media screen and (max-width: $mobile) {
+    font-size: 1rem;
+  }
   &--cta {
-    font-size: 1.1rem;
     font-weight: bold;
     background-image: $action-button-bg;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   }
 
   &--danger {
-    font-size: 1.1rem;
     font-weight: bold;
     background-image: $danger-button-bg;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   }
 
   &--success {
-    font-size: 1.1rem;
     font-weight: bold;
     background-image: $success-button-bg;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
