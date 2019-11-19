@@ -23,7 +23,7 @@ const PrevRoundSummaryChart = ({ data = [] }) => {
       },
       y: {
         title: {
-          formatter: () => 'SGD'
+          formatter: () => 'US$'
         }
       }
     },

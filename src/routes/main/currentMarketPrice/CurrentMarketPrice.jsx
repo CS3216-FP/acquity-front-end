@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import 'assets/scss/modal.scss';
 
 import { SELLER, BUYER } from 'constants/user';
-import { toSgdCurrency } from 'utils/moneyUtils';
+import { toCurrency } from 'utils/moneyUtils';
 import { LANDING_URL } from 'constants/urls';
 import './CurrentMarketPrice.scss';
 import CurrentMarketPriceGhost from './CurrentMarketPriceGhost';
@@ -65,10 +65,10 @@ const CurrentMarketPrice = () => {
       <div className="currentMarketPrice__price">
         <span className="currentMarketPrice__price__value">
           {state.currentMarketPrice ? (
-            <span>{toSgdCurrency(state.currentMarketPrice)}</span>
+            <span>{toCurrency(state.currentMarketPrice)}</span>
           ) : (
             <span>
-              SGD{' '}
+              US$
               <span className="currentMarketPrice__price__value--empty">
                 N/A
               </span>

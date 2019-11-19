@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { toSgdCurrency } from 'utils/moneyUtils';
+import { toCurrency } from 'utils/moneyUtils';
 import { SELLER, BUYER } from 'constants/user';
 import { useUser } from 'contexts/userContext';
 
@@ -79,12 +79,12 @@ const ChatHeader = ({ chat }) => {
         <ChatOfferDetails
           headerText={otherOrderDetailsHeaderText}
           quantity={otherOrderDetails.numberOfShares}
-          price={toSgdCurrency(otherOrderDetails.price)}
+          price={toCurrency(otherOrderDetails.price)}
         />
         <ChatOfferDetails
           headerText={userOrderDetailsHeaderText}
           quantity={userOrderDetails.numberOfShares}
-          price={toSgdCurrency(userOrderDetails.price)}
+          price={toCurrency(userOrderDetails.price)}
         />
       </div>
     );

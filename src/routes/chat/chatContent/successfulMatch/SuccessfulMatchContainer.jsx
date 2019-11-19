@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { toSgdCurrency } from 'utils/moneyUtils';
+import { toCurrency } from 'utils/moneyUtils';
 import { useSocket } from 'contexts/socketContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 
@@ -30,7 +30,7 @@ const SuccessfulMatchContainer = ({ chat }) => {
           <div className="column">
             Price:
             <span className="successfulMatch__details__details--value">
-              {toSgdCurrency(price)}
+              {toCurrency(price)}
             </span>
           </div>
         </div>

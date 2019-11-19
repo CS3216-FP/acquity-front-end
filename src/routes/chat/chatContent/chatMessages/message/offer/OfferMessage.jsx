@@ -10,7 +10,7 @@ import {
 import { useSocket } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
-import { toSgdCurrency } from 'utils/moneyUtils';
+import { toCurrency } from 'utils/moneyUtils';
 
 import './OfferMessage.scss';
 
@@ -122,10 +122,10 @@ const OfferMessage = ({ offer }) => {
               Qty: {offer.numberOfShares}
             </div>
             <div className="offerMessage__bubble__message--price">
-              Price: {toSgdCurrency(offer.price)}
+              Price: {toCurrency(offer.price)}
             </div>
             <div className="offerMessage__bubble__message--cost">
-              Est. Total: {toSgdCurrency(offer.price * offer.numberOfShares)}
+              Est. Total: {toCurrency(offer.price * offer.numberOfShares)}
             </div>
             <span className="offerMessage__bubble__message--timestamp">
               {timeString}
