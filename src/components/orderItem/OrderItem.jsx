@@ -53,7 +53,7 @@ const OrderItem = ({ item, actionLink = null, className = '' }) => {
                 className="item__details__value"
                 title={toCurrency(item.price * item.numberOfShares)}
               >
-                SGD {moneyFormatter(item.price * item.numberOfShares)}
+                US${moneyFormatter(item.price * item.numberOfShares)}
               </span>
             </div>
           </div>

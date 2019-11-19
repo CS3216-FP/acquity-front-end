@@ -63,7 +63,7 @@ const CurrentMarketPrice = () => {
             <span>{toCurrency(state.currentMarketPrice)}</span>
           ) : (
             <span>
-              SGD{' '}
+              US$
               <span className="currentMarketPrice__price__value--empty">
                 N/A
               </span>

@@ -97,7 +97,7 @@ const EditBidForm = ({ onSubmit, formData, type, onDelete }) => {
       <div className="form__field field has-addons">
         <div className="control">
           <button tabIndex={-1} type="button" className="button is-static">
-            SGD
+            US$
           </button>
         </div>
         <div className="control is-expanded">
@@ -143,7 +143,7 @@ const EditBidForm = ({ onSubmit, formData, type, onDelete }) => {
       <div className="estimate">
         <div className="estimate__label">Estimated total</div>
         <div className="estimate__amount">
-          <span className="estimate__amount--currency">SGD</span>
+          <span className="estimate__amount--currency">US$</span>
           <span className="estimate__amount--amount">
             {validateMoneyString(watchedFields.price)
               ? (

@@ -71,7 +71,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
                   Estimated total
                 </div>
                 <div className="confirmation__estimate__amount">
-                  <span className="estimate__amount--currency">SGD </span>
+                  <span className="estimate__amount--currency">US$</span>
                   <span
                     className="estimate__amount--amount"
                     title={toCurrency(bid.price * bid.numberOfShares)}

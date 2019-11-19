@@ -23,7 +23,7 @@ const LoadingChart = () => {
       },
       y: {
         title: {
-          formatter: () => 'SGD'
+          formatter: () => 'US$'
         }
       }
     },

@@ -13,7 +13,7 @@ const ChatOfferDetails = ({ headerText, quantity, price }) => {
         </div>
         <div className="column is-paddingless details">
           <span className="details__label">Price:</span>
-          <span className="details__value">SGD {price}</span>
+          <span className="details__value">US${price}</span>
         </div>
       </div>
     </div>
