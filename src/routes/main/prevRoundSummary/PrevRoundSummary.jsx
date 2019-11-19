@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import ApiService from 'services/apiService';
 import { addCommasToNumber } from 'utils';
-import { toSgdCurrency } from 'utils/moneyUtils';
+import { toCurrency } from 'utils/moneyUtils';
 import './PrevRoundSummary.scss';
 import PrevRoundSummaryChart from './PrevRoundSummaryChart';
 import PrevRoundSummaryGhost from './PrevRoundSummaryGhost';
@@ -60,7 +60,7 @@ const PrevRoundSummary = () => {
               Avg price per share
             </div>
             <div className="prevRoundSummary__data--value">
-              {state.data ? toSgdCurrency(state.data.averagePrice) : 'No data'}
+              {state.data ? toCurrency(state.data.averagePrice) : 'No data'}
             </div>
           </div>
           <div className="prevRoundSummary__data">
