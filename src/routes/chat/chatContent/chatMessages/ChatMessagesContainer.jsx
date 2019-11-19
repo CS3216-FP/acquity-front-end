@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { pure } from 'recompose';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import groupBy from 'lodash/groupBy';
 
@@ -37,4 +38,4 @@ const ChatMessagesContainer = ({ chat }) => {
 
 ChatMessagesContainer.whyDidYouRender = true;
 
-export default ChatMessagesContainer;
+export default pure(ChatMessagesContainer);

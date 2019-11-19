@@ -65,7 +65,7 @@ const ChatMessages = ({
     return () => {
       handleUpdateUnreadMessage();
     };
-  }, []);
+  }, [handleUpdateUnreadMessage]);
 
   const UnreadMessageDivider = () => {
     return (
