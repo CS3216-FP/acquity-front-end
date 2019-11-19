@@ -55,7 +55,8 @@
 
   &__content {
     height: calc(100vh - 11.9rem);
-    display: flex;
+    display: grid;
+    grid-template-rows: min-content auto min-content min-content;
     flex-direction: column;
 
     @media screen and (max-width: $tablet) {

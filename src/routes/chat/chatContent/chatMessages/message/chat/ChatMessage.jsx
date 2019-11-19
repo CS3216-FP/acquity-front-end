@@ -9,7 +9,7 @@ const ChatMessage = ({ message }) => {
 
   return (
     <p className="chatMessage__bubble__message">
-      <span className="chatMessage__bubble__message--message">
+      <span className="chatMessage__bubble__message--message is-text-wrap">
         {message.message}
       </span>
       <span className="chatMessage__bubble__message--timestamp">

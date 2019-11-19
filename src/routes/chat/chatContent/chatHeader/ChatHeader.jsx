@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { toCurrency } from 'utils/moneyUtils';
 import { SELLER, BUYER } from 'constants/user';
 import { PENDING_OFFER_TYPE } from 'constants/socket';
@@ -39,6 +41,7 @@ const ChatHeader = ({ chat }) => {
     latestOffer
   } = chat;
   const user = useUser();
+  const isUserBuyer = useSelector(state => state.misc.userType === BUYER);
   const [isShowEditOfferSubheader, setIsShowEditOfferSubheader] = useState(
     false
   );
@@ -50,7 +53,6 @@ const ChatHeader = ({ chat }) => {
     latestOffer && latestOffer.offerStatus === PENDING_OFFER_TYPE;
   const isUserPendingOffer =
     hasPendingOffer && latestOffer.authorId === user.id;
-  const isUserBuyer = chat.buyerId === user.id;
 
   const handleOpenOfferSubheader = () => {
     if (hasPendingOffer && !isUserPendingOffer) {

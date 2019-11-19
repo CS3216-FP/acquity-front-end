@@ -11,7 +11,8 @@
   align-items: center;
 
   @media screen and (max-width: $mobile) {
-    padding: 0 1rem;
+    padding: 0rem;
+    padding-top: 0.5rem;
   }
 
   &__details {

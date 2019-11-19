@@ -28,7 +28,7 @@ const ChatContent = () => {
   }
 
   return (
-    <div className="column chat__content">
+    <div className="column chat__content is-full-mobile is-three-fifths-tablet">
       <ChatHeader chat={chat} />
       <ChatMessages chat={chat} />
       {isDealClosed && <SuccessfulMatch chat={chat} />}

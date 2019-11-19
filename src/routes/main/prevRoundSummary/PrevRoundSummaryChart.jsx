@@ -10,7 +10,7 @@ const PrevRoundSummaryChart = ({ data = [] }) => {
       style: {
         color: '#1f4190',
         fontSize: window.innerWidth < 426 ? '1rem' : '1.5rem',
-        fontFamily: 'Nexa Bold'
+        fontFamily: 'Nexa'
       }
     },
     dataLabels: {
@@ -55,7 +55,7 @@ const PrevRoundSummaryChart = ({ data = [] }) => {
       labels: {
         style: {
           fontSize: '14px',
-          fontFamily: 'Nexa Bold'
+          fontFamily: 'Nexa'
         }
       },
       tooltip: {
