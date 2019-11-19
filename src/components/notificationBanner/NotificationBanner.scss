@@ -1,7 +1,7 @@
 @import 'assets/scss/variables';
 
 .notificationBanner {
-  position: absolute;
+  position: fixed;
   z-index: 999;
   width: 100%;
   background: #a7d9bc;
