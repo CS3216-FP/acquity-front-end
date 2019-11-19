@@ -6,6 +6,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { useSocket } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
@@ -28,12 +29,14 @@ import {
 } from 'constants/routes';
 import Admin from 'routes/admin/Admin';
 import { isCommittee } from 'utils/userUtils';
+import NotificationBanner from 'components/notificationBanner';
 
 const redirectToRoot = () => <Redirect to={ROOT} />;
 const redirectToHome = () => <Redirect to={HOME} />;
 
 const AuthenticatedApp = () => {
   const user = useUser();
+  const isBannerHidden = useSelector(state => state.misc.isBannerHidden);
 
   const adminRouting = () => {
     if (isCommittee(user)) {
@@ -50,6 +53,12 @@ const AuthenticatedApp = () => {
 
   return (
     <Router>
+      {!isBannerHidden && (
+        <NotificationBanner
+          headerText="We have just released an update to change all currencies from SGD to USD"
+          contentText="To ensure that all users who have already joined our round are not affected by this change, all bids and asks have been cancelled. You will need to create them again. We apologise for any inconvenience caused."
+        />
+      )}
       <div className="app">
         <Navbar isAuthenticated />
         <Switch>
