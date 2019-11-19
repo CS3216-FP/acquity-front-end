@@ -1,10 +1,12 @@
 import React from 'react';
 import find from 'lodash/find';
+import { useDispatch } from 'react-redux';
 
-import { toCurrency } from 'utils/moneyUtils';
 import { useSocket } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
+import { setUserRevealed } from 'reducers/ChatDux';
 import SocketRequestService from 'services/SocketService/socketRequestService';
+import { toCurrency } from 'utils/moneyUtils';
 
 import RevealIdentityDisclaimer from './RevealIdentityDisclaimer';
 
@@ -32,7 +34,7 @@ const SuccessfulMatchDetails = ({ numberOfShares, price }) => {
   );
 };
 
-const SuccessfulMatchReveal = ({ handleClick }) => {
+const SuccessfulMatchReveal = ({ handleClick, isUserRevealed }) => {
   return (
     <>
       <div className="successfulMatch__header">
@@ -44,10 +46,13 @@ const SuccessfulMatchReveal = ({ handleClick }) => {
         </div>
         <button
           onClick={handleClick}
+          disabled={isUserRevealed}
           className="successfulMatch__button"
           type="button"
         >
-          Reveal My Identity
+          {isUserRevealed
+            ? 'Waiting For Other User To Reveal'
+            : 'Reveal My Identity'}
         </button>
         <RevealIdentityDisclaimer />
       </div>
@@ -95,20 +100,25 @@ const SuccessfulMatchIdentities = ({ identities }) => {
 
 const SuccessfulMatchContainer = ({ chat }) => {
   const socket = useSocket();
+  const dispatch = useDispatch();
   const { isRevealed, identities } = chat;
   const { price, numberOfShares } = chat.latestOffer;
 
   const handleRevealIdentity = () => {
     SocketRequestService.revealIdentity({ chatRoomId: chat.id, socket });
+    dispatch(setUserRevealed({ chatRoomId: chat.id }));
   };
 
   return (
     <div className="successfulMatch">
       <SuccessfulMatchDetails numberOfShares={numberOfShares} price={price} />
-      {isRevealed ? (
+      {identities ? (
         <SuccessfulMatchIdentities identities={identities} />
       ) : (
-        <SuccessfulMatchReveal handleClick={handleRevealIdentity} />
+        <SuccessfulMatchReveal
+          handleClick={handleRevealIdentity}
+          isUserRevealed={isRevealed}
+        />
       )}
     </div>
   );

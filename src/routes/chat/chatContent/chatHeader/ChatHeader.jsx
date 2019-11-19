@@ -38,7 +38,8 @@ const ChatHeader = ({ chat }) => {
     isDisbanded,
     id,
     isRevealed,
-    latestOffer
+    latestOffer,
+    identities
   } = chat;
   const user = useUser();
   const isUserBuyer = useSelector(state => state.misc.userType === BUYER);
@@ -84,7 +85,11 @@ const ChatHeader = ({ chat }) => {
     }
     if (isDealClosed) {
       return (
-        <RevealIdentitySubheader chatRoomId={id} isRevealed={isRevealed} />
+        <RevealIdentitySubheader
+          chatRoomId={id}
+          isUserRevealed={isRevealed}
+          isBothRevealed={!!identities}
+        />
       );
     }
     if (isShowEditOfferSubheader) {
