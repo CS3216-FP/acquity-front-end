@@ -39,7 +39,7 @@ const receiveNewMessageListener = socket => {
     const { type, authorId, chatRoomId, id } = data;
     switch (type) {
       case CHAT_TYPE:
-        if (authorId === state.misc.user.id) {
+        if (authorId !== state.misc.user.id) {
           batch(() => {
             store.dispatch(addNewMessage(data));
             store.dispatch(
