@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { pure } from 'recompose';
@@ -13,11 +13,17 @@ import SuccessfulMatch from './successfulMatch';
 
 const ChatContent = () => {
   const socket = useSocket();
+  const [isLoading, setIsLoading] = useState(true);
   const { chatRoomId } = useParams();
   const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
   const { isDealClosed, isDisbanded } = chat;
 
-  if (!socket.connected) {
+  useEffect(() => {
+    setIsLoading(!socket.connected);
+    // Chat is used as a dependency as a hack to get socket.connected to be the most updated value for some reason
+  }, [socket, chat]);
+
+  if (isLoading) {
     return <ChatContentGhost />;
   }
 
