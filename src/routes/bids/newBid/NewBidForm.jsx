@@ -132,7 +132,7 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
             type="button"
             className="button is-static has-text-dark"
           >
-            SGD
+            US$
           </button>
         </div>
         <div className="control is-expanded">
@@ -178,7 +178,7 @@ const NewBidForm = ({ onSubmit, securities, formData, isLoading, type }) => {
       <div className="estimate">
         <div className="estimate__label">Estimated total</div>
         <div className="estimate__amount">
-          <span className="estimate__amount--currency">SGD</span>
+          <span className="estimate__amount--currency">US$</span>
           <span className="estimate__amount--amount">
             {validateMoneyString(watchedFields.price)
               ? (

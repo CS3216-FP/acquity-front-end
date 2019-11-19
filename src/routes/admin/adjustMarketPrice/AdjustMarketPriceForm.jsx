@@ -49,7 +49,7 @@ const AdjustMarketPriceForm = ({ security }) => {
                   Current price:&nbsp;
                 </span>
                 <span className="adjustMarketPriceForm__security__currentPrice--value">
-                  SGD{' '}
+                  US$
                   {security.marketPrice ? (
                     security.marketPrice
                   ) : (
@@ -81,7 +81,7 @@ const AdjustMarketPriceForm = ({ security }) => {
                     type="button"
                     className="button is-static has-text-dark"
                   >
-                    SGD
+                    US$
                   </button>
                 </div>
                 <div className="control is-expanded">

@@ -5,7 +5,7 @@ import TimeAgo from 'react-timeago';
 import { useUser } from 'contexts/userContext';
 import { addCommasToNumber } from 'utils';
 import { isUnapprovedBuyer } from 'utils/userUtils';
-import { moneyFormatter, toSgdCurrency } from 'utils/moneyUtils';
+import { moneyFormatter, toCurrency } from 'utils/moneyUtils';
 import './OrderItem.scss';
 
 const OrderItem = ({ item, actionLink = null, className = '' }) => {
@@ -42,18 +42,18 @@ const OrderItem = ({ item, actionLink = null, className = '' }) => {
               <span className="item__details__label">Price:</span>
               <span
                 className="item__details__value"
-                title={toSgdCurrency(item.price)}
+                title={toCurrency(item.price)}
               >
-                {toSgdCurrency(item.price)}
+                {toCurrency(item.price)}
               </span>
             </div>
             <div className="item__details column">
               <span className="item__details__label">Estimated total:</span>
               <span
                 className="item__details__value"
-                title={toSgdCurrency(item.price * item.numberOfShares)}
+                title={toCurrency(item.price * item.numberOfShares)}
               >
-                SGD {moneyFormatter(item.price * item.numberOfShares)}
+                US${moneyFormatter(item.price * item.numberOfShares)}
               </span>
             </div>
           </div>

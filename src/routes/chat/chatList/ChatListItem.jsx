@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 
 import Avatar from 'components/avatar';
-import { toSgdCurrency } from 'utils/moneyUtils';
+import { toCurrency } from 'utils/moneyUtils';
 import './ChatListItem.scss';
 
 const ChatListItem = ({ chat, basePath }) => {
@@ -108,7 +108,7 @@ const LatestOffer = ({ offer }) => {
         </div>
       )}
       <div>Offered Quantity: {numberOfShares}</div>
-      <div>Offered Price: {toSgdCurrency(price)}</div>
+      <div>Offered Price: {toCurrency(price)}</div>
     </div>
   );
 };

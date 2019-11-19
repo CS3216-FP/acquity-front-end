@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PageContainer from 'components/pageContainer';
 import ErrorMessage from 'components/errorMessage';
 import PageHeader from 'components/pageHeader';
-import { moneyFormatter, toSgdCurrency } from 'utils/moneyUtils';
+import { moneyFormatter, toCurrency } from 'utils/moneyUtils';
 
 import OrderDisclaimer from '../orderDisclaimer';
 import './ProceedConfirmation.scss';
@@ -63,7 +63,7 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
                     : 'Minimum price per share'}
                 </div>
                 <div className="confirmation__details__value">
-                  {toSgdCurrency(bid.price)}
+                  {toCurrency(bid.price)}
                 </div>
               </div>
               <div className="confirmation__details__block">
@@ -71,10 +71,10 @@ const Confirmation = ({ bid, handleBackClick, apiCall, type }) => {
                   Estimated total
                 </div>
                 <div className="confirmation__estimate__amount">
-                  <span className="estimate__amount--currency">SGD </span>
+                  <span className="estimate__amount--currency">US$</span>
                   <span
                     className="estimate__amount--amount"
-                    title={toSgdCurrency(bid.price * bid.numberOfShares)}
+                    title={toCurrency(bid.price * bid.numberOfShares)}
                   >
                     {moneyFormatter(bid.price * bid.numberOfShares)}
                   </span>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { toSgdCurrency } from 'utils/moneyUtils';
+import { toCurrency } from 'utils/moneyUtils';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import { useSocket } from 'contexts/socketContext';
 
@@ -47,7 +47,7 @@ const ChatViewSubheader = ({ handleClose, latestOffer }) => {
             Price:
           </label>
           <div className="chatViewSubheader__details__details--value">
-            {toSgdCurrency(price)}
+            {toCurrency(price)}
           </div>
         </div>
         <div className="chatViewSubheader__actions column">
