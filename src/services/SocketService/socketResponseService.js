@@ -6,14 +6,16 @@ import {
   addNewMessage,
   updateOfferStatus,
   addNewOffer,
-  incrementUnreadCount
+  incrementUnreadCount,
+  updateIdentities
 } from 'reducers/ChatDux';
 import {
   RECEIVE_NEW_EVENT,
   RECEIVE_ERROR,
   CHAT_TYPE,
   OFFER_TYPE,
-  OFFER_RESPONSE_TYPE
+  OFFER_RESPONSE_TYPE,
+  RECEIVE_REVEAL_IDENTITY
 } from 'constants/socket';
 
 /**
@@ -64,6 +66,13 @@ const receiveNewMessageListener = socket => {
   });
 };
 
+const receiveRevealIdentitiesListener = socket => {
+  socket.on(RECEIVE_REVEAL_IDENTITY, payload => {
+    const data = humps.camelizeKeys(payload);
+    store.dispatch(updateIdentities(data));
+  });
+};
+
 const errorListener = socket => {
   // eslint-disable-next-line no-console
   socket.on(RECEIVE_ERROR, payload => console.error(payload));
@@ -71,6 +80,7 @@ const errorListener = socket => {
 
 const initialize = socket => {
   receiveNewMessageListener(socket);
+  receiveRevealIdentitiesListener(socket);
   errorListener(socket);
 };
 

@@ -7,6 +7,7 @@ export const EMIT_UPDATE_LAST_READ = 'req_update_last_read_id';
 export const EMIT_REVEAL_IDENTITY = 'req_reveal_identity';
 
 export const RECEIVE_NEW_EVENT = 'res_new_event';
+export const RECEIVE_REVEAL_IDENTITY = 'res_reveal_identity';
 export const RECEIVE_ERROR = 'error';
 
 export const CHAT_TYPE = 'chat';

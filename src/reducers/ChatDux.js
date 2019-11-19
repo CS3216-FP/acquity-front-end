@@ -76,6 +76,13 @@ const chat = createSlice({
       if (!chatRoom) return;
 
       chatRoom.isRevealed = true;
+    },
+    updateIdentities: (state, { payload }) => {
+      const { id: chatRoomId, identities } = payload;
+      const chatRoom = state.unarchived[chatRoomId];
+      if (!chatRoom) return;
+
+      chatRoom.identities = identities;
     }
   }
 });
@@ -88,7 +95,8 @@ export const {
   updateOfferStatus,
   clearUnreadCount,
   incrementUnreadCount,
-  setUserRevealed
+  setUserRevealed,
+  updateIdentities
 } = chat.actions;
 
 export default chat.reducer;
