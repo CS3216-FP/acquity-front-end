@@ -16,10 +16,17 @@ const chat = createSlice({
       state.unarchived = unarchived;
     },
     addNewMessage: (state, { payload }) => {
-      const { chatRoomId, updatedAt } = payload;
+      const { chatRoomId, updatedAt, id } = payload;
       const chatRoom = state.unarchived[chatRoomId];
       if (!chatRoom) return;
 
+      // Do not push if the last message object has the same id
+      // This scenario may occur due to socket instability, but will be too
+      // expensive to check across the whole array.As a "fix", we only check
+      // the last object's key
+      const chatRoomLength = chatRoom.chats.length;
+      if (chatRoomLength > 0 && chatRoom.chats[chatRoomLength - 1].id === id)
+        return;
       chatRoom.chats.push(payload);
       chatRoom.updatedAt = updatedAt;
     },
