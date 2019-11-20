@@ -16,7 +16,7 @@ const ChatContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { chatRoomId } = useParams();
   const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
-  const { isDealClosed, isDisbanded } = chat;
+  const { isDealClosed, disbandInfo } = chat;
 
   useEffect(() => {
     setIsLoading(!socket.connected);
@@ -32,7 +32,7 @@ const ChatContent = () => {
       <ChatHeader chat={chat} />
       <ChatMessages chat={chat} />
       {isDealClosed && <SuccessfulMatch chat={chat} />}
-      <ChatInput isDisbanded={isDisbanded} />
+      <ChatInput isDisbanded={!!disbandInfo} />
     </div>
   );
 };

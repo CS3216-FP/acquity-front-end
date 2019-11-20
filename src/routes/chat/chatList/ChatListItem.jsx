@@ -13,7 +13,7 @@ const ChatListItem = ({ chat, basePath }) => {
     friendlyName,
     updatedAt,
     latestOffer,
-    isDisbanded,
+    disbandInfo,
     unreadCount
   } = chat;
 
@@ -60,7 +60,7 @@ const ChatListItem = ({ chat, basePath }) => {
           <div className="columns">
             <div className="column">
               <div className="detail__header--security">Grab match</div>
-              {isDisbanded && <CancelledMatch />}
+              {disbandInfo && <CancelledMatch />}
               <LatestOffer offer={latestOffer} />
             </div>
             {!!unreadCount && (

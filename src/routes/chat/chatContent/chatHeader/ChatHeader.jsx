@@ -37,7 +37,7 @@ const ChatHeader = ({ chat }) => {
     isDealClosed,
     buyOrder,
     sellOrder,
-    isDisbanded,
+    disbandInfo,
     id,
     isRevealed,
     latestOffer,
@@ -82,7 +82,7 @@ const ChatHeader = ({ chat }) => {
   };
 
   const renderSubheader = () => {
-    if (isDisbanded) {
+    if (disbandInfo) {
       return <DisbandedSubheader />;
     }
     if (isDealClosed) {

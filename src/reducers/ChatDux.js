@@ -92,11 +92,11 @@ const chat = createSlice({
       chatRoom.identities = identities;
     },
     disbandChatRoom: (state, { payload }) => {
-      const { chatRoomId } = payload;
+      const { chatRoomId, disbandInfo } = payload;
       const chatRoom = state.unarchived[chatRoomId];
       if (!chatRoom) return;
 
-      chatRoom.isDisbanded = true;
+      chatRoom.disbandInfo = disbandInfo;
     }
   }
 });
