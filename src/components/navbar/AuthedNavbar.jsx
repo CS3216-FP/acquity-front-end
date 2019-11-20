@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { HOME, BIDS, OFFERS, CHAT, ROOT, ADMIN } from 'constants/routes';
@@ -8,6 +9,10 @@ import ProfileDropdown from './profile-dropdown';
 import './AuthedNavbar.scss';
 
 const AuthTabs = ({ pathname }) => {
+  const hasUnreadMessages = useSelector(state =>
+    Object.values(state.chat.unarchived).some(chat => chat.unreadCount > 0)
+  );
+
   return (
     <>
       <li
@@ -18,7 +23,18 @@ const AuthTabs = ({ pathname }) => {
         <Link to={ROOT}>Home</Link>
       </li>
       <li className={`${pathname.startsWith(`${CHAT}`) ? 'is-active' : ''}`}>
-        <Link to={CHAT}>Matches</Link>
+        <Link to={CHAT}>
+          {hasUnreadMessages ? (
+            <span
+              className="has-badge-rounded has-badge-danger has-badge-small"
+              data-badge=""
+            >
+              Matches
+            </span>
+          ) : (
+            <span>Matches</span>
+          )}
+        </Link>
       </li>
     </>
   );
