@@ -29,8 +29,8 @@ const MakeOfferForm = ({ handleClose }) => {
   const onClickSubmit = data => {
     const { price, numberOfShares } = data;
     SocketRequestService.addNewOffer({
-      price,
-      numberOfShares,
+      price: Number(price),
+      numberOfShares: Number(numberOfShares),
       chatRoomId,
       socket
     });
