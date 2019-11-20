@@ -8,6 +8,7 @@ import ChatMessages from './chatMessages';
 import ChatHeader from './chatHeader';
 import ChatInput from './chatInput';
 import SuccessfulMatch from './successfulMatch';
+import DisbandInfo from './disbandInfo';
 
 const ChatContent = () => {
   const { chatRoomId } = useParams();
@@ -24,6 +25,7 @@ const ChatContent = () => {
       <ChatHeader chat={chat} />
       <ChatMessages chat={chat} />
       {isDealClosed && <SuccessfulMatch chat={chat} />}
+      {disbandInfo && <DisbandInfo info={disbandInfo} />}
       <ChatInput isDisbanded={!!disbandInfo} />
     </div>
   );
