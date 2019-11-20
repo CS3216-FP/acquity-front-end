@@ -12,7 +12,7 @@ const persistConfig = {
   version: 2,
   migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
   storage,
-  blacklist: ['socket']
+  blacklist: ['loading']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

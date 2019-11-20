@@ -12,7 +12,7 @@ import SuccessfulMatch from './successfulMatch';
 const ChatContent = () => {
   const { chatRoomId } = useParams();
   const chat = useSelector(state => state.chat.unarchived[chatRoomId]);
-  const isLoading = useSelector(state => !state.socket.isSocketConnected);
+  const isLoading = useSelector(state => !state.loading.isSocketConnected);
   const { isDealClosed, disbandInfo } = chat;
 
   if (isLoading) {
