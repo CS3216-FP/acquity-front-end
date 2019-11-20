@@ -90,6 +90,13 @@ const chat = createSlice({
       if (!chatRoom) return;
 
       chatRoom.identities = identities;
+    },
+    disbandChatRoom: (state, { payload }) => {
+      const { chatRoomId } = payload;
+      const chatRoom = state.unarchived[chatRoomId];
+      if (!chatRoom) return;
+
+      chatRoom.isDisbanded = true;
     }
   }
 });
@@ -103,7 +110,8 @@ export const {
   clearUnreadCount,
   incrementUnreadCount,
   setUserRevealed,
-  updateIdentities
+  updateIdentities,
+  disbandChatRoom
 } = chat.actions;
 
 export default chat.reducer;

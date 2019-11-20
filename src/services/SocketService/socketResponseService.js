@@ -7,7 +7,8 @@ import {
   updateOfferStatus,
   addNewOffer,
   incrementUnreadCount,
-  updateIdentities
+  updateIdentities,
+  disbandChatRoom
 } from 'reducers/ChatDux';
 import {
   RECEIVE_NEW_EVENT,
@@ -15,7 +16,8 @@ import {
   CHAT_TYPE,
   OFFER_TYPE,
   OFFER_RESPONSE_TYPE,
-  RECEIVE_REVEAL_IDENTITY
+  RECEIVE_REVEAL_IDENTITY,
+  RECEIVE_DISBAND_CHATROOM
 } from 'constants/socket';
 
 /**
@@ -73,6 +75,13 @@ const receiveRevealIdentitiesListener = socket => {
   });
 };
 
+const receiveDisbandChatRoomListener = socket => {
+  socket.on(RECEIVE_DISBAND_CHATROOM, payload => {
+    const data = humps.camelizeKeys(payload);
+    store.dispatch(disbandChatRoom(data));
+  });
+};
+
 const errorListener = socket => {
   // eslint-disable-next-line no-console
   socket.on(RECEIVE_ERROR, payload => console.error(payload));
@@ -81,6 +90,7 @@ const errorListener = socket => {
 const initialize = socket => {
   receiveNewMessageListener(socket);
   receiveRevealIdentitiesListener(socket);
+  receiveDisbandChatRoomListener(socket);
   errorListener(socket);
 };
 

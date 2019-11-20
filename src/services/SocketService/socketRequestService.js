@@ -10,7 +10,8 @@ import {
   EMIT_REVEAL_IDENTITY,
   ACCEPT_OFFER_TYPE,
   REJECT_OFFER_TYPE,
-  CANCEL_OFFER_TYPE
+  CANCEL_OFFER_TYPE,
+  EMIT_DISBAND_CHATROOM
 } from 'constants/socket';
 
 /**
@@ -144,6 +145,15 @@ const revealIdentity = ({ chatRoomId, socket }) => {
   socket.emit(EMIT_REVEAL_IDENTITY, payload);
 };
 
+const disbandChatRoom = ({ chatRoomId, socket }) => {
+  const payload = humps.decamelizeKeys({
+    token: tokenUtils.getToken(),
+    chatRoomId
+  });
+
+  socket.emit(EMIT_DISBAND_CHATROOM, payload);
+};
+
 const initialize = socket => {
   authenticate({ socket });
 };
@@ -156,5 +166,6 @@ export default {
   declineOffer,
   cancelOffer,
   updateUnreadMessage,
-  revealIdentity
+  revealIdentity,
+  disbandChatRoom
 };

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { toCurrency } from 'utils/moneyUtils';
-import { SELLER, BUYER } from 'constants/user';
-import { PENDING_OFFER_TYPE } from 'constants/socket';
+import { useSocket } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
+import { PENDING_OFFER_TYPE } from 'constants/socket';
+import { SELLER, BUYER } from 'constants/user';
+import socketRequestService from 'services/SocketService/socketRequestService';
+import { toCurrency } from 'utils/moneyUtils';
 
 import ChatOfferSubheader from './ChatOfferSubheader';
 import RevealIdentitySubheader from './RevealIdentitySubheader';
@@ -41,6 +43,7 @@ const ChatHeader = ({ chat }) => {
     latestOffer,
     identities
   } = chat;
+  const socket = useSocket();
   const user = useUser();
   const isUserBuyer = useSelector(state => state.misc.userType === BUYER);
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
@@ -65,6 +68,10 @@ const ChatHeader = ({ chat }) => {
     // We set both to false because the states may change due to change in latestOffer
     setIsShowViewOfferSubheader(false);
     setIsShowOfferSubheader(false);
+  };
+
+  const handleDisbandClick = () => {
+    socketRequestService.disbandChatRoom({ chatRoomId: id, socket });
   };
 
   const renderOfferButtonText = () => {
@@ -108,7 +115,11 @@ const ChatHeader = ({ chat }) => {
         >
           {renderOfferButtonText()}
         </button>
-        <button type="button" className="column button is-danger is-outlined">
+        <button
+          onClick={handleDisbandClick}
+          type="button"
+          className="column button is-danger is-outlined"
+        >
           Cancel Match
         </button>
       </div>
