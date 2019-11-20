@@ -21,7 +21,7 @@ const ChatContent = () => {
   useEffect(() => {
     setIsLoading(!socket.connected);
     // Chat is used as a dependency as a hack to get socket.connected to be the most updated value for some reason
-  }, [socket, chat]);
+  }, [socket.connected, chat]);
 
   if (isLoading) {
     return <ChatContentGhost />;

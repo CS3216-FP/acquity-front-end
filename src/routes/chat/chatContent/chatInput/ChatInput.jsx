@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSocket } from 'contexts/socketContext';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import SocketRequestService from 'services/SocketService/socketRequestService';
 
@@ -10,7 +9,6 @@ import './ChatInput.scss';
 const ChatInput = ({ isDisbanded }) => {
   const [message, setMessage] = React.useState('');
   const { chatRoomId } = useParams();
-  const userType = useSelector(state => state.misc.userType);
   const socket = useSocket();
 
   const handleChange = event => {
@@ -22,7 +20,6 @@ const ChatInput = ({ isDisbanded }) => {
     SocketRequestService.addNewMessage({
       chatRoomId,
       message,
-      userType,
       socket
     });
     setMessage('');

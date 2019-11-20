@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import { getTimeFromTimestamp } from 'utils';
 import {
   ACCEPT_OFFER_TYPE,
   REJECT_OFFER_TYPE,
-  PENDING_OFFER_TYPE
+  PENDING_OFFER_TYPE,
+  CANCEL_OFFER_TYPE
 } from 'constants/socket';
 import { useSocket } from 'contexts/socketContext';
 import { useUser } from 'contexts/userContext';
@@ -19,13 +19,11 @@ const OfferMessage = ({ offer }) => {
   const socket = useSocket();
   const isSentByUser = offer.authorId === user.id;
   const { offerStatus, id: offerId, chatRoomId } = offer;
-  const { userType } = useSelector(state => state.misc);
   const timeString = getTimeFromTimestamp(offer.createdAt);
 
   const acceptOffer = () => {
     SocketRequestService.acceptOffer({
       offerId,
-      userType,
       socket,
       chatRoomId
     });
@@ -34,7 +32,6 @@ const OfferMessage = ({ offer }) => {
   const declineOffer = () => {
     SocketRequestService.declineOffer({
       offerId,
-      userType,
       socket,
       chatRoomId
     });
@@ -48,6 +45,8 @@ const OfferMessage = ({ offer }) => {
         return <RejectedOfferStatus />;
       case PENDING_OFFER_TYPE:
         return <PendingOfferStatus />;
+      case CANCEL_OFFER_TYPE:
+        return <CanceledOfferStatus />;
       default:
         throw new Error(`Invalid offer status ${offerStatus}`);
     }
@@ -101,6 +100,16 @@ const OfferMessage = ({ offer }) => {
     );
   };
 
+  const CanceledOfferStatus = () => {
+    return (
+      <div className="offerMessage__status offerMessage__status--canceled">
+        {isSentByUser
+          ? 'You canceled this offer'
+          : 'This offer has been canceled'}
+      </div>
+    );
+  };
+
   return (
     <div className="chatMessage">
       <div
@@ -108,7 +117,7 @@ const OfferMessage = ({ offer }) => {
           isSentByUser ? 'right' : 'left'
         }`}
       >
-        <div className="offerMessage">
+        <div className={`offerMessage offerMessage--${offerStatus}`}>
           <div
             className={`offerMessage__header offerMessage__header--${
               isSentByUser ? 'right' : 'left'
@@ -131,7 +140,7 @@ const OfferMessage = ({ offer }) => {
               {timeString}
             </span>
           </div>
-          {renderOfferStatus({ offer, isSentByUser, userType })}
+          {renderOfferStatus()}
         </div>
       </div>
     </div>

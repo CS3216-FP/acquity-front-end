@@ -1,5 +1,4 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 
 import { toCurrency } from 'utils/moneyUtils';
 import SocketRequestService from 'services/SocketService/socketRequestService';
@@ -7,27 +6,80 @@ import { useSocket } from 'contexts/socketContext';
 
 import './ChatViewSubheader.scss';
 
-const ChatViewSubheader = ({ handleClose, latestOffer }) => {
+const ChatViewSubheader = ({
+  handleClose,
+  latestOffer,
+  isUserPendingOffer
+}) => {
   const socket = useSocket();
   const { price, numberOfShares, id: offerId, chatRoomId } = latestOffer;
-  const { userType } = useSelector(state => state.misc);
+
+  // In case user opens this subheader but the other user has cancelled it.
+  // Prevents crash, close immediately.
+  useEffect(() => {
+    if (!latestOffer) {
+      handleClose();
+    }
+  }, [latestOffer, handleClose]);
 
   const acceptOffer = () => {
     SocketRequestService.acceptOffer({
       offerId,
-      userType,
       socket,
       chatRoomId
     });
+    handleClose();
   };
 
   const declineOffer = () => {
     SocketRequestService.declineOffer({
       offerId,
-      userType,
       socket,
       chatRoomId
     });
+    handleClose();
+  };
+
+  const cancelOffer = () => {
+    SocketRequestService.cancelOffer({
+      offerId,
+      socket,
+      chatRoomId
+    });
+    handleClose();
+  };
+
+  const renderActions = () => {
+    if (isUserPendingOffer) {
+      return (
+        <button
+          onClick={cancelOffer}
+          type="button"
+          className="button--danger button no-shadow"
+        >
+          Cancel Offer
+        </button>
+      );
+    }
+
+    return (
+      <>
+        <button
+          onClick={acceptOffer}
+          type="button"
+          className="button--success button no-shadow"
+        >
+          Accept
+        </button>
+        <button
+          onClick={declineOffer}
+          type="button"
+          className="button--danger button no-shadow"
+        >
+          Reject
+        </button>
+      </>
+    );
   };
 
   return (
@@ -52,20 +104,7 @@ const ChatViewSubheader = ({ handleClose, latestOffer }) => {
         </div>
         <div className="chatViewSubheader__actions column">
           <div className="chatViewSubheader__actions--action">
-            <button
-              onClick={acceptOffer}
-              type="button"
-              className="button--success button no-shadow"
-            >
-              Accept
-            </button>
-            <button
-              onClick={declineOffer}
-              type="button"
-              className="button--danger button no-shadow"
-            >
-              Reject
-            </button>
+            {renderActions()}
           </div>
           <div className="chatViewSubheader__actions--cancel">
             <button
@@ -73,7 +112,7 @@ const ChatViewSubheader = ({ handleClose, latestOffer }) => {
               className="as-non-button button chatOfferSubheader__form__button--cancel"
               onClick={handleClose}
             >
-              Cancel
+              Close
             </button>
           </div>
         </div>

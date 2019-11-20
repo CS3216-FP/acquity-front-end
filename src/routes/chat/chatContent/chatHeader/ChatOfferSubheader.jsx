@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import useForm from 'react-hook-form';
 
 import SocketRequestService from 'services/SocketService/socketRequestService';
@@ -22,7 +21,6 @@ const ChatOfferSubheader = ({ handleClose }) => {
 const MakeOfferForm = ({ handleClose }) => {
   const { chatRoomId } = useParams();
   const socket = useSocket();
-  const userType = useSelector(state => state.misc.userType);
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur'
@@ -34,7 +32,6 @@ const MakeOfferForm = ({ handleClose }) => {
       price,
       numberOfShares,
       chatRoomId,
-      userType,
       socket
     });
     handleClose();
@@ -145,7 +142,7 @@ const MakeOfferForm = ({ handleClose }) => {
                 className="as-non-button button chatOfferSubheader__form__button--cancel"
                 onClick={handleClose}
               >
-                Cancel
+                Close
               </button>
             </div>
           </div>

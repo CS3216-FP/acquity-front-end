@@ -3,7 +3,11 @@ import React from 'react';
 import { getTimeFromTimestamp } from 'utils';
 import { useUser } from 'contexts/userContext';
 import { toCurrency } from 'utils/moneyUtils';
-import { ACCEPT_OFFER_TYPE, REJECT_OFFER_TYPE } from 'constants/socket';
+import {
+  ACCEPT_OFFER_TYPE,
+  REJECT_OFFER_TYPE,
+  CANCEL_OFFER_TYPE
+} from 'constants/socket';
 
 import '../offer/OfferMessage.scss';
 import './OfferResponseMessage.scss';
@@ -20,6 +24,8 @@ const OfferMessage = ({ offer }) => {
         return 'Accepted the offer:';
       case REJECT_OFFER_TYPE:
         return 'Rejected the offer:';
+      case CANCEL_OFFER_TYPE:
+        return 'Canceled the offer:';
       default:
         throw new Error(`Invalid offerResponse offer status ${offerStatus}`);
     }

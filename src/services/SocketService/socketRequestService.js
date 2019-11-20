@@ -5,10 +5,12 @@ import {
   EMIT_REQUEST_AUTHENTICATE,
   EMIT_NEW_MESSAGE,
   EMIT_NEW_OFFER,
-  EMIT_ACCEPT_OFFER,
-  EMIT_DECLINE_OFFER,
+  EMIT_EDIT_OFFER_STATUS,
   EMIT_UPDATE_LAST_READ,
-  EMIT_REVEAL_IDENTITY
+  EMIT_REVEAL_IDENTITY,
+  ACCEPT_OFFER_TYPE,
+  REJECT_OFFER_TYPE,
+  CANCEL_OFFER_TYPE
 } from 'constants/socket';
 
 /**
@@ -24,23 +26,18 @@ const authenticate = ({ socket }) => {
  * Emit event to add new message.
  * Example:
  * {
- *  "token": "...",
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- *  "message": "hello world"
+ *  token: string,
+ *  chatRoomId: string,
+ *  message: string,
  * }
- * @param chatRoomId
- * @param message
- * @param socket
- * @param userType
  */
-const addNewMessage = ({ chatRoomId, message, socket, userType }) => {
+const addNewMessage = ({ chatRoomId, message, socket }) => {
   socket.emit(
     EMIT_NEW_MESSAGE,
     humps.decamelizeKeys({
       token: tokenUtils.getToken(),
       message,
-      chatRoomId,
-      userType
+      chatRoomId
     })
   );
 };
@@ -49,86 +46,84 @@ const addNewMessage = ({ chatRoomId, message, socket, userType }) => {
  * Emit event to add new offer.
  * Example:
  * {
- *  "token": "...",
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- *  "price": "5",
- *  "number_of_shares": "100",
- *  "user_type": "buyer"
+ *  token: string,
+ *  chatRoomId: string,
+ *  price: string,
+ *  numberOfShares: string,
  * }
- * @param chatRoomId
- * @param price
- * @param numberOfShares
- * @param userType
- * @param socket
  */
-const addNewOffer = ({
-  chatRoomId,
-  price,
-  numberOfShares,
-  userType,
-  socket
-}) => {
+const addNewOffer = ({ chatRoomId, price, numberOfShares, socket }) => {
   socket.emit(
     EMIT_NEW_OFFER,
     humps.decamelizeKeys({
       token: tokenUtils.getToken(),
       price,
       numberOfShares,
-      userType,
       chatRoomId
     })
   );
 };
 
 /**
- * Emit event to accept offer. // TODO: Does not change offer to accepted
+ * Emit event to accept offer.
  * Example:
  * {
- *  "token": "...",
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- *  "user_type": "buyer",
- *  "offer_id": "fac16c9e-0928-4c53-b3df-d84ebf229ee0"
+ *  token: string,
+ *  chatRoomId: string,
+ *  offerId: string,
+ *  offerStatus: ACCEPT_OFFER_TYPE
  * }
- * @param chatRoomId
- * @param offerId
- * @param userType
- * @param socket
  */
-const acceptOffer = ({ chatRoomId, offerId, userType, socket }) => {
-  socket.emit(
-    EMIT_ACCEPT_OFFER,
-    humps.decamelizeKeys({
-      token: tokenUtils.getToken(),
-      offerId,
-      userType,
-      chatRoomId
-    })
-  );
+const acceptOffer = ({ chatRoomId, offerId, socket }) => {
+  const payload = humps.decamelizeKeys({
+    token: tokenUtils.getToken(),
+    offerId,
+    chatRoomId,
+    offerStatus: ACCEPT_OFFER_TYPE
+  });
+  socket.emit(EMIT_EDIT_OFFER_STATUS, payload);
 };
 
 /**
  * Emit event to decline offer.
  * Example:
  * {
- *  "token": "..."
- *  "chat_room_id": "4db2a763-bdb3-45b6-af8d-7944af8b1394",
- *  "user_type": "buyer",
- *  "offer_id": "9b4638c4-e2a2-48ce-aafe-995a158f4fbf"
+ *  token: string,
+ *  chatRoomId: string,
+ *  offerId: string,
+ *  offerStatus: REJECT_OFFER_TYPE
  * }
- * @param chatRoomId
- * @param offerId
- * @param userType
- * @param socket
  */
-const declineOffer = ({ chatRoomId, offerId, userType, socket }) => {
+const declineOffer = ({ chatRoomId, offerId, socket }) => {
   const payload = humps.decamelizeKeys({
     token: tokenUtils.getToken(),
     offerId,
-    userType,
-    chatRoomId
+    chatRoomId,
+    offerStatus: REJECT_OFFER_TYPE
   });
 
-  socket.emit(EMIT_DECLINE_OFFER, payload);
+  socket.emit(EMIT_EDIT_OFFER_STATUS, payload);
+};
+
+/**
+ * Emit event to delete offer.
+ * Example:
+ * {
+ *  token: string,
+ *  chatRoomId: string,
+ *  offerId: string,
+ *  offerStatus: CANCEL_OFFER_TYPE
+ * }
+ */
+const cancelOffer = ({ chatRoomId, offerId, socket }) => {
+  const payload = humps.decamelizeKeys({
+    token: tokenUtils.getToken(),
+    offerId,
+    chatRoomId,
+    offerStatus: CANCEL_OFFER_TYPE
+  });
+
+  socket.emit(EMIT_EDIT_OFFER_STATUS, payload);
 };
 
 const updateUnreadMessage = ({ chatRoomId, lastReadId, socket }) => {
@@ -159,6 +154,7 @@ export default {
   addNewOffer,
   acceptOffer,
   declineOffer,
+  cancelOffer,
   updateUnreadMessage,
   revealIdentity
 };

@@ -8,4 +8,8 @@
   &--REJECTED {
     color: $red-dark;
   }
+
+  &--CANCELED {
+    color: $grey-light;
+  }
 }

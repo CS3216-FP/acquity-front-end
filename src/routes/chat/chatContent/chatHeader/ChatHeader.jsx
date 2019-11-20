@@ -43,9 +43,7 @@ const ChatHeader = ({ chat }) => {
   } = chat;
   const user = useUser();
   const isUserBuyer = useSelector(state => state.misc.userType === BUYER);
-  const [isShowEditOfferSubheader, setIsShowEditOfferSubheader] = useState(
-    false
-  );
+  const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
   const [isShowViewOfferSubheader, setIsShowViewOfferSubheader] = useState(
     false
   );
@@ -56,25 +54,24 @@ const ChatHeader = ({ chat }) => {
     hasPendingOffer && latestOffer.authorId === user.id;
 
   const handleOpenOfferSubheader = () => {
-    if (hasPendingOffer && !isUserPendingOffer) {
+    if (hasPendingOffer) {
       setIsShowViewOfferSubheader(true);
     } else {
-      setIsShowEditOfferSubheader(true);
+      setIsShowOfferSubheader(true);
     }
   };
 
   const handleCloseOfferSubheader = () => {
-    if (hasPendingOffer && !isUserPendingOffer) {
+    if (hasPendingOffer) {
       setIsShowViewOfferSubheader(false);
     } else {
-      setIsShowEditOfferSubheader(false);
+      setIsShowOfferSubheader(false);
     }
   };
 
   const renderOfferButtonText = () => {
     if (hasPendingOffer) {
-      if (isUserPendingOffer) return 'Edit Offer';
-      return 'View Offer';
+      return 'View Current Offer';
     }
     return 'Make Offer';
   };
@@ -92,7 +89,7 @@ const ChatHeader = ({ chat }) => {
         />
       );
     }
-    if (isShowEditOfferSubheader) {
+    if (isShowOfferSubheader) {
       return <ChatOfferSubheader handleClose={handleCloseOfferSubheader} />;
     }
     if (isShowViewOfferSubheader) {
@@ -100,6 +97,7 @@ const ChatHeader = ({ chat }) => {
         <ChatViewSubheader
           handleClose={handleCloseOfferSubheader}
           latestOffer={latestOffer}
+          isUserPendingOffer={isUserPendingOffer}
         />
       );
     }
