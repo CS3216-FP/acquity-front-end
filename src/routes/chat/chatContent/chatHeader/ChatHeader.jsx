@@ -62,11 +62,9 @@ const ChatHeader = ({ chat }) => {
   };
 
   const handleCloseOfferSubheader = () => {
-    if (hasPendingOffer) {
-      setIsShowViewOfferSubheader(false);
-    } else {
-      setIsShowOfferSubheader(false);
-    }
+    // We set both to false because the states may change due to change in latestOffer
+    setIsShowViewOfferSubheader(false);
+    setIsShowOfferSubheader(false);
   };
 
   const renderOfferButtonText = () => {

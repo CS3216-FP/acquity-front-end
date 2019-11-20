@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { CANCEL_OFFER_TYPE } from 'constants/socket';
 import { toCurrency } from 'utils/moneyUtils';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import { useSocket } from 'contexts/socketContext';
@@ -17,7 +18,7 @@ const ChatViewSubheader = ({
   // In case user opens this subheader but the other user has cancelled it.
   // Prevents crash, close immediately.
   useEffect(() => {
-    if (!latestOffer) {
+    if (!latestOffer || latestOffer.offerStatus === CANCEL_OFFER_TYPE) {
       handleClose();
     }
   }, [latestOffer, handleClose]);
