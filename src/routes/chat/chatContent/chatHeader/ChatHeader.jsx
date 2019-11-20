@@ -127,16 +127,20 @@ const ChatHeader = ({ chat }) => {
 
     return (
       <div className="columns is-mobile is-marginless">
-        <ChatOfferDetails
-          headerText={otherOrderDetailsHeaderText}
-          quantity={otherOrderDetails.numberOfShares}
-          price={toCurrency(otherOrderDetails.price)}
-        />
-        <ChatOfferDetails
-          headerText={userOrderDetailsHeaderText}
-          quantity={userOrderDetails.numberOfShares}
-          price={toCurrency(userOrderDetails.price)}
-        />
+        {otherOrderDetails && (
+          <ChatOfferDetails
+            headerText={otherOrderDetailsHeaderText}
+            quantity={otherOrderDetails.numberOfShares}
+            price={toCurrency(otherOrderDetails.price)}
+          />
+        )}
+        {userOrderDetails && (
+          <ChatOfferDetails
+            headerText={userOrderDetailsHeaderText}
+            quantity={userOrderDetails.numberOfShares}
+            price={toCurrency(userOrderDetails.price)}
+          />
+        )}
       </div>
     );
   };
