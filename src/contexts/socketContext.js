@@ -6,6 +6,7 @@ import SocketRequestService from 'services/SocketService/socketRequestService';
 import SocketResponseService from 'services/SocketService/socketResponseService';
 import ApiService from 'services/apiService';
 import { setChats } from 'reducers/ChatDux';
+import { setChatSocketConnected } from 'reducers/SocketDux';
 
 const SocketContext = React.createContext();
 
@@ -32,6 +33,7 @@ const SocketProvider = props => {
 
     fetchData();
     socket.on('connect', () => {
+      dispatch(setChatSocketConnected());
       SocketRequestService.initialize(socket);
       SocketResponseService.initialize(socket);
     });

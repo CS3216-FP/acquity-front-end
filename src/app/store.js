@@ -11,7 +11,8 @@ const persistConfig = {
   key: 'acquity',
   version: 2,
   migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
-  storage
+  storage,
+  blacklist: ['socket']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
