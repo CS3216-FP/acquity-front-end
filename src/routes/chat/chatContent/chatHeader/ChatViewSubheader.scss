@@ -1,3 +1,5 @@
+@import 'assets/scss/variables';
+
 .chatViewSubheader {
   background: white;
   padding: 0rem 1rem;
@@ -38,6 +40,18 @@
     }
     &--cancel {
       text-align: end;
+
+      button {
+        color: $red;
+        font-weight: normal;
+        font-size: 1.1rem;
+
+        &:active,
+        &:focus,
+        &:hover {
+          color: $red-dark;
+        }
+      }
     }
   }
 }

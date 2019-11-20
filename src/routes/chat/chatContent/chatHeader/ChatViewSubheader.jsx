@@ -110,7 +110,7 @@ const ChatViewSubheader = ({
           <div className="chatViewSubheader__actions--cancel">
             <button
               type="button"
-              className="as-non-button button chatOfferSubheader__form__button--cancel"
+              className="as-non-button button"
               onClick={handleClose}
             >
               Close

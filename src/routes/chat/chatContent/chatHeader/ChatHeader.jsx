@@ -13,6 +13,7 @@ import RevealIdentitySubheader from './RevealIdentitySubheader';
 import './ChatHeader.scss';
 import DisbandedSubheader from './DisbandedSubheader';
 import ChatViewSubheader from './ChatViewSubheader';
+import CancelMatchModal from './cancelMatchModel';
 
 const ChatOfferDetails = ({ headerText, quantity, price }) => {
   return (
@@ -50,6 +51,7 @@ const ChatHeader = ({ chat }) => {
   const [isShowViewOfferSubheader, setIsShowViewOfferSubheader] = useState(
     false
   );
+  const [isShowCancelMatchModal, setIsShowCancelMatchModal] = useState(false);
 
   const hasPendingOffer =
     latestOffer && latestOffer.offerStatus === PENDING_OFFER_TYPE;
@@ -70,8 +72,17 @@ const ChatHeader = ({ chat }) => {
     setIsShowOfferSubheader(false);
   };
 
+  const handleOpenCancelMatchModal = () => {
+    setIsShowCancelMatchModal(true);
+  };
+
+  const handleCloseCancelMatchModal = () => {
+    setIsShowCancelMatchModal(false);
+  };
+
   const handleDisbandClick = () => {
     socketRequestService.disbandChatRoom({ chatRoomId: id, socket });
+    setIsShowCancelMatchModal(false);
   };
 
   const renderOfferButtonText = () => {
@@ -116,12 +127,17 @@ const ChatHeader = ({ chat }) => {
           {renderOfferButtonText()}
         </button>
         <button
-          onClick={handleDisbandClick}
+          onClick={handleOpenCancelMatchModal}
           type="button"
           className="column button is-danger is-outlined"
         >
           Cancel Match
         </button>
+        <CancelMatchModal
+          isModalOpen={isShowCancelMatchModal}
+          handleCloseModal={handleCloseCancelMatchModal}
+          handleConfirm={handleDisbandClick}
+        />
       </div>
     );
   };

@@ -1,0 +1,21 @@
+@import 'assets/scss/variables';
+
+.cancelMatchModal {
+  &__header {
+    color: $red;
+  }
+  &__button {
+    &--goBack {
+      margin-left: 1rem;
+      color: $red;
+      font-weight: normal;
+      font-size: 1.1rem;
+
+      &:active,
+      &:focus,
+      &:hover {
+        color: $red-dark;
+      }
+    }
+  }
+}
