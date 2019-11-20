@@ -9,6 +9,7 @@ import ChatNav from './ChatNav';
 import ChatList from './chatList';
 import ChatContent from './chatContent';
 import './Chat.scss';
+import ChatGhost from './ChatGhost';
 
 const Chat = () => {
   const { chatRoomId } = useParams();
@@ -17,7 +18,7 @@ const Chat = () => {
   const chatNavHeaderText = chat ? chat.friendlyName : '';
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <ChatGhost />;
   }
 
   if (chatRoomId && !chat) {

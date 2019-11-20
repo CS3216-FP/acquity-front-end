@@ -1,0 +1,21 @@
+.chatListItemGhost {
+  align-items: center;
+  &:hover {
+    background: white;
+  }
+
+  .detail__header {
+    &--timeago {
+      width: 3rem;
+      margin-left: 15%;
+    }
+
+    &--security {
+      width: 6rem;
+    }
+  }
+
+  &__detail {
+    width: 10rem;
+  }
+}

@@ -2,9 +2,9 @@ import React from 'react';
 
 import './PageContainer.scss';
 
-const PageContainer = ({ children, dark }) => {
+const PageContainer = ({ children, dark, className = '' }) => {
   return (
-    <div className="columns is-marginless is-mobile is-centered">
+    <div className={`columns is-marginless is-mobile is-centered ${className}`}>
       <div
         className={`is-container ${
           dark ? 'is-container--dark' : ''
