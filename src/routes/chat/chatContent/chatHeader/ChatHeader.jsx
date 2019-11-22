@@ -46,6 +46,7 @@ const ChatHeader = ({ chat }) => {
   } = chat;
   const socket = useSocket();
   const user = useUser();
+  const isSocketError = useSelector(state => state.loading.isSocketError);
   const isUserBuyer = useSelector(state => state.misc.userType === BUYER);
   const [isShowOfferSubheader, setIsShowOfferSubheader] = useState(false);
   const [isShowViewOfferSubheader, setIsShowViewOfferSubheader] = useState(
@@ -172,9 +173,18 @@ const ChatHeader = ({ chat }) => {
 
   return (
     <div className="chat__header column is-paddingless">
+      {isSocketError && <SocketErrorContainer />}
       <div className="chat__header__details--mobile">{chat.friendlyName}</div>
       {renderChatOfferDetails()}
       {renderSubheader()}
+    </div>
+  );
+};
+
+const SocketErrorContainer = () => {
+  return (
+    <div className="socketError">
+      Cannot connect to the chat server. Check your internet connection.
     </div>
   );
 };
