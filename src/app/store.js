@@ -12,7 +12,7 @@ const persistConfig = {
   version: 2,
   migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
   storage,
-  blacklist: ['loading']
+  blacklist: ['loading', 'chat']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

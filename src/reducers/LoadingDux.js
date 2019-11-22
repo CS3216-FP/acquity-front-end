@@ -21,6 +21,7 @@ const loading = createSlice({
       state.isChatError = false;
     },
     setChatError: state => {
+      state.isChatLoaded = true;
       state.isChatError = true;
     },
     setChatSocketError: state => {

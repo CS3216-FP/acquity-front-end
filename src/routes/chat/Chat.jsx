@@ -18,7 +18,7 @@ const Chat = () => {
   const chatNavHeaderText = chat ? chat.friendlyName : '';
 
   if (isLoading) {
-    return <ChatGhost />;
+    return <ChatGhost isShowingChatRoom={!!chatRoomId} />;
   }
 
   if (chatRoomId && !chat) {

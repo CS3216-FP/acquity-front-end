@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import socketIOClient from 'socket.io-client';
 
+import { useUser } from 'contexts/userContext';
 import SocketRequestService from 'services/SocketService/socketRequestService';
 import SocketResponseService from 'services/SocketService/socketResponseService';
 import ApiService from 'services/apiService';
@@ -16,6 +17,7 @@ import {
 const SocketContext = React.createContext();
 
 const SocketProvider = props => {
+  const user = useUser();
   const dispatch = useDispatch();
   const socket = socketIOClient.connect(
     `${process.env.REACT_APP_BACKEND_API}chat`,
@@ -43,21 +45,26 @@ const SocketProvider = props => {
       }
     };
 
-    socket.on('connect', () => {
-      if (!hasFetchedData) {
-        fetchData();
-      }
-      dispatch(setChatSocketConnected());
-      SocketRequestService.initialize(socket);
-      SocketResponseService.initialize(socket);
-    });
+    // Don't even connect to socket or fetch any chats since user cannot have any chats anyways
+    if (user.canBuy === 'YES' || user.canSell === 'YES') {
+      socket.on('connect', () => {
+        if (!hasFetchedData) {
+          fetchData();
+        }
+        dispatch(setChatSocketConnected());
+        SocketRequestService.initialize(socket);
+        SocketResponseService.initialize(socket);
+      });
 
-    socket.on('connect_error', () => {
-      dispatch(setChatSocketError());
-    });
+      socket.on('connect_error', () => {
+        dispatch(setChatSocketError());
+      });
+    } else {
+      dispatch(setChatLoaded());
+    }
 
     return () => socket.disconnect();
-  }, [socket, dispatch, userType]);
+  }, [socket, dispatch, userType, user]);
 
   return (
     <SocketContext.Provider

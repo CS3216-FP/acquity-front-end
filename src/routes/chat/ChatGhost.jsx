@@ -1,6 +1,5 @@
 import React from 'react';
 import PageContainer from 'components/pageContainer';
-import Skeleton from 'react-loading-skeleton';
 import ChatListItemGhost from './chatList/ChatListItemGhost';
 
 const ChatGhost = ({ isShowingChatRoom }) => {
@@ -18,11 +17,6 @@ const ChatGhost = ({ isShowingChatRoom }) => {
             </button>
           )}
           <span>Matches</span>
-        </div>
-        <div className="column is-hidden-mobile chat__header__right">
-          <span className="chat__header__right--text">
-            <Skeleton />
-          </span>
         </div>
       </div>
       <div className="columns is-mobile is-gapless">

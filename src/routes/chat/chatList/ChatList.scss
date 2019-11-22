@@ -1,6 +1,7 @@
 @import 'assets/scss/variables';
 
 .chatrooms {
+  position: relative;
   border-right: 2px solid $grey-lighter;
   height: calc(100vh - 12rem);
   overflow-y: scroll;
@@ -10,15 +11,24 @@
     border-right: none;
   }
 
-  &--empty {
+  &__empty {
     display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
 
-    &__text {
-      margin-top: 1rem;
+    .errorMessage {
+      position: absolute;
+      margin: 1rem;
+    }
+    &--empty {
+      flex: 1 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      &Text {
+        margin-top: 1rem;
+      }
     }
   }
 

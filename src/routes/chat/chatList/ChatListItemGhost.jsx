@@ -6,8 +6,8 @@ import './ChatListItemGhost.scss';
 
 const ChatListItemGhost = () => {
   return (
-    <li role="row">
-      <div className="chatroom__item columns is-mobile is-marginless chatListItemGhost">
+    <li className="chatroom__item" role="row">
+      <div className="columns is-mobile is-marginless chatListItemGhost">
         <div className="column is-narrow">
           <Skeleton circle height={48} width={48} />
         </div>
