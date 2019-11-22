@@ -6,7 +6,12 @@ import SocketRequestService from 'services/SocketService/socketRequestService';
 import SocketResponseService from 'services/SocketService/socketResponseService';
 import ApiService from 'services/apiService';
 import { setChats } from 'reducers/ChatDux';
-import { setChatSocketConnected, setChatLoaded } from 'reducers/LoadingDux';
+import {
+  setChatSocketConnected,
+  setChatLoaded,
+  setChatError,
+  setChatSocketError
+} from 'reducers/LoadingDux';
 
 const SocketContext = React.createContext();
 
@@ -24,19 +29,31 @@ const SocketProvider = props => {
   const userType = useSelector(rootState => rootState.misc.userType);
 
   useEffect(() => {
+    let hasFetchedData = false;
     const fetchData = async () => {
-      const response = await ApiService.get('chats', {
-        params: { type: userType }
-      });
-      dispatch(setChats(response.data));
-      dispatch(setChatLoaded());
+      try {
+        const response = await ApiService.get('chats', {
+          params: { type: userType }
+        });
+        hasFetchedData = true;
+        dispatch(setChats(response.data));
+        dispatch(setChatLoaded());
+      } catch (error) {
+        dispatch(setChatError());
+      }
     };
 
-    fetchData();
     socket.on('connect', () => {
+      if (!hasFetchedData) {
+        fetchData();
+      }
       dispatch(setChatSocketConnected());
       SocketRequestService.initialize(socket);
       SocketResponseService.initialize(socket);
+    });
+
+    socket.on('connect_error', () => {
+      dispatch(setChatSocketError());
     });
 
     return () => socket.disconnect();
